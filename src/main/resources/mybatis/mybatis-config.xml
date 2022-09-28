@@ -6,4 +6,10 @@
         <setting name="callSettersOnNulls" value="true"/>
     </settings>
 
+    <typeAliases>
+        <!--    alias는 대소문자 구분하지 않는다.    -->
+        <typeAlias alias="member" type="com.selfdriven.semo.dto.Member"/>
+    </typeAliases>
+
+
 </configuration>
