@@ -23,7 +23,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.3'  // validation 관련
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'  // mybatis 관련
     implementation 'io.springfox:springfox-boot-starter:3.0.0' // swagger 관련
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'    // swagger ui관련
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.0.7'
