@@ -11,6 +11,7 @@ build/
 logs/
 application.properties
 application-oauth.properties
+LoginEnum.java
 
 ## - STS - ###
 .apt_generated
