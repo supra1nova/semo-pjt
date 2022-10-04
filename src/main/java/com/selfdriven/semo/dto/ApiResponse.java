@@ -1,6 +1,7 @@
 package com.selfdriven.semo.dto;
 
 import com.selfdriven.semo.enums.ResultCode;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
