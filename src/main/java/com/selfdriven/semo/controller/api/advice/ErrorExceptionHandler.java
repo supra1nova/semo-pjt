@@ -9,6 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
+
 @Slf4j
 @RestControllerAdvice
 public class ErrorExceptionHandler {
@@ -34,5 +36,9 @@ public class ErrorExceptionHandler {
         return ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ApiResponse accessDeniedException(AccessDeniedException e){
+        return ApiResponse.fail(ResultCode.ACCESS_DENIED.getCode(), ResultCode.ACCESS_DENIED.getMessage());
+    }
 
 }
