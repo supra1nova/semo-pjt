@@ -18,9 +18,17 @@
     <select id="selectMember" resultType="Member">
         <include refid="selectFromMember"/>
         WHERE
-            member_id = #{memberId}
+            email = #{email}
         ORDER by
-            member_id asc
+            email asc
+    </select>
+
+    <select id="selectMemberById" resultType="Member">
+        <include refid="selectFromMember"/>
+        WHERE
+        memberId = #{memberId}
+        ORDER by
+        email asc
     </select>
 
     <insert id="insertMember" parameterType="Member">
