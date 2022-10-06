@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+    <style>
+        pre{
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+<div th:if="${session.currentUser eq null}">
+    <h3>네이버 로그인</h3>
+    <a th:href="${authRequestUrl + '/naver'}"><img src="http://static.nid.naver.com/oauth/small_g_in.PNG" height="50" /></a>
+    <h3>카카오 로그인</h3>
+    <a th:href="${authRequestUrl + '/kakao'}"><img th:src="@{/image/kakao_login_medium_narrow.png}" height="50" /></a>
+
+</div>
+
+<div th:if="${session.currentUser ne null}">
+    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
+    <pre th:text="${session.currentUser}"></pre>
+    <a th:href="${'/api/member/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
+    <a th:href="${'/api/member/refreshToken?refreshToken=' + session.currentRT}">Refresh Token></span></a>
+    <a th:href="${'/api/member/deleteToken?accessToken=' + session.currentAT}">Delete Token></span></a>
+    <a href="/api/member/invalidate">로그아웃 (Invalidate Session)</a>
+    <p>
+        session : <span th:text="${session}"></span> </br>
+        session.currentAT : <span th:text="${session.currentAT}"></span> </br>
+        session.currentRT : <span th:text="${session.currentRT}"></span> </br>
+    </p>
+</div>
+
+</body>
+</html>

@@ -11,7 +11,8 @@ import java.util.List;
 public interface MemberMapper {
     int insertMember(Member member);
     List<Member> getMemberList();
-    Member selectMember(String memberId);
+    Member selectMember(String email);
+    Member selectMemberById(String memberId);
     int updateMember(Member member);
     int deleteMember(String memberId);
     int deleteAllMember();
