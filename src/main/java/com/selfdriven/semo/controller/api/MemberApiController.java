@@ -24,8 +24,8 @@ public class MemberApiController {
     }
 
     @GetMapping("/info")
-    public ApiResponse getMember(String memberId) {
-        Member result = memberService.getMember(memberId);
+    public ApiResponse getMemberByEmail(String email) {
+        Member result = memberService.getMemberByEmail(email);
         ApiResponse response = result != null ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
         return response;
     }

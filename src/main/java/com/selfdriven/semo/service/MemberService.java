@@ -25,8 +25,12 @@ public class MemberService {
         return memberMapper.getMemberList();
     }
 
-    public Member getMember(String memberId){
-        return memberMapper.selectMember(memberId);
+    public Member getMemberByEmail(String email){
+        return memberMapper.selectMember(email);
+    }
+
+    public Member getMemberById(String memberId) {
+        return memberMapper.selectMemberById(memberId);
     }
 
     public int updateMember(Member member) {

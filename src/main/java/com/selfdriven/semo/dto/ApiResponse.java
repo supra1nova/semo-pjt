@@ -26,6 +26,13 @@ public class ApiResponse<T> {
         return apiResponse;
     }
 
+    public static<T> ApiResponse fail(ResultCode code) {
+        ApiResponse apiResponse = new ApiResponse<>();
+        apiResponse.setResultCode(code.getCode());
+        apiResponse.setMessage(code.getMessage());
+        return apiResponse;
+    }
+
     public static<T> ApiResponse fail(int code, String message) {
         ApiResponse apiResponse = new ApiResponse<>();
         apiResponse.setResultCode(code);
