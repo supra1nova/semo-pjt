@@ -4,7 +4,7 @@
 
     <sql id="selectFromMember">
         SELECT
-            member_id, member_type, email, name, ph_num, ins_date, upd_date
+            member_id, member_type, social_type, email, name, ph_num, ins_date, upd_date
         FROM
             member
     </sql>
@@ -26,14 +26,14 @@
     <select id="selectMemberById" resultType="Member">
         <include refid="selectFromMember"/>
         WHERE
-        memberId = #{memberId}
+        member_id = #{memberId}
         ORDER by
         email asc
     </select>
 
     <insert id="insertMember" parameterType="Member">
         INSERT INTO member
-            (member_Id, email, name, ph_num)
+            (member_id, email, name, ph_num)
         VALUES
             (#{memberId}, #{email}, #{name}, #{phNum})
     </insert>

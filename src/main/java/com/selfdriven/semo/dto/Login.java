@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 @Builder
 public class Login {
 
-    private char memberType;
-    private String email;
     private String name;
-    private String loginType;
+    private String email;
+    private Character memberType;
+    private Character socialType;
 }
