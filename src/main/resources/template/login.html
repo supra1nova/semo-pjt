@@ -10,27 +10,152 @@
     </style>
 </head>
 <body>
-<div th:if="${session.currentUser eq null}">
-    <h3>네이버 로그인</h3>
-    <a th:href="${authRequestUrl + '/naver'}"><img src="http://static.nid.naver.com/oauth/small_g_in.PNG" height="50" /></a>
-    <h3>카카오 로그인</h3>
-    <a th:href="${authRequestUrl + '/kakao'}"><img th:src="@{/image/kakao_login_medium_narrow.png}" height="50" /></a>
+    <div th:if="${session.currentUser eq null}" style="text-align: center">
+        <div>
+            <h3>카카오 로그인</h3>
+        <!--    <a th:href="${authRequestUrl + '/kakao'}"><img th:src="@{/image/kakao_login_medium_narrow.png}" height="50" /></a>-->
+            <a id="kakaoLoginBtn" style="cursor: pointer"><img th:src="@{/image/kakao_login_medium_narrow.png}" height="50" /></a>
+        </div>
+        <div >
+            <h3>네이버 로그인</h3>
+            <a id="naverLoginBtn" style="cursor: pointer"><img src="http://static.nid.naver.com/oauth/small_g_in.PNG" height="50" /></a>
+        </div>
+    </div>
 
-</div>
+    <pre></pre>
 
-<div th:if="${session.currentUser ne null}">
-    <h3>이 부분은 로그인한 사용자한테만 보임</h3>
-    <pre th:text="${session.currentUser}"></pre>
-    <a th:href="${'/api/member/getProfile?accessToken=' + session.currentAT}">Get User's Profile</a>
-    <a th:href="${'/api/member/refreshToken?refreshToken=' + session.currentRT}">Refresh Token></span></a>
-    <a th:href="${'/api/member/deleteToken?accessToken=' + session.currentAT}">Delete Token></span></a>
-    <a href="/api/member/invalidate">로그아웃 (Invalidate Session)</a>
-    <p>
-        session : <span th:text="${session}"></span> </br>
-        session.currentAT : <span th:text="${session.currentAT}"></span> </br>
-        session.currentRT : <span th:text="${session.currentRT}"></span> </br>
-    </p>
-</div>
+    <div th:if="${session.login ne null}" style="text-align: center">
+        <h3 style="text-align: center">이 부분은 로그인한 사용자한테만 보임</h3>
+
+        <pre></pre>
+        <span th:if="${session.login.socialType} == 'k'">
+            <a th:href="${'/semo/api/login-out/kakao-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
+    <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
+            <a id="kakaoLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
+    <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
+            <a id="kakaoInvalidBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃(토큰,세션삭제)</a>
+        </span>
+        <span th:if="${session.login.socialType} == 'n'">
+            <a th:href="${'/semo/api/login-out/naver-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
+    <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
+            <a id="naverLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
+    <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
+            <a id="naverInvalidBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃(토큰,세션삭제)</a>
+        </span>
+        <p style="text-align: left">
+            session : <span th:text="${session}"></span> </br>
+            session.currentAT : <span th:text="${session.accessToken}"></span> </br>
+            session.currentRT : <span th:text="${session.refreshToken}"></span> </br>
+            session.login : <span th:text="${session.login}"></span> </br>
+            session.login.name : <span th:text="${session.login.name}"></span> </br>
+            session.login.email : <span th:text="${session.login.email}"></span> </br>
+            session.login.memberType : <span th:text="${session.login.memberType}"></span> </br>
+            session.login.socialType : <span th:text="${session.login.socialType}"></span> </br>
+        </p>
+    </div>
+
+    <div style="text-align: center">
+        <input type="button" onclick="location.href='/semo'" value="메인" style="width:100px; height: 100px">
+    </div>
 
 </body>
+
+<script th:inline="javascript">
+    // 카카오 로그인
+    const kakaoLoginBtn = document.querySelector('#kakaoLoginBtn');
+    const kakaoLogoutBtn = document.querySelector('#kakaoLogoutBtn');
+    const kakaoInvalidBtn = document.querySelector('#kakaoInvalidBtn');
+
+    kakaoLoginBtn.addEventListener("click", getKakaoLoginAuthURL);
+
+    if(kakaoLogoutBtn != null || kakaoInvalidBtn != null){
+        kakaoLogoutBtn.addEventListener("click", requestKakaoLogout);
+        kakaoInvalidBtn.addEventListener("click", requestKakaoInavalid);
+    }
+
+    async function getKakaoLoginAuthURL(){
+        const kakaoURL = "http://localhost/semo/api/login-out/kakao-login/auth-url";
+        const authURL = await fetch(kakaoURL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(res => res.json())
+            .then(data => data.data);
+        location.href=authURL;
+    }
+
+    async function requestKakaoLogout(){
+        const kakaoLogoutUrl = "http://localhost/semo/api/login-out/kakao-login/logout?accessToken=" + [[${session.accessToken}]];
+        const message = await fetch(kakaoLogoutUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(res => res.json())
+            .then(data => data.message);
+        if(message === "OK"){
+            location.href="/semo";
+        };
+    }
+
+    async function requestKakaoInavalid(){
+        const kakaoLogoutUrl = "http://localhost/semo/api/login-out/kakao-login/invalid-session";
+        const message = await fetch(kakaoLogoutUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(res => res.json())
+            .then(data => data.message);
+        if(message === "OK"){
+            location.href="/semo";
+        };
+    }
+
+
+    // 네이버 로그인
+    const naverLoginBtn = document.querySelector('#naverLoginBtn');
+    const naverLogoutBtn = document.querySelector('#naverLogoutBtn');
+    const naverInvalidBtn = document.querySelector('#naverInvalidBtn');
+
+    naverLoginBtn.addEventListener("click", getNaverLoginAuthURL);
+
+    if(naverLogoutBtn != null || naverInvalidBtn != null){
+        naverLogoutBtn.addEventListener("click", requestNaverLogout);
+        naverInvalidBtn.addEventListener("click", requestNaverInavalid);
+    }
+
+    async function getNaverLoginAuthURL(){
+        const naverURL = "http://localhost/semo/api/login-out/naver-login/auth-url";
+        const authURL = await fetch(naverURL)
+            .then(res => res.json())
+            .then(data => data.data);
+        location.href=authURL;
+    }
+
+    async function requestNaverLogout(){
+        const naverLogoutUrl = "http://localhost/semo/api/login-out/naver-login/logout";
+        const message = await fetch(naverLogoutUrl)
+            .then(res => res.json())
+            .then(data => data.message);
+        if(message === "OK"){
+            location.href="/semo";
+        };
+    }
+
+    async function requestNaverInavalid(){
+        const naverLogoutUrl = "http://localhost/semo/api/login-out/naver-login/invalid-session?accessToken=" + [[${session.accessToken}]];
+        const message = await fetch(naverLogoutUrl)
+            .then(res => res.json())
+            .then(data => data.message);
+        if(message === "OK"){
+            location.href="/semo";
+        };
+    }
+
+</script>
 </html>

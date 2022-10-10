@@ -2,14 +2,12 @@ package com.selfdriven.semo.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@ToString
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoAuthResponse {
@@ -22,16 +20,16 @@ public class KakaoAuthResponse {
     private Integer refreshTokenExpiresIn;
     private String scope;
 
-    @Override
-    public String toString() {
-        return "KakaoAuthResponse{" +
-                "tokenType='" + tokenType + '\'' +
-                ", accessToken='" + accessToken + '\'' +
-                ", idToken='" + idToken + '\'' +
-                ", expiresIn=" + expiresIn +
-                ", refreshToken='" + refreshToken + '\'' +
-                ", refreshTokenExpiresIn=" + refreshTokenExpiresIn +
-                ", scope='" + scope + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "KakaoAuthResponse{" +
+//                "tokenType='" + tokenType + '\'' +
+//                ", accessToken='" + accessToken + '\'' +
+//                ", idToken='" + idToken + '\'' +
+//                ", expiresIn=" + expiresIn +
+//                ", refreshToken='" + refreshToken + '\'' +
+//                ", refreshTokenExpiresIn=" + refreshTokenExpiresIn +
+//                ", scope='" + scope + '\'' +
+//                '}';
+//    }
 }

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+    <style>
+        pre{
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    <div th:if="${session.currentUser eq null}" style="text-align: center">
+        <h1 style="text-align: center">회원가입</h1>
+    </div>
+</body>
+</html>

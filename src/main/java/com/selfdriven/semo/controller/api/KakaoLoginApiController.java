@@ -25,7 +25,7 @@ import static com.selfdriven.semo.enums.ResultCode.UNREGISTERED_MEMBER;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/login/kakao")
+@RequestMapping("/api/login-out/kakao-login")
 public class KakaoLoginApiController {
 
     private final MemberService memberService;
@@ -47,8 +47,12 @@ public class KakaoLoginApiController {
         apiURL.append("&state=" + state);
 
         ApiResponse response = ApiResponse.ok(apiURL.toString());
+
+        apiURL.delete(0, apiURL.length());  // StringBuffer 초기화
+
         return response;
     }
+
 
     @GetMapping("/tokens")
     public ApiResponse getKakaoAccessToken(@RequestParam String code, HttpSession session) throws IOException {
@@ -58,6 +62,8 @@ public class KakaoLoginApiController {
         ApiResponse response;
         HttpURLConnection conn = null;
         BufferedWriter bw = null;
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
 
         try {
             URL url = new URL(reqURL);
@@ -66,7 +72,6 @@ public class KakaoLoginApiController {
             conn.setDoOutput(true);
 
             bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=" + KAKAO_REST_API_KEY.getString());
             sb.append("&redirect_uri=" + redirectURI);
@@ -79,7 +84,7 @@ public class KakaoLoginApiController {
             int responseCode = conn.getResponseCode();
             if(responseCode != 200) throw new Exception("카카오로 부터 토큰을 가져올 수 없습니다.");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line = "";
             String result = "";
@@ -97,31 +102,31 @@ public class KakaoLoginApiController {
             session.setAttribute("accessToken", authResponse.getAccessToken());
             session.setAttribute("refreshToken", authResponse.getRefreshToken());
 
-            br.close();
-            bw.close();
-
-            response = ApiResponse.ok(authResponse);
+            response = getUserInfoFromKakao(authResponse.getAccessToken(), session);
+            System.out.println("api 내부 : " + response);
 
         }catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
         } finally {
-            bw.close();
-            try {
-                if (bw != null) { //NullPointerException을 방지
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            sb.delete(0, sb.length());  // StringBuffer 초기화
+            if (bw != null) { //NullPointerException을 방지
+                bw.close();
             }
-            conn.disconnect();
+            if (br != null) { //NullPointerException을 방지
+                br.close();
+            }
+            if (conn != null){ //NullPointerException을 방지
+                conn.disconnect();
+            }
         }
         return response;
     }
 
+
     @GetMapping("/user-info")
-    public ApiResponse getUserInfoFromKakao(String accessTk) throws IOException {
+    public ApiResponse getUserInfoFromKakao(String accessToken, HttpSession session) throws IOException {
         String reqUrl = "https://kapi.kakao.com/v2/user/me";
 
         ApiResponse response;
@@ -132,7 +137,7 @@ public class KakaoLoginApiController {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("Authorization", "Bearer " + accessTk);
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
 
             if (responseCode == 200) { // 정상 호출
@@ -168,6 +173,8 @@ public class KakaoLoginApiController {
 
             response = ApiResponse.ok(loginMemberInfo);
 
+            session.setAttribute("login", response.getData());
+
         } catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
         } catch (ApiException e) {
@@ -175,21 +182,18 @@ public class KakaoLoginApiController {
         } catch (Exception e) {
             response = ApiResponse.fail(ResultCode.USER_NOT_FOUND);
         } finally {
-            br.close();
-            try {
-                if (br != null) { //NullPointerException을 방지
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (br != null) { //NullPointerException을 방지
+                br.close();
             }
-            conn.disconnect();
+            if (conn != null){ //NullPointerException을 방지
+                conn.disconnect();
+            }
         }
         return response;
     }
 
     @GetMapping("/logout")
-    public ApiResponse logout(@RequestParam String accessTk, HttpSession session) throws IOException {
+    public ApiResponse logout(@RequestParam String accessToken, HttpSession session) throws IOException {
         String reqUrl;
 
         reqUrl = "https://kapi.kakao.com/v1/user/logout";
@@ -202,7 +206,7 @@ public class KakaoLoginApiController {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + accessTk);
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
 
             if (responseCode == 200) { // 정상 호출
@@ -218,6 +222,8 @@ public class KakaoLoginApiController {
                 result += line;
             }
 
+            session.setAttribute("login", null);
+
             response = ApiResponse.ok(result);
 
         } catch (AccessDeniedException e) {
@@ -225,22 +231,19 @@ public class KakaoLoginApiController {
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
         } finally {
-            br.close();
-            try {
-                if (br != null) { //NullPointerException을 방지
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (br != null) { //NullPointerException을 방지
+                br.close();
             }
-            conn.disconnect();
+            if (conn != null){ //NullPointerException을 방지
+                conn.disconnect();
+            }
         }
 
-        session.invalidate();
+//        session.invalidate();
         return response;
     }
 
-    @GetMapping("/invalide-session")
+    @GetMapping("/invalid-session")
     public ApiResponse deleteToken(HttpSession session) throws IOException {
         StringBuilder reqURL = new StringBuilder("https://kauth.kakao.com/oauth/logout");
 
@@ -269,6 +272,7 @@ public class KakaoLoginApiController {
             while ((line = br.readLine()) != null) {
                 result += line;
             }
+            session.setAttribute("login", null);
 
             response = ApiResponse.ok(result);
 
@@ -277,15 +281,12 @@ public class KakaoLoginApiController {
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
         } finally {
-            br.close();
-            try {
-                if (br != null) { //NullPointerException을 방지
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (br != null) { //NullPointerException을 방지
+                br.close();
             }
-            conn.disconnect();
+            if (conn != null){ //NullPointerException을 방지
+                conn.disconnect();
+            }
         }
 
         session.invalidate();

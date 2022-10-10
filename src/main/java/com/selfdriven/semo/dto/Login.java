@@ -1,13 +1,11 @@
 package com.selfdriven.semo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
+@ToString
 @Builder
 public class Login {
 
