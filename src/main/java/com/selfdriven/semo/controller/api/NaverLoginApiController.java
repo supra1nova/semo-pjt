@@ -25,7 +25,7 @@ import static com.selfdriven.semo.enums.ResultCode.UNREGISTERED_MEMBER;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/login/naver")
+@RequestMapping("/api/login-out/naver-login")
 public class NaverLoginApiController {
 
     private final MemberService memberService;
@@ -47,6 +47,9 @@ public class NaverLoginApiController {
         apiURL.append("&state=" + state);
 
         ApiResponse response = ApiResponse.ok(apiURL.toString());
+
+        apiURL.delete(0, apiURL.length());  // StringBuffer 초기화
+
         return response;
     }
 
@@ -58,6 +61,8 @@ public class NaverLoginApiController {
         ApiResponse response;
         HttpURLConnection conn = null;
         BufferedWriter bw = null;
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder();
 
         try {
             URL url = new URL(reqURL);
@@ -66,7 +71,6 @@ public class NaverLoginApiController {
             conn.setDoOutput(true);
 
             bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=" + NAVER_CLIENT_ID.getString());
             sb.append("&client_secret=" + NAVER_CLI_SECRET.getString());
@@ -80,7 +84,7 @@ public class NaverLoginApiController {
             int responseCode = conn.getResponseCode();
             if(responseCode != 200) throw new Exception("네이버로 부터 토큰을 가져올 수 없습니다.");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String line = "";
             String result = "";
@@ -98,31 +102,30 @@ public class NaverLoginApiController {
             session.setAttribute("accessToken", authResponse.getAccessToken());
             session.setAttribute("refreshToken", authResponse.getRefreshToken());
 
-            br.close();
-            bw.close();
-
-            response = ApiResponse.ok(authResponse);
+//            response = ApiResponse.ok(authResponse);
+            response = getUserInfoFromNaver(authResponse.getAccessToken(), session);
 
         } catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
         } finally {
-            bw.close();
-            try {
-                if (bw != null) { //NullPointerException을 방지
-                    bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            sb.delete(0, sb.length());  // StringBuffer 초기화
+            if (bw != null) { //NullPointerException을 방지
+                bw.close();
             }
-            conn.disconnect();
+            if (br != null) { //NullPointerException을 방지
+                br.close();
+            }
+            if (conn != null){ //NullPointerException을 방지
+                conn.disconnect();
+            }
         }
         return response;
     }
 
     @GetMapping("/user-info")
-    public ApiResponse getUserInfoFromNaver(String accessTk) throws IOException {
+    public ApiResponse getUserInfoFromNaver(String accessToken, HttpSession session) throws IOException {
         String reqUrl = "https://openapi.naver.com/v1/nid/me";
 
         ApiResponse response;
@@ -133,7 +136,7 @@ public class NaverLoginApiController {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("Authorization", "Bearer " + accessTk);
+            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
 
             if (responseCode == 200) { // 정상 호출
@@ -164,7 +167,12 @@ public class NaverLoginApiController {
                     .socialType(member.getSocialType())
                     .build();
 
+            System.out.println("member.getSocialType() = " + member.getSocialType());
+            System.out.println("loginMemberInfo = " + loginMemberInfo);
+
             response = ApiResponse.ok(loginMemberInfo);
+
+            session.setAttribute("login", response.getData());
 
         } catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
@@ -173,33 +181,30 @@ public class NaverLoginApiController {
         } catch (Exception e) {
             response = ApiResponse.fail(ResultCode.USER_NOT_FOUND);
         } finally {
-            br.close();
-            try {
-                if (br != null) { //NullPointerException을 방지
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (br != null) { //NullPointerException을 방지
+                br.close();
             }
-            conn.disconnect();
+            if (conn != null){ //NullPointerException을 방지
+                conn.disconnect();
+            }
         }
         return response;
     }
 
     @GetMapping("/logout")
     public ApiResponse logout(HttpSession session) {
-        session.invalidate();
+        session.setAttribute("login", null);
         ApiResponse response = ApiResponse.ok("토큰이 성공적으로 삭제되었습니다.");
         return response;
     }
 
-    @GetMapping("/invalide-session")
-    public ApiResponse deleteToken(@RequestParam String accessTk, HttpSession session) throws IOException {
+    @GetMapping("/invalid-session")
+    public ApiResponse deleteToken(@RequestParam String accessToken, HttpSession session) throws IOException {
         StringBuilder reqUrl = new StringBuilder();
         reqUrl.append("https://nid.naver.com/oauth2.0/token?grant_type=delete&");
         reqUrl.append("client_id=" + NAVER_CLIENT_ID.getString());
         reqUrl.append("&client_secret=" + NAVER_CLI_SECRET.getString());
-        reqUrl.append("&access_token=" + accessTk);
+        reqUrl.append("&access_token=" + accessToken);
         reqUrl.append("&service_provider=NAVER");
 
         ApiResponse response;
