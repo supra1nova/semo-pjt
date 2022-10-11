@@ -54,7 +54,7 @@ public class KakaoLoginApiController {
     }
 
 
-    @GetMapping("/tokens")
+    @GetMapping("/tokens-and-user-info")
     public ApiResponse getKakaoAccessToken(@RequestParam String code, HttpSession session) throws IOException {
         String reqURL = "https://kauth.kakao.com/oauth/token";
         String redirectURI = URLEncoder.encode(KAKAO_LOGIN_REDIRECT.getString(), "UTF-8");
@@ -105,7 +105,7 @@ public class KakaoLoginApiController {
             response = getUserInfoFromKakao(authResponse.getAccessToken(), session);
             System.out.println("api 내부 : " + response);
 
-        }catch (AccessDeniedException e) {
+        } catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
@@ -239,23 +239,22 @@ public class KakaoLoginApiController {
             }
         }
 
-//        session.invalidate();
         return response;
     }
 
     @GetMapping("/invalid-session")
     public ApiResponse deleteToken(HttpSession session) throws IOException {
-        StringBuilder reqURL = new StringBuilder("https://kauth.kakao.com/oauth/logout");
-
-        reqURL.append("client_id=" + KAKAO_REST_API_KEY.getString());
-        reqURL.append("logout_redirect_uri=" + KAKAO_LOGOUT_REDIRECT.getString());
+        StringBuilder reqUrl = new StringBuilder("https://kauth.kakao.com/oauth/logout");
+        reqUrl.append("client_id=" + KAKAO_REST_API_KEY.getString());
+        reqUrl.append("logout_redirect_uri=" + KAKAO_LOGOUT_REDIRECT.getString());
 
         ApiResponse response;
+
         HttpURLConnection conn = null;
         BufferedReader br = null;
 
         try {
-            URL url = new URL(reqURL.toString());
+            URL url = new URL(reqUrl.toString());
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             int responseCode = conn.getResponseCode();

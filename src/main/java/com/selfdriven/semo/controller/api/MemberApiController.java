@@ -16,6 +16,13 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    @PostMapping("/join")
+    public ApiResponse joinMember(@Valid @RequestBody Member member) {
+        int result = memberService.insertMember(member);
+        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
+        return response;
+    }
+
     @GetMapping("/list")
     public ApiResponse getMemberList() {
         List<Member> result = memberService.getMemberList();
@@ -27,13 +34,6 @@ public class MemberApiController {
     public ApiResponse getMemberByEmail(String email) {
         Member result = memberService.getMemberByEmail(email);
         ApiResponse response = result != null ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-        return response;
-    }
-
-    @PostMapping("/join")
-    public ApiResponse joinMember(@Valid @RequestBody Member member) {
-        int result = memberService.insertMember(member);
-        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
         return response;
     }
 
