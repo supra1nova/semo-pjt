@@ -23,20 +23,20 @@ import lombok.RequiredArgsConstructor;
 public class ProductApiController {
 	 private final ProductService productService;
 	 
-	  @PostMapping("/add")
+	  @PostMapping("/addProduct")
 	    public ApiResponse addProduct(@Valid @RequestBody Product product) {
 	        int result = productService.addProduct(product);
 	        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 	        return response;
 	    }
 
-	 @GetMapping("/list")
+	 @GetMapping("/getProductList")
 	    public ApiResponse getProductList() {
 	        List<Product> result = productService.getProductList();
 	        ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 	        return response;	
 	    }
-	 @PostMapping("/delete")
+	 @PostMapping("deleteProduct")
 	    public ApiResponse deleteProduct(@RequestParam String productId) {
 	        int result = productService.deleteProduct(productId);
 	        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
