@@ -9,6 +9,8 @@
     <typeAliases>
         <!--    alias는 대소문자 구분하지 않는다.    -->
         <typeAlias alias="member" type="com.selfdriven.semo.dto.Member"/>
+        <typeAlias alias="product" type="com.selfdriven.semo.dto.Product"/>
+        
     </typeAliases>
 
 
