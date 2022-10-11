@@ -53,7 +53,8 @@ public class NaverLoginApiController {
         return response;
     }
 
-    @GetMapping("/tokens")
+
+    @GetMapping("/tokens-and-user-info")
     public ApiResponse getNaverAccessToken(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
         String reqURL = "https://nid.naver.com/oauth2.0/token";
         String redirectURI = URLEncoder.encode(NAVER_CALLBACK_URL.getString(), "UTF-8");
@@ -102,8 +103,8 @@ public class NaverLoginApiController {
             session.setAttribute("accessToken", authResponse.getAccessToken());
             session.setAttribute("refreshToken", authResponse.getRefreshToken());
 
-//            response = ApiResponse.ok(authResponse);
             response = getUserInfoFromNaver(authResponse.getAccessToken(), session);
+            System.out.println("api 내부 : " + response);
 
         } catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
@@ -208,6 +209,7 @@ public class NaverLoginApiController {
         reqUrl.append("&service_provider=NAVER");
 
         ApiResponse response;
+
         HttpURLConnection conn = null;
         BufferedReader br = null;
 
