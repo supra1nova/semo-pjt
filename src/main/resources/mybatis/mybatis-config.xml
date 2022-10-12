@@ -2,6 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
+        <!-- 매핑시에 꼭 필요하다. application에 설정된 것과 달리 camelCase로 매핑하고 싶으면 절대 지우지 말것... 낭패본다. -->
         <setting name="mapUnderscoreToCamelCase" value="true" />
         <setting name="callSettersOnNulls" value="true"/>
     </settings>
@@ -10,7 +11,7 @@
         <!--    alias는 대소문자 구분하지 않는다.    -->
         <typeAlias alias="member" type="com.selfdriven.semo.dto.Member"/>
         <typeAlias alias="product" type="com.selfdriven.semo.dto.Product"/>
-        
+        <typeAlias alias="room" type="com.selfdriven.semo.dto.Room"/>
     </typeAliases>
 
 
