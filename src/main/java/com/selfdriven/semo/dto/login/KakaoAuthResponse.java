@@ -1,4 +1,4 @@
-package com.selfdriven.semo.dto;
+package com.selfdriven.semo.dto.login;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

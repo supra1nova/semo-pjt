@@ -10,8 +10,112 @@
     </style>
 </head>
 <body>
-    <div th:if="${session.currentUser eq null}" style="text-align: center">
-        <h1 style="text-align: center">회원가입</h1>
+
+    <h1 style="text-align: center">회원가입</h1>
+
+    <pre></pre>
+
+    <div style="display: flex; justify-content: center">
+<!--        <form id="form" th:with="member=${member}">-->
+<!--        <form action="/api/member/join" method="POST" th:object="${member}">-->
+        <form id="form">
+        <table width="600" border="1" style="text-align: center">
+            <tr height="40">
+                <td width="200"><label for="name">이름</label></td>
+                <td width="400"><input type="text" name="name" id="name" size="45"></td>
+            </tr>
+            <tr height="40">
+                <td width="200">이메일</td>
+                <td width="400"><input type="email" name="email" id="email" size="45" th:value="${session.login.email}" disabled></td>
+<!--                <td width="400"><input type="email" name="email" id="email" size="45"></td>-->
+            </tr>
+            <tr height="40">
+                <td width="200"><label for="phNum">핸드폰번호</label></td>
+                <td width="400"><input type="tel" name="phNum" id="phNum" size="45"></td>
+            </tr>
+            <tr height="40">
+                <td width="200"><label for="user">회원타입</label></td>
+                <td width="400">
+                    <input type="radio" name="memberType" id="user" value="m"><label for="user">일반회원</label>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="memberType" id="customer" value="c"><label for="customer">사업자회원</label>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="memberId">회원id</label></td>
+                <td>
+                    <input type="text" name="memberId" id="memberId" th:value="${session.login.id}" disabled>
+<!--                    <input type="text" name="memberId" id="memberId">-->
+                </td>
+            </tr>
+            <tr>
+                <td><label for="socialType">sns타입</label></td>
+                <td>
+                    <input type="text" name="socialType" id="socialType" th:value="${session.login.socialType}" disabled>
+<!--                    <input type="text" name="socialType" id="socialType">-->
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="회원가입">
+                    &nbsp;&nbsp;
+                    <input type="reset" value="전체 지우기">
+                    &nbsp;&nbsp;
+                    <input type="button" value="메인으로" onclick="location.href='/semo'">
+                </td>
+            </tr>
+        </table>
+        </form>
     </div>
 </body>
+
+
+
+<script th:inline="javascript">
+    window.onload = function(){
+        console.log("window.onloaded");
+
+        let member = {};
+        let session = [[${session}]];
+        console.log("session.login : " + session.login);
+        console.log("session.login.name : " + session.login.name);
+
+        const loginForm = document.querySelector('#form');
+        loginForm.addEventListener("submit", joinMemberViaKakao);
+
+        async function joinMemberViaKakao(e) {
+            e.preventDefault();
+
+            let email = document.querySelector('#email');
+            let memberType = document.querySelector('input[name="memberType"]:checked');
+            let memberId = document.querySelector('#memberId');
+            let name = document.querySelector('#name');
+            let phNum = document.querySelector('#phNum');
+            let socialType = document.querySelector('#socialType');
+
+            member.email = email.value;
+            member.memberType = memberType.value;
+            member.memberId = memberId.value;
+            member.name = name.value;
+            member.phNum = phNum.value;
+            member.socialType = socialType.value;
+            console.log(member);
+
+            const kakaoURL = "/semo/api/member/join";
+            const res = await fetch(kakaoURL, {
+                method: "POST",
+                body: JSON.stringify(member),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+                .then(res => res.json())
+                .then(data => data);
+            console.log(res);
+            location.href="/semo";
+        }
+    }
+
+</script>
+
 </html>

@@ -1,4 +1,4 @@
-package com.selfdriven.semo.dto;
+package com.selfdriven.semo.dto.login;
 
 import lombok.*;
 
@@ -9,8 +9,9 @@ import lombok.*;
 @Builder
 public class Login {
 
+    private String id;
     private String name;
     private String email;
-    private Character memberType;
-    private Character socialType;
+    private String memberType;
+    private String socialType;
 }

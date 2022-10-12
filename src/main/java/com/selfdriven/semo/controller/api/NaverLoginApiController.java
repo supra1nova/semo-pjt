@@ -2,6 +2,10 @@ package com.selfdriven.semo.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selfdriven.semo.dto.*;
+import com.selfdriven.semo.dto.login.Login;
+import com.selfdriven.semo.dto.login.NaverAuthResponse;
+import com.selfdriven.semo.dto.login.NaverTokenRemoveResponse;
+import com.selfdriven.semo.dto.login.NaverUserInfoResponse;
 import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.service.MemberService;
@@ -145,6 +149,7 @@ public class NaverLoginApiController {
             } else {  // 에러 발생
                 throw new AccessDeniedException("잘못된 접근입니다.");
             }
+            System.out.println("responseCode = " + responseCode);
 
             String line = "";
             String result = "";
@@ -155,17 +160,26 @@ public class NaverLoginApiController {
 
             ObjectMapper mapper = new ObjectMapper();
             NaverUserInfoResponse userInfoResponse = mapper.readValue(result, NaverUserInfoResponse.class);
+            System.out.println("userInfoResponse.getResponse().getId() = " + userInfoResponse.getResponse().getId());
+            System.out.println("userInfoResponse.getResponse().getEmail() = " + userInfoResponse.getResponse().getEmail());
+
+            Login.LoginBuilder loginInfoBuilder = Login.builder()
+                    .id(userInfoResponse.getResponse().getId())
+                    .email(userInfoResponse.getResponse().getEmail())
+                    .socialType("n");
 
             Member member = memberService.getMemberById(userInfoResponse.getResponse().getId());
             if (member == null) {
+                Login loginMemberInfo = loginInfoBuilder
+                        .memberType("u")
+                        .build();
+                session.setAttribute("login", loginMemberInfo);
                 throw new ApiException(UNREGISTERED_MEMBER.getCode(), UNREGISTERED_MEMBER.getMessage());
             }
 
-            Login loginMemberInfo = Login.builder()
-                    .email(member.getEmail())
-                    .memberType(member.getMemberType())
+            Login loginMemberInfo = loginInfoBuilder
                     .name(member.getName())
-                    .socialType(member.getSocialType())
+                    .memberType(member.getMemberType())
                     .build();
 
             System.out.println("member.getSocialType() = " + member.getSocialType());
