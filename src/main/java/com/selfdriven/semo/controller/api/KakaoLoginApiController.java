@@ -2,6 +2,9 @@ package com.selfdriven.semo.controller.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selfdriven.semo.dto.*;
+import com.selfdriven.semo.dto.login.KakaoAuthResponse;
+import com.selfdriven.semo.dto.login.KakaoUserInfoResponse;
+import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.service.MemberService;
@@ -155,17 +158,26 @@ public class KakaoLoginApiController {
 
             ObjectMapper mapper = new ObjectMapper();
             KakaoUserInfoResponse userInfoResponse = mapper.readValue(result, KakaoUserInfoResponse.class);
+            System.out.println("userInfoResponse.getId() = " + userInfoResponse.getId());
+            System.out.println("userInfoResponse.getKakaoAccount().getEmail() = " + userInfoResponse.getKakaoAccount().getEmail());
+
+            Login.LoginBuilder loginInfoBuilder = Login.builder()
+                    .id(userInfoResponse.getId().toString())
+                    .email(userInfoResponse.getKakaoAccount().getEmail())
+                    .socialType("k");
 
             Member member = memberService.getMemberById(userInfoResponse.getId().toString());
             if (member == null) {
+                Login loginMemberInfo = loginInfoBuilder
+                        .memberType("u")
+                        .build();
+                session.setAttribute("login", loginMemberInfo);
                 throw new ApiException(UNREGISTERED_MEMBER.getCode(), UNREGISTERED_MEMBER.getMessage());
             }
 
-            Login loginMemberInfo = Login.builder()
-                    .email(member.getEmail())
-                    .memberType(member.getMemberType())
+            Login loginMemberInfo = loginInfoBuilder
                     .name(member.getName())
-                    .socialType(member.getSocialType())
+                    .memberType(member.getMemberType())
                     .build();
 
             System.out.println("member.getSocialType() = " + member.getSocialType());

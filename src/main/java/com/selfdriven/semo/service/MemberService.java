@@ -1,6 +1,7 @@
 package com.selfdriven.semo.service;
 
 import com.selfdriven.semo.dto.Member;
+import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,21 @@ public class MemberService {
 //    MemberMapper memberMapper;
     private final MemberMapper memberMapper;
 
-    public int insertMember(Member member) {
-        return memberMapper.insertMember(member);
+    public Login insertMember(Member member) {
+        int res = memberMapper.insertMember(member);
+        Login.LoginBuilder loginBuilder = Login.builder();
+        if(res != 0){
+            loginBuilder
+                .id(member.getMemberId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .memberType(member.getMemberType())
+                .socialType(member.getSocialType())
+                .build();
+        }
+        Login login = loginBuilder.build();
+        System.out.println("login = " + login);
+        return login;
     }
 
     public List<Member> getMemberList() {
