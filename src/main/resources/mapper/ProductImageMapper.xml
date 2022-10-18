@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selfdriven.semo.mapper.ProductImageMapper">
+
+  
+
+    <insert id="insertProductImage" parameterType="ImageProduct">
+        INSERT INTO image_product
+            (image_url, product_id)
+        VALUES
+            ( #{imageUrl}, #{productId})
+    </insert>
+
+    <delete id="deleteProductImage" parameterType="String">
+       DELETE FROM image_product WHERE image_url = #{imageUrl}
+    </delete>
+
+   
+</mapper>
