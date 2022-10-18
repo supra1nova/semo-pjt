@@ -26,11 +26,11 @@ public class S3UploadService {
 		private final AmazonS3 amazonS3;
 
 	    public String upload(String route, MultipartFile multipartFile) throws IOException {
-	        String s3FileName = route+ "/" + UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
+	        String s3FileName = route+ "/" + UUID.randomUUID() + "-" + multipartFile.getOriginalFilename(); //폴더 경로 + 랜덤 아이디 + 파일명
 	        ObjectMetadata objMeta = new ObjectMetadata();
 	        objMeta.setContentLength(multipartFile.getInputStream().available());
 	        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
-	        return URLDecoder.decode(amazonS3.getUrl(bucket, s3FileName).toString(), "utf-8");
+	        return URLDecoder.decode(amazonS3.getUrl(bucket, s3FileName).toString(), "utf-8");  // aws에서 반환한 url 강제 utf-8 decoding
 	    }
 
 	    public int insertProductImage(ImageProduct image) {	    	
@@ -38,7 +38,7 @@ public class S3UploadService {
 	    }
 	    
 	    public void deleteFile(String imageUrl){
-	    	int idx = imageUrl.indexOf("/", 10);
+	    	int idx = imageUrl.indexOf("/", 10);   // db에 저장된 url에서 버킷 미만 주소 제거
 			String fileName = imageUrl.substring(idx + 1); 
 	        amazonS3.deleteObject(bucket, fileName);
 	    }
