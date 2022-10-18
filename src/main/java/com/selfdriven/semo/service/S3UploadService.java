@@ -1,6 +1,7 @@
 package com.selfdriven.semo.service;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -29,12 +30,21 @@ public class S3UploadService {
 	        ObjectMetadata objMeta = new ObjectMetadata();
 	        objMeta.setContentLength(multipartFile.getInputStream().available());
 	        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
-	        return amazonS3.getUrl(bucket, s3FileName).toString();
+	        return URLDecoder.decode(amazonS3.getUrl(bucket, s3FileName).toString(), "utf-8");
 	    }
 
-	    public int insertProductImage(ImageProduct image) {
+	    public int insertProductImage(ImageProduct image) {	    	
+			return productImageMapper.insertProductImage(image);
+	    }
+	    
+	    public void deleteFile(String imageUrl){
+	    	int idx = imageUrl.indexOf("/", 10);
+			String fileName = imageUrl.substring(idx + 1); 
+	        amazonS3.deleteObject(bucket, fileName);
+	    }
+	    
+	    public int deleteProductImage(String imageUrl) {
 	    	
-	    	        return productImageMapper.insertProductImage(image);
-	    	    
+	        return productImageMapper.deleteProductImage(imageUrl);
 	    }
 }

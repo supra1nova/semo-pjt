@@ -2,10 +2,12 @@ package com.selfdriven.semo.controller.api;
 
 import com.selfdriven.semo.dto.ApiResponse;
 import com.selfdriven.semo.dto.Member;
+import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,9 +19,15 @@ public class MemberApiController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ApiResponse joinMember(@Valid @RequestBody Member member) {
-        int result = memberService.insertMember(member);
-        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
+    public ApiResponse joinMember(@Valid @RequestBody Member member, HttpSession session) {
+        Login login = memberService.insertMember(member);
+        ApiResponse response = null;
+        if(login != null){
+            session.setAttribute("login", login);
+            response = ApiResponse.ok(login);
+            return response;
+        }
+        response = ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
         return response;
     }
 

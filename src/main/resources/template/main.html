@@ -24,6 +24,57 @@
     
     
   
+    <div th:if="${session!=null}">
+        <li th:text="|session.accessToken = ${session.accessToken}|">alternative code</li>
+        <li th:text="|session.refreshToken = ${session.refreshToken}|">alternative code</li>
+        <li th:text="|session.login = ${session.login}|">alternative code</li>
+        <span th:if="${session.login!=null}">
+            <li th:text="|session.login.name = ${session.login.name}|">alternative code</li>
+            <li th:text="|session.login.email = ${session.login.email}|">alternative code</li>
+            <li th:text="|session.login.memberType = ${session.login.memberType}|">alternative code</li>
+            <li th:text="|session.login.socialType = ${session.login.socialType}|">alternative code</li>
+<!--            <li th:text="|response.data = ${response.data}|">alternative code</li>-->
+<!--            <li th:text="|response.data.name = ${response.data.name}|">alternative code</li>-->
+<!--            <li th:text="|response.data.email = ${response.data.email}|">alternative code</li>-->
+<!--            <li th:text="|response.data.memberType = ${response.data.memberType}|">alternative code</li>-->
+<!--            <li th:text="|response.data.socialType = ${response.data.socialType}|">alternative code</li>-->
+        </span>
+        <pre></pre>
+        <span th:if="${response!=null}">
+            <li th:text="|response = ${response}|">alternative code</li>
+            <li th:text="|response.data = ${response.data}|">alternative code</li>
+            <li th:text="|response.data.name = ${response.data.name}|">alternative code</li>
+            <li th:text="|response.data.email = ${response.data.email}|">alternative code</li>
+            <li th:text="|response.data.memberType = ${response.data.memberType}|">alternative code</li>
+            <li th:text="|response.data.socialType = ${response.data.socialType}|">alternative code</li>
+        </span>
+<!--        <th:block th:if="${session.response != null}">-->
+<!--            <li th:text="|email = ${session.email}|">code</li>-->
+<!--        </th:block>-->
+    </div>
+
+    <p style="text-align: center">
+        <input type="button" value="로그인/로그아웃" onclick="location.href='/semo/login-out'" style="width: 150px; height: 100px"/>
+        &nbsp;&nbsp;
+<!--        <input type="button" value="회원가입" onclick="location.href='/semo/join'" style="width: 150px; height: 100px" id="register"/>-->
+    </p>
+
 </body>
 
+<script th:inline="javascript">
+    let session = [[${session}]];
+    if(session.length != null || session.length != undefined){
+        console.log(session.accessToken);
+        console.log(session.refreshToken);
+        console.log(session.login);
+    }
+    let response = [[${response}]];
+    if(response != null || response != undefined){
+        console.log(response);
+        console.log(response.data);
+        console.log(response.data.name);
+        console.log(response.data.email);
+    }
+
+</script>
 </html>

@@ -4,7 +4,7 @@
 
     <sql id="selectFromMember">
         SELECT
-            member_id, member_type, social_type, email, name, ph_num, ins_date, upd_date
+            *
         FROM
             member
     </sql>

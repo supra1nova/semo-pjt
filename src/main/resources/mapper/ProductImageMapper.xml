@@ -11,5 +11,9 @@
             ( #{imageUrl}, #{productId})
     </insert>
 
+    <delete id="deleteProductImage" parameterType="String">
+       DELETE FROM image_product WHERE image_url = #{imageUrl}
+    </delete>
+
    
 </mapper>
