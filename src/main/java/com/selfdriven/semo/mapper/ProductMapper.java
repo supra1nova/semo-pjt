@@ -11,6 +11,7 @@ import com.selfdriven.semo.dto.Product;
 @Repository
 public interface ProductMapper {
     int addProduct(Product product);
+    Product getProductById(String productId);
 
     List<Product> getProductList();
     int deleteProduct(String productId);

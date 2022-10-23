@@ -30,15 +30,14 @@ public class S3FileController {
 	    	String imageUrl = s3Upload.upload(route, multipartFile);
 	    	ImageProduct image = new ImageProduct();
 	    	image.setImageUrl(imageUrl);
-	    	image.setProductId(product.getProductId());	
-	    	
+	    	image.setProductId(product.getProductId());	 	
 	    	s3Upload.insertProductImage(image);
 	    	 ApiResponse response = imageUrl != null ? ApiResponse.ok(imageUrl) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 		        return response;
 	    }
+	    
 	    @PostMapping("/deleteImage")
 	    public ApiResponse deleteImage(String imageUrl) throws IOException {
-
 			s3Upload.deleteFile(imageUrl);
 	    	s3Upload.deleteProductImage(imageUrl);
 	    	 ApiResponse response = imageUrl != null ? ApiResponse.ok(imageUrl) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
