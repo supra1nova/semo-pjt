@@ -1,6 +1,7 @@
 package com.selfdriven.semo.controller.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -23,8 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class ProductApiController {
 	 private final ProductService productService;
 	 
-	  @PostMapping("/addProduct")
-	    public ApiResponse addProduct(@Valid @RequestBody Product product) {
+	  @PostMapping("/createProduct")
+	    public ApiResponse createProduct(@Valid @RequestBody Product product) {
 	        int result = productService.addProduct(product);
 	        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 	        return response;
@@ -33,6 +34,12 @@ public class ProductApiController {
 	 @GetMapping("/getProductList")
 	    public ApiResponse getProductList() {
 	        List<Product> result = productService.getProductList();
+	        ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
+	        return response;	
+	    }
+	 @GetMapping("/getProductById")
+	    public ApiResponse getProductById(String productId) {
+	        Map<String, Object> result = productService.getProductById(productId);
 	        ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 	        return response;	
 	    }
