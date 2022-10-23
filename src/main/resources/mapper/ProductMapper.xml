@@ -21,6 +21,7 @@
         ORDER by
             product_id asc
     </select>
+    
     <select id="getProductById" resultType="Product" parameterType="String">
 		select * from product where product_id = #{productId}
 	</select>

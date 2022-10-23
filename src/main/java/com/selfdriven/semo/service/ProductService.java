@@ -26,17 +26,15 @@ public class ProductService {
 	        return productMapper.addProduct(product);
 	    }
 
-
 	    public List<Product> getProductList() {
 	        return productMapper.getProductList();
 	    }
+	    
 	    public  Map<String, Object> getProductById(String productId) {
 			Map<String, Object> result = new LinkedHashMap<String, Object>();
 			result.put("productInfo", productMapper.getProductById(productId));
 			List<ImageProduct> image = productImageMapper.getProductImageById(productId);
-			result.put("imageList", image);
-	    	 
-	    	
+			result.put("imageList", image);	    	 
 	        return result;
 	    }
 	    

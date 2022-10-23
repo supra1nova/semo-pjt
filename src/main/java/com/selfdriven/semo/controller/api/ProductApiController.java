@@ -37,12 +37,14 @@ public class ProductApiController {
 	        ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 	        return response;	
 	    }
+	 
 	 @GetMapping("/getProductById")
 	    public ApiResponse getProductById(String productId) {
 	        Map<String, Object> result = productService.getProductById(productId);
 	        ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
 	        return response;	
 	    }
+	 
 	 @PostMapping("/deleteProduct")
 	    public ApiResponse deleteProduct(@RequestParam String productId) {
 	        int result = productService.deleteProduct(productId);

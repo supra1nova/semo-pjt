@@ -13,7 +13,6 @@ public interface ProductImageMapper {
 	
 	 int insertProductImage(ImageProduct image);
 	 List<ImageProduct> getProductImageById(String productId);
-
 	 int deleteProductImage(String imageUrl);
 
 }
