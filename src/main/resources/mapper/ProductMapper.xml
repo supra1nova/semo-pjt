@@ -25,6 +25,30 @@
     <select id="getProductById" resultType="Product" parameterType="String">
 		select * from product where product_id = #{productId}
 	</select>
+	
+     <update id="updateProduct" parameterType="Product">
+        UPDATE product
+        SET
+          <if test='productName != null and productName != ""'>
+            product_name = #{productName}
+          </if>
+          <if test='productCategory != null and productCategory != ""'>
+          , product_category = #{productCategory}
+          </if>
+           <if test='address != null and address != ""'>
+          , address = #{address}
+          </if>
+           <if test='addressDetail != null and addressDetail != ""'>
+          , address_detail = #{addressDetail}
+          </if>
+           <if test='zipCode != null and zipCode != ""'>
+          , zip_code = #{zipCode}
+          </if>
+           <if test='telNum != null and telNum != ""'>
+          , tel_num = #{telNum}
+          </if>
+        WHERE product_id = #{productId}
+    </update>
     
 <delete id="deleteProduct">
         DELETE FROM product WHERE product_id = #{productId}
