@@ -3,6 +3,7 @@ package com.selfdriven.semo.dto;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 public class Product {
 	
-	@NotBlank(message="아이디는 필수 입력 값입니다.")
+	@NotNull(message="아이디는 필수 입력 값입니다.")
 	private int productId;
 
 	@NotBlank(message="아이디는 필수 입력 값입니다.")
