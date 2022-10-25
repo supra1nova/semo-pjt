@@ -88,6 +88,7 @@ public class NaverLoginApiController {
 
             int responseCode = conn.getResponseCode();
             if(responseCode != 200) throw new Exception("네이버로 부터 토큰을 가져올 수 없습니다.");
+            System.out.println(responseCode);
 
             br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -112,8 +113,10 @@ public class NaverLoginApiController {
 
         } catch (AccessDeniedException e) {
             response = ApiResponse.fail(ResultCode.ACCESS_DENIED);
+            e.printStackTrace();
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
+            e.printStackTrace();
         } finally {
             sb.delete(0, sb.length());  // StringBuffer 초기화
             if (bw != null) { //NullPointerException을 방지

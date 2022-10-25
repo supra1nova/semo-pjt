@@ -61,7 +61,7 @@
                     &nbsp;&nbsp;
                     <input type="reset" value="전체 지우기">
                     &nbsp;&nbsp;
-                    <input type="button" value="메인으로" onclick="location.href='/semo'">
+                    <input type="button" value="메인으로" onclick="location.href='/'">
                 </td>
             </tr>
         </table>
@@ -101,7 +101,7 @@
             member.socialType = socialType.value;
             console.log(member);
 
-            const kakaoURL = "/semo/api/member/join";
+            const kakaoURL = "/api/member/join";
             const res = await fetch(kakaoURL, {
                 method: "POST",
                 body: JSON.stringify(member),
@@ -112,7 +112,7 @@
                 .then(res => res.json())
                 .then(data => data);
             console.log(res);
-            location.href="/semo";
+            location.href="/";
         }
     }
 
