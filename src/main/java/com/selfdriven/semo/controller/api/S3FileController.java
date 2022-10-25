@@ -35,8 +35,8 @@ public class S3FileController {
 		        return response;
 	    }
 	    
-	    @PostMapping("/delete")
-	    public ApiResponse deleteImage(String imageUrl) throws IOException {
+	    @PostMapping("/deleteProduct")
+	    public ApiResponse deleteProduct(String imageUrl) throws IOException {
 			s3Upload.deleteFile(imageUrl);
 	    	s3Upload.deleteProductImage(imageUrl);
 	    	 ApiResponse response = imageUrl != null ? ApiResponse.ok(imageUrl) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
