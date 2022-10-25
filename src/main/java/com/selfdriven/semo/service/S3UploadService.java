@@ -25,14 +25,23 @@ public class S3UploadService {
 
 		private final AmazonS3 amazonS3;
 
-	    public String upload(String route, MultipartFile multipartFile) throws IOException {
+	    public String uploadImage(String route, MultipartFile multipartFile) throws IOException {
 	        String s3FileName = route+ "/" + UUID.randomUUID() + "-" + multipartFile.getOriginalFilename(); //폴더 경로 + 랜덤 아이디 + 파일명
 	        ObjectMetadata objMeta = new ObjectMetadata();
 	        objMeta.setContentLength(multipartFile.getInputStream().available());
+	        objMeta.setContentType(multipartFile.getContentType());
 	        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
 	        return URLDecoder.decode(amazonS3.getUrl(bucket, s3FileName).toString(), "utf-8");  // aws에서 반환한 url 강제 utf-8 decoding
 	    }
 
+	    public String editImage(String s3FileName, MultipartFile multipartFile) throws IOException {
+	        ObjectMetadata objMeta = new ObjectMetadata();
+	        objMeta.setContentLength(multipartFile.getInputStream().available());
+	        objMeta.setContentType(multipartFile.getContentType());
+	        amazonS3.putObject(bucket, s3FileName, multipartFile.getInputStream(), objMeta);
+	        return URLDecoder.decode(amazonS3.getUrl(bucket, s3FileName).toString(), "utf-8");  // aws에서 반환한 url 강제 utf-8 decoding
+	    }
+	    
 	    public int insertProductImage(ImageProduct image) {	    	
 			return productImageMapper.insertProductImage(image);
 	    }
