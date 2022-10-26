@@ -33,9 +33,9 @@
 
     <insert id="insertMember" parameterType="Member">
         INSERT INTO member
-            (member_id, social_type, email, name, ph_num )
+            (member_id, member_type, social_type, email, name, ph_num )
         VALUES
-            (#{memberId}, #{socialType}, #{email}, #{name}, #{phNum})
+            (#{memberId}, #{memberType}, #{socialType}, #{email}, #{name}, #{phNum})
     </insert>
 
     <update id="updateMember" parameterType="Member">

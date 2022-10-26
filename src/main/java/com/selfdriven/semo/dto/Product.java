@@ -15,8 +15,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Product {
-	
-	@NotNull(message="아이디는 필수 입력 값입니다.")
+
 	private int productId;
 
 	@NotBlank(message="아이디는 필수 입력 값입니다.")
