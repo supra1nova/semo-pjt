@@ -17,7 +17,7 @@ public class Room {
 	// room id는 db에서 autoincrement로 자동생성-> not null 처리 불필요
 	private int roomId;
 
-	@NotBlank(message= "객실명은 빈 값으로 넣을 수 없습니다. 다시 한 번 확인해 주세요.")
+	@NotNull(message= "객실명은 빈 값으로 넣을 수 없습니다. 다시 한 번 확인해 주세요.")
 	private int productId;
 
 	@NotBlank(message= "객실명은 빈 값으로 넣을 수 없습니다. 다시 한 번 확인해 주세요.")
