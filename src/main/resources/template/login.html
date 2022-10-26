@@ -29,14 +29,14 @@
 
         <pre></pre>
         <span th:if="${session.login.socialType} == 'k'">
-            <a th:href="${'/semo/api/login-out/kakao-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
+            <a th:href="${'/api/login-out/kakao-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
     <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
             <a id="kakaoLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
     <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
             <a id="kakaoInvalidBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃(토큰,세션삭제)</a>
         </span>
         <span th:if="${session.login.socialType} == 'n'">
-            <a th:href="${'/semo/api/login-out/naver-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
+            <a th:href="${'/api/login-out/naver-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
     <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
             <a id="naverLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
     <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
@@ -55,7 +55,7 @@
     </div>
 
     <div style="text-align: center">
-        <input type="button" onclick="location.href='/semo'" value="메인" style="width:100px; height: 100px">
+        <input type="button" onclick="location.href='/'" value="메인" style="width:100px; height: 100px">
     </div>
 
 </body>
@@ -74,7 +74,7 @@
     }
 
     async function getKakaoLoginAuthURL(){
-        const kakaoURL = "http://localhost/semo/api/login-out/kakao-login/auth-url";
+        const kakaoURL = "http://semo.com/api/login-out/kakao-login/auth-url";
         const authURL = await fetch(kakaoURL, {
             method: "GET",
             headers: {
@@ -87,7 +87,7 @@
     }
 
     async function requestKakaoLogout(){
-        const kakaoLogoutUrl = "http://localhost/semo/api/login-out/kakao-login/logout?accessToken=" + [[${session.accessToken}]];
+        const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/logout?accessToken=" + [[${session.accessToken}]];
         const message = await fetch(kakaoLogoutUrl, {
             method: "GET",
             headers: {
@@ -97,12 +97,12 @@
             .then(res => res.json())
             .then(data => data.message);
         if(message === "OK"){
-            location.href="/semo";
+            location.href="/";
         };
     }
 
     async function requestKakaoInavalid(){
-        const kakaoLogoutUrl = "http://localhost/semo/api/login-out/kakao-login/invalid-session";
+        const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/invalid-session";
         const message = await fetch(kakaoLogoutUrl, {
             method: "GET",
             headers: {
@@ -112,7 +112,7 @@
             .then(res => res.json())
             .then(data => data.message);
         if(message === "OK"){
-            location.href="/semo";
+            location.href="/";
         };
     }
 
@@ -130,7 +130,7 @@
     }
 
     async function getNaverLoginAuthURL(){
-        const naverURL = "http://localhost/semo/api/login-out/naver-login/auth-url";
+        const naverURL = "http://semo.com/api/login-out/naver-login/auth-url";
         const authURL = await fetch(naverURL)
             .then(res => res.json())
             .then(data => data.data);
@@ -138,22 +138,22 @@
     }
 
     async function requestNaverLogout(){
-        const naverLogoutUrl = "http://localhost/semo/api/login-out/naver-login/logout";
+        const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/logout";
         const message = await fetch(naverLogoutUrl)
             .then(res => res.json())
             .then(data => data.message);
         if(message === "OK"){
-            location.href="/semo";
+            location.href="/";
         };
     }
 
     async function requestNaverInavalid(){
-        const naverLogoutUrl = "http://localhost/semo/api/login-out/naver-login/invalid-session?accessToken=" + [[${session.accessToken}]];
+        const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/invalid-session?accessToken=" + [[${session.accessToken}]];
         const message = await fetch(naverLogoutUrl)
             .then(res => res.json())
             .then(data => data.message);
         if(message === "OK"){
-            location.href="/semo";
+            location.href="/";
         };
     }
 

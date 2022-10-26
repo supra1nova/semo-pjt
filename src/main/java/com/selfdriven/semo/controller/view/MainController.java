@@ -18,7 +18,7 @@ public class MainController {
             session.setAttribute("login", null);
             session.removeAttribute("login");
         }
-        return "main.html";
+        return "main";
     }
 
     @GetMapping("/join")
