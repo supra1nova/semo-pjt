@@ -17,5 +17,6 @@ public interface MemberMapper {
     int deleteMember(String memberId);
     int deleteAllMember();
     int countAllMember();
+    String getMembertype(String memberId);
 }
 

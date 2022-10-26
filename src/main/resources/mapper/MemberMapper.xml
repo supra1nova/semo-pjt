@@ -58,4 +58,8 @@
     <select id="countAllMember" resultType="int">
         SELECT count(*) FROM member
     </select>
+
+    <select id="getMembertype" resultType="String">
+        SELECT member_type FROM member WHERE member_id = #{memberId}
+    </select>
 </mapper>

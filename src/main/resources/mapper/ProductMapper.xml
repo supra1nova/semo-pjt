@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.selfdriven.semo.mapper.ProductMapper">
 
+    <sql id="selectFromProduct">
+        SELECT
+            product_id, member_id, product_name, product_category, address, address_detail, zip_code, tel_num, ins_date, upd_date
+        FROM
+            product
+    </sql>
 
     <insert id="addProduct" parameterType="Product">
         INSERT INTO product
@@ -9,12 +15,6 @@
         VALUES
             (#{memberId}, #{productName}, #{productCategory}, #{address}, #{addressDetail}, #{zipCode}, #{telNum})
     </insert>
-    <sql id="selectFromProduct">
-        SELECT
-            product_id, member_id, product_name, product_category, address, address_detail, zip_code, tel_num, ins_date, upd_date
-        FROM
-            product
-    </sql>
 
     <select id="getProductList" resultType="Product">
         <include refid="selectFromProduct"/>
@@ -25,6 +25,11 @@
     <select id="getProductById" resultType="Product" parameterType="String">
 		select * from product where product_id = #{productId}
 	</select>
+
+    <select id="getProductByMemberId" resultType="Product" parameterType="map">
+        <include refid="selectFromProduct"/>
+                WHERE product_id = #{productId} AND member_id = #{memberId}
+    </select>
 	
      <update id="updateProduct" parameterType="Product">
         UPDATE product

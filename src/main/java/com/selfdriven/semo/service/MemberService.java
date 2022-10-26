@@ -62,4 +62,16 @@ public class MemberService {
     public int countAllMember(){
         return memberMapper.countAllMember();
     }
+
+    // 멤버 타입 확인 메서드
+    public Boolean checkMemberType(String type, String memberId){
+        String memberType = getMembertype(memberId);
+        Boolean res = memberType.equals(type);
+        return res;
+    }
+
+    // 멤버 타입 조회 메서드
+    public String getMembertype(String memberId){
+        return memberMapper.getMembertype(memberId);
+    }
 }
