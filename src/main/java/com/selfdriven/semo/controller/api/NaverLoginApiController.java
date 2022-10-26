@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.math.BigInteger;
@@ -23,6 +27,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.AccessDeniedException;
 import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 
 import static com.selfdriven.semo.enums.LoginEnum.*;
 import static com.selfdriven.semo.enums.ResultCode.UNREGISTERED_MEMBER;
@@ -40,6 +45,9 @@ public class NaverLoginApiController {
         String state = new BigInteger(200, random).toString();
 
         String redirectURI = URLEncoder.encode(NAVER_CALLBACK_URL.getString(), "UTF-8");
+
+        // SSL 인증서 오류 해소
+        sslTrustAllCerts();
 
         StringBuffer apiURL = new StringBuffer();
         apiURL.append("https://nid.naver.com/oauth2.0/authorize?");
@@ -260,7 +268,6 @@ public class NaverLoginApiController {
         } catch (Exception e) {
             response = ApiResponse.fail(1002, e.getMessage());
         } finally {
-            br.close();
             try {
                 if (br != null) { //NullPointerException을 방지
                     br.close();
@@ -274,4 +281,26 @@ public class NaverLoginApiController {
         return response;
     }
 
+
+    public void sslTrustAllCerts(){
+        TrustManager[] trustAllCerts = new TrustManager[] {
+                new X509TrustManager() {
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                    public void checkClientTrusted(X509Certificate[] certs, String authType) { }
+                    public void checkServerTrusted(X509Certificate[] certs, String authType) { }
+                }
+        };
+
+        SSLContext sc;
+
+        try {
+            sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
