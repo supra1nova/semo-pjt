@@ -27,6 +27,8 @@ dependencies {
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'  // mybatis 관련
     implementation 'io.springfox:springfox-boot-starter:3.0.0'  // swagger 관련
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'    // swagger ui 관련
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'  // amazonaws.util.Base64 관련 warn으로 설치
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' //aws s3관련
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.0.7'
@@ -34,7 +36,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.assertj:assertj-core:3.23.1'
-  implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' //aws s3관련
 }
 
 tasks.named('test') {

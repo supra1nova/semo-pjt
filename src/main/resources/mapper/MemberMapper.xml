@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.selfdriven.semo.mapper.MemberMapper">
+<mapper namespace="com.selfdriven.semo.repository.MemberMapper">
 
     <sql id="selectFromMember">
         SELECT
@@ -9,7 +9,7 @@
             member
     </sql>
 
-    <select id="getMemberList" resultType="Member">
+    <select id="selectAllMember" resultType="Member">
         <include refid="selectFromMember"/>
         ORDER by
             member_id asc
@@ -59,7 +59,7 @@
         SELECT count(*) FROM member
     </select>
 
-    <select id="getMembertype" resultType="String">
+    <select id="selectMemberType" resultType="String">
         SELECT member_type FROM member WHERE member_id = #{memberId}
     </select>
 </mapper>

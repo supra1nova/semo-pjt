@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.selfdriven.semo.mapper.ProductImageMapper">
+<mapper namespace="com.selfdriven.semo.repository.ProductImageMapper">
 
 
-	<select id="getProductImageById" resultType="ImageProduct" parameterType="String">
-		select * from image_product where product_id = #{productId}
+	<select id="getProductImageById" resultType="ProductImage" parameterType="String">
+		select * from product_image where product_id = #{productId}
 	</select>
     
-    <insert id="insertProductImage" parameterType="ImageProduct">
-        INSERT INTO image_product
+    <insert id="insertProductImage" parameterType="ProductImage">
+        INSERT INTO product_image
             (image_url, product_id)
         VALUES
             ( #{imageUrl}, #{productId})
     </insert>
 
     <delete id="deleteProductImage" parameterType="String">
-       DELETE FROM image_product WHERE image_url = #{imageUrl}
+       DELETE FROM product_image WHERE image_url = #{imageUrl}
     </delete>
 
    

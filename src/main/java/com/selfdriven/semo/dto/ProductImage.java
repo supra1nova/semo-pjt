@@ -11,7 +11,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Setter
-public class ImageProduct {
+public class ProductImage {
 	
 	 private String imageUrl;
 	

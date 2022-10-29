@@ -1,4 +1,4 @@
-package com.selfdriven.semo.mapper;
+package com.selfdriven.semo.repository;
 
 import com.selfdriven.semo.dto.Member;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class MemberMapperTest {
             Member member = new Member("tester" + i, "tester" + i + "@gmail.com", "테스터" + i, "010" + i*11111111);
             memberMapper.insertMember(member);
         }
-        List<Member> memberList = memberMapper.getMemberList();
+        List<Member> memberList = memberMapper.selectAllMember();
         assertThat(memberList.size()).isEqualTo(num - 1);
     }
 

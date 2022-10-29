@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(value = "com.selfdriven.semo.mapper", sqlSessionFactoryRef = "SqlSessionFactory")
+@MapperScan(value = "com.selfdriven.semo.repository", sqlSessionFactoryRef = "SqlSessionFactory")
 public class MybatisConfig {
 
     @Value("${spring.datasource.mapper-locations}")

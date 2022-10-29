@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.selfdriven.semo.dto.ApiResponse;
-import com.selfdriven.semo.dto.ImageProduct;
+import com.selfdriven.semo.dto.ProductImage;
 import com.selfdriven.semo.enums.S3FileEnum;
 import com.selfdriven.semo.service.S3UploadService;
 
@@ -27,7 +27,7 @@ public class S3FileController {
 	    	
 	    	String route = S3FileEnum.PRODUCT.getRoute() + productId +"/productImage";
 	    	String imageUrl = s3Upload.uploadImage(route, multipartFile);
-	    	ImageProduct image = new ImageProduct();
+	    	ProductImage image = new ProductImage();
 	    	image.setImageUrl(imageUrl);
 	    	image.setProductId(productId);	 	
 	    	s3Upload.insertProductImage(image);
