@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.selfdriven.semo.repository.RoomImageMapper">
 
-<!--	<select id="getProductImageById" resultType="ProductImage" parameterType="String">-->
-<!--		select * from product_image where product_id = #{productId}-->
-<!--	</select>-->
-    
     <insert id="insertRoomImage" parameterType="RoomImage">
         INSERT INTO room_image
             (image_url, room_id)
@@ -13,8 +9,18 @@
             ( #{imageUrl}, #{roomId})
     </insert>
 
-<!--    <delete id="deleteProductImage" parameterType="String">-->
-<!--       DELETE FROM product_image WHERE image_url = #{imageUrl}-->
-<!--    </delete>-->
+    <delete id="deleteRoomImage" parameterType="String">
+       DELETE FROM room_image WHERE image_url = #{imageUrl}
+    </delete>
+
+    <select id="getRoomImageValidation" parameterType="RoomImage" resultType="int">
+        SELECT COUNT(*) FROM room_image WHERE room_id = #{roomId} AND image_url = #{imageUrl}
+    </select>
+
+    <select id="getAllImageUris" parameterType="Room" resultType="String">
+        SELECT ri.image_url FROM room_image AS ri JOIN room as r
+            ON ri.room_id = r.room_id
+            WHERE r.product_id = #{productId} AND ri.room_id = #{roomId};
+    </select>
    
 </mapper>

@@ -54,9 +54,14 @@
         SELECT count(*) FROM room
     </select>
 
-    <select id="selectRoomValidation" resultType="int">
+<!--    <select id="selectRoomValidation" resultType="int">-->
+<!--        SELECT COUNT(*) FROM room-->
+<!--            WHERE room_id = #{roomId}-->
+<!--    </select>-->
+
+    <select id="selectRoomValidationNew" parameterType="Room" resultType="int">
         SELECT COUNT(*) FROM room
-            WHERE room_id = #{roomId}
+        WHERE product_id = #{productId} AND room_id = #{roomId}
     </select>
 
 </mapper>

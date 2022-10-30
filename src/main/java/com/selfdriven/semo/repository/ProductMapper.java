@@ -17,5 +17,5 @@ public interface ProductMapper {
     List<Product> getProductList();
     int deleteProduct(String productId);
     int updateProduct(Product product);
-    int getProductValidation(int ProductId);
+    int getProductValidation(Product product);
 }

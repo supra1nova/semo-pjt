@@ -5,7 +5,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Setter
+//@Setter
 @Getter
 @Component
 public class S3Component {
@@ -16,7 +16,7 @@ public class S3Component {
     @Value(value = "product")
     private String productPath;
 
-    @Value(value = "product/room")
-    private String productRoomPath;
+    @Value(value = "https://semo-image-bucket.s3.ap-northeast-2.amazonaws.com/")
+    private String urlBeforePrefix;
 
 }

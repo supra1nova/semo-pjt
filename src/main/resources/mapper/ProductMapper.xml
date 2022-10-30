@@ -59,8 +59,8 @@
         DELETE FROM product WHERE product_id = #{productId}
     </delete>
 
-    <select id="getProductValidation" resultType="int">
+    <select id="getProductValidation" parameterType="Product" resultType="int">
         SELECT COUNT(*) FROM product
-            WHERE product_id = #{productId}
+            WHERE member_id = #{memberId} AND product_id = #{productId}
     </select>
 </mapper>

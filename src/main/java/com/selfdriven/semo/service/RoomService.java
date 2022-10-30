@@ -42,8 +42,12 @@ public class RoomService {
         return roomMapper.countAllRoom();
     }
 
-    public Boolean checkRoomValidation(int roomId){
-        return roomMapper.selectRoomValidation(roomId) == 1 ? true : false;
+//    public Boolean checkRoomValidation(int roomId){
+//        return roomMapper.selectRoomValidation(roomId) == 1 ? true : false;
+//    }
+
+    public Boolean checkRoomValidation(Room room){
+        return roomMapper.selectRoomValidationNew(room) == 1 ? true : false;
     }
 
 }

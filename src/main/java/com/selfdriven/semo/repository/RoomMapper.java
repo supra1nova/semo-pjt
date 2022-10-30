@@ -18,5 +18,6 @@ public interface RoomMapper {
     int deleteAllRoom();
     int countAllRoom();
     int selectRoomValidation(int roomId);
+    int selectRoomValidationNew(Room room);
 }
 

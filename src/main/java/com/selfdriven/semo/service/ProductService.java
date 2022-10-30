@@ -52,7 +52,7 @@ public class ProductService {
 		return productMapper.deleteProduct(productId);
 	}
 
-	public Boolean checkProductValidation(int productId){
-		return productMapper.getProductValidation(productId) == 1 ? true : false;
+	public Boolean checkProductValidation(Product product){
+		return productMapper.getProductValidation(product) == 1 ? true : false;
 	}
 }
