@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 import static com.selfdriven.semo.enums.ResultCode.*;
@@ -19,7 +21,7 @@ public class RoomImageApiController {
 
     @PostMapping("/upload/{productId}/{roomId}")
     public ApiResponse uploadRoomImage(
-            @RequestPart(value = "file", required = true) MultipartFile file,
+            @RequestPart MultipartFile file,
             @PathVariable int productId,
             @PathVariable int roomId) {
         int res = roomImageService.insertRoomImage(file, productId, roomId);
@@ -27,19 +29,27 @@ public class RoomImageApiController {
     }
 
     @GetMapping("/load-one/{productId}/{roomId}")
-    public ApiResponse loadRoomImage(@PathVariable int productId, @PathVariable int roomId, String fileName){
+    public ApiResponse loadRoomImage(
+            @PathVariable int productId,
+            @PathVariable int roomId,
+            @Pattern(regexp="^[a-zA-Z0-9-_]{1,144}[.]((jpg|jpeg|gif|bmp|png){1})$", message = "유효하지 않은 이미지 파일명입니다. 다시 한번 확인해주세요.") @NotBlank String fileName){
         String imageUrl = roomImageService.getRoomImage(productId, roomId, fileName);
         return imageUrl != null ? ApiResponse.ok(imageUrl) : ApiResponse.fail(CANNOT_LOAD_IMAGE_URL.getCode(), CANNOT_LOAD_IMAGE_URL.getMessage());
     }
 
     @GetMapping("/load-all/{productId}/{roomId}")
-    public ApiResponse loadAllRoomImagesByProductIdRoomId(@PathVariable int productId, @PathVariable int roomId){
+    public ApiResponse loadAllRoomImagesByProductIdRoomId(
+            @PathVariable int productId,
+            @PathVariable int roomId){
         List<String> imageUrls = roomImageService.getAllRoomImagesByProductIdRoomId(productId, roomId);
         return imageUrls.size() != 0 ? ApiResponse.ok(imageUrls) : ApiResponse.fail(CANNOT_LOAD_IMAGE_URL.getCode(), CANNOT_LOAD_IMAGE_URL.getMessage());
     }
 
     @PostMapping("/delete/{productId}/{roomId}")
-    public ApiResponse deleteRoomImage(@PathVariable int productId, @PathVariable int roomId, String fileName){
+    public ApiResponse deleteRoomImage(
+            @PathVariable int productId,
+            @PathVariable int roomId,
+            @RequestParam @Pattern(regexp="^[a-zA-Z0-9-_]{1,144}[.]((jpg|jpeg|gif|bmp|png){1})$", message = "유효하지 않은 이미지 파일명입니다. 다시 한번 확인해주세요.") String fileName) {
         int res = roomImageService.deleteRoomImage(productId, roomId, fileName);
         return res != 0 ? ApiResponse.ok(res) : ApiResponse.fail(CANNOT_DELETE_IMAGE.getCode(), CANNOT_DELETE_IMAGE.getMessage());
     }

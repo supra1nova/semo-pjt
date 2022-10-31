@@ -38,7 +38,6 @@ public class ProductImageService {
             res = productImageMapper.insertProductImage(productImage);
         } catch(Exception e) {
             e.printStackTrace();
-            // TODO: room image delete function 구현 for db rollback scenario
             if(fileName != null){
                 s3UploadService.deleteImage(String.valueOf(s3FileKeyPrefixStringBuilder.append(fileName)));
             }
