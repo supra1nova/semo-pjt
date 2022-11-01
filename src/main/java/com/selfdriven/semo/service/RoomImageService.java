@@ -1,5 +1,6 @@
 package com.selfdriven.semo.service;
 
+import com.selfdriven.semo.dto.Product;
 import com.selfdriven.semo.dto.Room;
 import com.selfdriven.semo.dto.RoomImage;
 import com.selfdriven.semo.dto.S3Component;
@@ -18,18 +19,21 @@ import java.util.List;
 @Service
 public class RoomImageService {
 
+    private final ProductService productService;
     private final RoomService roomService;
     private final RoomImageMapper roomImageMapper;
     private final S3UploadService s3UploadService;
     private final S3Component s3Component;
 
-    public int insertRoomImage(MultipartFile file, int productId, int roomId){
+    public int insertRoomImage(MultipartFile file, int productId, int roomId, String memberId) {
         int res = 0;
         StringBuilder s3FileKeyPrefixStringBuilder = null;
         String fileName = null;
         try {
+            Boolean productValidation = getProductValidation(memberId, productId);
+            if(!productValidation) throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
             Boolean roomValidation = getRoomValidation(productId, roomId);
-            if(!roomValidation) throw new Exception("업체 또는 객실이 존재하지 않습니다.");
+            if(!roomValidation) throw new Exception("객실이 존재하지 않습니다.");
             s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId, roomId);
             fileName = s3UploadService.uploadImage(String.valueOf(s3FileKeyPrefixStringBuilder), file);
             RoomImage roomImage = RoomImage.builder()
@@ -118,9 +122,11 @@ public class RoomImageService {
         return imageUrls;
     }
 
-    public int deleteRoomImage(int productId, int roomId, String fileName){
+    public int deleteRoomImage(int productId, int roomId, String fileName, String memberId){
         int res = 0;
         try {
+            Boolean productValidation = getProductValidation(memberId, productId);
+            if(!productValidation) throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
             Boolean roomValidationChecking = getRoomValidation(productId, roomId);
             if(!roomValidationChecking) throw new Exception("업체 또는 객실이 존재하지 않습니다.");
             StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId, roomId);
@@ -148,6 +154,15 @@ public class RoomImageService {
                 .append("/")
                 .append(roomId);
         return s3FileKeyPrefixStringBuilder;
+    }
+
+    private Boolean getProductValidation(String memberId, int productId) {
+        Product product = Product.builder()
+                .memberId(memberId)
+                .productId(productId)
+                .build();
+        Boolean productValidation = productService.checkProductValidation(product);
+        return productValidation;
     }
 
     private Boolean getRoomValidation(int productId, int roomId) {
