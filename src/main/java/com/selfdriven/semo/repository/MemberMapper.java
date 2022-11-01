@@ -1,4 +1,4 @@
-package com.selfdriven.semo.mapper;
+package com.selfdriven.semo.repository;
 
 import com.selfdriven.semo.dto.Member;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface MemberMapper {
     int insertMember(Member member);
-    List<Member> getMemberList();
+    List<Member> selectAllMember();
     Member selectMember(String email);
     Member selectMemberById(String memberId);
     int updateMember(Member member);
     int deleteMember(String memberId);
     int deleteAllMember();
     int countAllMember();
-    String getMembertype(String memberId);
+    String selectMemberType(String memberId);
 }
 

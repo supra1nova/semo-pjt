@@ -1,4 +1,4 @@
-package com.selfdriven.semo.mapper;
+package com.selfdriven.semo.repository;
 
 import java.util.List;
 
@@ -17,4 +17,5 @@ public interface ProductMapper {
     List<Product> getProductList();
     int deleteProduct(String productId);
     int updateProduct(Product product);
+    int getProductValidation(Product product);
 }

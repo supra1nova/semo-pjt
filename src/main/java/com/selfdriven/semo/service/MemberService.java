@@ -2,7 +2,7 @@ package com.selfdriven.semo.service;
 
 import com.selfdriven.semo.dto.Member;
 import com.selfdriven.semo.dto.login.Login;
-import com.selfdriven.semo.mapper.MemberMapper;
+import com.selfdriven.semo.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +36,7 @@ public class MemberService {
     }
 
     public List<Member> getMemberList() {
-        return memberMapper.getMemberList();
+        return memberMapper.selectAllMember();
     }
 
     public Member getMemberByEmail(String email){
@@ -72,6 +72,6 @@ public class MemberService {
 
     // 멤버 타입 조회 메서드
     public String getMembertype(String memberId){
-        return memberMapper.getMembertype(memberId);
+        return memberMapper.selectMemberType(memberId);
     }
 }

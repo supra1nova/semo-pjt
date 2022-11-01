@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.selfdriven.semo.mapper.RoomMapper">
+<mapper namespace="com.selfdriven.semo.repository.RoomMapper">
     <sql id="selectFromRoom">
         SELECT
             *
@@ -10,10 +10,19 @@
 
     <select id="selectRoomById" resultType="Room">
         <include refid="selectFromRoom"/>
-        WHERE
-        room_id = #{roomId}
-        ORDER by
-        room_id asc
+            WHERE
+            room_id = #{roomId}
+            ORDER by
+            room_id asc
+    </select>
+
+    <select id="selectAllRoom" resultType="Room">
+        <include refid="selectFromRoom" />
+    </select>
+
+    <select id="selectAllRoomByProductId" resultType="Room">
+        <include refid="selectFromRoom" />
+            WHERE product_id = #{productId}
     </select>
 
     <insert id="insertRoom" parameterType="Room">
@@ -43,6 +52,16 @@
 
     <select id="countAllRoom" resultType="int">
         SELECT count(*) FROM room
+    </select>
+
+<!--    <select id="selectRoomValidation" resultType="int">-->
+<!--        SELECT COUNT(*) FROM room-->
+<!--            WHERE room_id = #{roomId}-->
+<!--    </select>-->
+
+    <select id="selectRoomValidationNew" parameterType="Room" resultType="int">
+        SELECT COUNT(*) FROM room
+        WHERE product_id = #{productId} AND room_id = #{roomId}
     </select>
 
 </mapper>

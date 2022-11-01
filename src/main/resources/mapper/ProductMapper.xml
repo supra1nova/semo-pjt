@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.selfdriven.semo.mapper.ProductMapper">
+<mapper namespace="com.selfdriven.semo.repository.ProductMapper">
 
     <sql id="selectFromProduct">
         SELECT
@@ -28,7 +28,7 @@
 
     <select id="getProductByMemberId" resultType="Product" parameterType="map">
         <include refid="selectFromProduct"/>
-                WHERE product_id = #{productId} AND member_id = #{memberId}
+            WHERE product_id = #{productId} AND member_id = #{memberId}
     </select>
 	
      <update id="updateProduct" parameterType="Product">
@@ -55,9 +55,12 @@
         WHERE product_id = #{productId}
     </update>
     
-<delete id="deleteProduct">
+    <delete id="deleteProduct">
         DELETE FROM product WHERE product_id = #{productId}
     </delete>
 
-  
+    <select id="getProductValidation" parameterType="Product" resultType="int">
+        SELECT COUNT(*) FROM product
+            WHERE member_id = #{memberId} AND product_id = #{productId}
+    </select>
 </mapper>
