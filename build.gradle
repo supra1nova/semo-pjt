@@ -21,6 +21,7 @@ repositories {
 dependencies {
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310' // LocalDataTime 역직렬화 관련
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // thymeleaf 관련
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     implementation 'org.springframework.boot:spring-boot-starter'   // live reload 위해 설치
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.3'  // validation 관련
