@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.selfdriven.semo.repository.ProductImageMapper">
-
-<!--	<select id="getProductImageById" resultType="ProductImage" parameterType="String">-->
-<!--		select * from product_image where product_id = #{productId}-->
-<!--	</select>-->
     
     <insert id="insertProductImage" parameterType="ProductImage">
         INSERT INTO product_image
@@ -13,15 +9,15 @@
             ( #{imageUrl}, #{productId})
     </insert>
 
-<!--    <delete id="deleteProductImage" parameterType="String">-->
-<!--       DELETE FROM product_image WHERE image_url = #{imageUrl}-->
-<!--    </delete>-->
+    <select id="getProductImagesById" resultType="ProductImage">
+        select * from product_image where product_id = #{productId}
+    </select>
 
     <delete id="deleteProductImage" parameterType="String">
         DELETE FROM product_image WHERE image_url = #{imageUrl}
     </delete>
 
-    <select id="getProductImageValidation" parameterType="ProductImage" resultType="int">
+    <select id="countValidRoomImage" parameterType="ProductImage" resultType="int">
         SELECT COUNT(*) FROM product_image
             WHERE product_id = #{productId} AND image_url = #{imageUrl}
     </select>

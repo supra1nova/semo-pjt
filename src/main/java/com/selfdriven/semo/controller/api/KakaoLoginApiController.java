@@ -5,6 +5,7 @@ import com.selfdriven.semo.dto.*;
 import com.selfdriven.semo.dto.login.KakaoAuthResponse;
 import com.selfdriven.semo.dto.login.KakaoUserInfoResponse;
 import com.selfdriven.semo.dto.login.Login;
+import com.selfdriven.semo.entity.Member;
 import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.service.MemberService;
@@ -135,17 +136,18 @@ public class KakaoLoginApiController {
         ApiResponse response;
         HttpURLConnection conn = null;
         BufferedReader br = null;
-
+        if(accessToken == null){
+            accessToken = (String)session.getAttribute("accessToken");
+        }
         try {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
             int responseCode = conn.getResponseCode();
-
             if (responseCode == 200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            } else {  // 에러 발생
+            } else {
                 throw new AccessDeniedException("잘못된 접근입니다.");
             }
 
@@ -205,7 +207,7 @@ public class KakaoLoginApiController {
     }
 
     @GetMapping("/logout")
-    public ApiResponse logout(@RequestParam String accessToken, HttpSession session) throws IOException {
+    public ApiResponse logout(HttpSession session) throws IOException {
         String reqUrl;
 
         reqUrl = "https://kapi.kakao.com/v1/user/logout";
@@ -213,6 +215,8 @@ public class KakaoLoginApiController {
         ApiResponse response;
         HttpURLConnection conn = null;
         BufferedReader br = null;
+
+        String accessToken = (String)session.getAttribute("accessToken");
 
         try {
             URL url = new URL(reqUrl);

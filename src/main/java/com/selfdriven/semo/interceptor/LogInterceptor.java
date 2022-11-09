@@ -18,8 +18,7 @@ public class LogInterceptor implements HandlerInterceptor {
     public boolean preHandle(
             HttpServletRequest request,
             HttpServletResponse response,
-            Object handler)
-            throws Exception {
+            Object handler) {
         String requestURI = request.getRequestURI();
         log.info("REQUEST [{}][{}][{}]", requestURI, handler);
         return true;
@@ -30,7 +29,7 @@ public class LogInterceptor implements HandlerInterceptor {
             HttpServletRequest request,
             HttpServletResponse response,
             Object handler,
-            ModelAndView modelAndView) throws Exception {
+            ModelAndView modelAndView) {
         log.info("postHandle [{}]", modelAndView);
     }
 
@@ -40,7 +39,7 @@ public class LogInterceptor implements HandlerInterceptor {
             HttpServletResponse response,
             Object handler,
             Exception ex
-    ) throws Exception {
+    ) {
         String requestURI = request.getRequestURI();
         log.info("RESPONSE [{}][{}][{}]", requestURI, handler);
 

@@ -6,6 +6,7 @@ import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.dto.login.NaverAuthResponse;
 import com.selfdriven.semo.dto.login.NaverTokenRemoveResponse;
 import com.selfdriven.semo.dto.login.NaverUserInfoResponse;
+import com.selfdriven.semo.entity.Member;
 import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.service.MemberService;
@@ -147,7 +148,9 @@ public class NaverLoginApiController {
         ApiResponse response;
         HttpURLConnection conn = null;
         BufferedReader br = null;
-
+        if(accessToken == null){
+            accessToken = (String)session.getAttribute("accessToken");
+        }
         try {
             URL url = new URL(reqUrl);
             conn = (HttpURLConnection) url.openConnection();
@@ -225,7 +228,8 @@ public class NaverLoginApiController {
     }
 
     @GetMapping("/invalid-session")
-    public ApiResponse deleteToken(@RequestParam String accessToken, HttpSession session) throws IOException {
+    public ApiResponse deleteToken(HttpSession session) {
+        String accessToken = (String)session.getAttribute("accessToken");
         StringBuilder reqUrl = new StringBuilder();
         reqUrl.append("https://nid.naver.com/oauth2.0/token?grant_type=delete&");
         reqUrl.append("client_id=" + NAVER_CLIENT_ID.getString());

@@ -9,6 +9,10 @@
             product
     </sql>
 
+    <select id="getProductById" resultType="Product">
+        select * from product where product_id = #{productId}
+    </select>
+
     <insert id="addProduct" parameterType="Product">
         INSERT INTO product
             (member_Id, product_name, product_category, address, address_detail, zip_code, tel_num)
@@ -21,37 +25,28 @@
         ORDER by
             product_id asc
     </select>
-    
-    <select id="getProductById" resultType="Product" parameterType="String">
-		select * from product where product_id = #{productId}
-	</select>
 
-    <select id="getProductByMemberId" resultType="Product" parameterType="map">
-        <include refid="selectFromProduct"/>
-            WHERE product_id = #{productId} AND member_id = #{memberId}
-    </select>
-	
-     <update id="updateProduct" parameterType="Product">
+    <update id="updateProduct" parameterType="Product">
         UPDATE product
         SET
-          <if test='productName != null and productName != ""'>
-            product_name = #{productName}
-          </if>
-          <if test='productCategory != null and productCategory != ""'>
-          , product_category = #{productCategory}
-          </if>
-           <if test='address != null and address != ""'>
-          , address = #{address}
-          </if>
-           <if test='addressDetail != null and addressDetail != ""'>
-          , address_detail = #{addressDetail}
-          </if>
-           <if test='zipCode != null and zipCode != ""'>
-          , zip_code = #{zipCode}
-          </if>
-           <if test='telNum != null and telNum != ""'>
-          , tel_num = #{telNum}
-          </if>
+            <if test='productName != null and productName != ""'>
+                product_name = #{productName}
+            </if>
+            <if test='productCategory != null and productCategory != ""'>
+                , product_category = #{productCategory}
+            </if>
+            <if test='address != null and address != ""'>
+                , address = #{address}
+            </if>
+            <if test='addressDetail != null and addressDetail != ""'>
+                , address_detail = #{addressDetail}
+            </if>
+            <if test='zipCode != null and zipCode != ""'>
+                , zip_code = #{zipCode}
+            </if>
+            <if test='telNum != null and telNum != ""'>
+                , tel_num = #{telNum}
+            </if>
         WHERE product_id = #{productId}
     </update>
     
@@ -59,8 +54,9 @@
         DELETE FROM product WHERE product_id = #{productId}
     </delete>
 
-    <select id="getProductValidation" parameterType="Product" resultType="int">
-        SELECT COUNT(*) FROM product
-            WHERE member_id = #{memberId} AND product_id = #{productId}
+    <select id="getProductByMemberId" parameterType="Map" resultType="Product">
+        <include refid="selectFromProduct"/>
+        WHERE product_id = #{productId} AND member_id = #{memberId}
     </select>
+
 </mapper>

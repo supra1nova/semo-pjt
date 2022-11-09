@@ -8,37 +8,40 @@
             room
     </sql>
 
-    <select id="selectRoomById" resultType="Room">
-        <include refid="selectFromRoom"/>
-            WHERE
-            room_id = #{roomId}
-            ORDER by
-            room_id asc
-    </select>
-
-    <select id="selectAllRoom" resultType="Room">
-        <include refid="selectFromRoom" />
-    </select>
-
-    <select id="selectAllRoomByProductId" resultType="Room">
-        <include refid="selectFromRoom" />
-            WHERE product_id = #{productId}
-    </select>
-
-    <insert id="insertRoom" parameterType="Room">
+    <insert id="addRoom" parameterType="Room">
         INSERT INTO room
             (product_id, room_name, room_type, room_description)
         VALUES
             (#{productId}, #{roomName}, #{roomType}, #{roomDescription})
     </insert>
 
-    <update id="updateRoom" parameterType="Room">
+    <select id="getRoomById" parameterType="Map" resultType="Room">
+        <include refid="selectFromRoom"/>
+            WHERE product_id = #{productId} AND room_id = #{roomId}
+            ORDER BY room_id asc
+    </select>
+
+    <select id="getAllRoom" resultType="Room">
+        <include refid="selectFromRoom" />
+            WHERE product_id = #{productId}
+            ORDER BY room_id asc
+    </select>
+
+    <update id="updateRoom" parameterType="Room" >
         UPDATE room
         SET
-            product_id = #{productId}
-          , room_name = #{roomName}
-          , room_type = #{roomType}
-          , room_description = #{roomDescription}
+            <if test='productId != null and productId != ""'>
+                product_id = #{productId}
+            </if>
+            <if test='roomName != null and roomName != ""'>
+                ,room_name = #{roomName}
+            </if>
+            <if test='roomType != null and roomType != ""'>
+                ,room_type = #{roomType}
+            </if>
+            <if test='roomDescription != null and roomDescription != ""'>
+                ,room_description = #{roomDescription}
+            </if>
         WHERE room_id = #{roomId}
     </update>
 
@@ -46,22 +49,19 @@
         DELETE FROM room WHERE room_id = #{roomId}
     </delete>
 
-    <delete id="deleteAllMember">
-        DELETE FROM room
-    </delete>
-
-    <select id="countAllRoom" resultType="int">
-        SELECT count(*) FROM room
-    </select>
-
 <!--    <select id="selectRoomValidation" resultType="int">-->
 <!--        SELECT COUNT(*) FROM room-->
 <!--            WHERE room_id = #{roomId}-->
 <!--    </select>-->
 
-    <select id="selectRoomValidationNew" parameterType="Room" resultType="int">
+    <select id="countValidRoom" parameterType="Map" resultType="int">
         SELECT COUNT(*) FROM room
-        WHERE product_id = #{productId} AND room_id = #{roomId}
+            WHERE product_id = #{productId} AND room_id = #{roomId}
+    </select>
+
+    <select id="getProductId" resultType="int">
+        SELECT product_id FROM room
+            WHERE room_id = #{roomId}
     </select>
 
 </mapper>

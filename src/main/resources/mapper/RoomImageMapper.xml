@@ -9,18 +9,21 @@
             ( #{imageUrl}, #{roomId})
     </insert>
 
+    <select id="getRoomImagesById" resultType="RoomImage">
+        select * from room_image where room_id = #{roomId}
+    </select>
+
     <delete id="deleteRoomImage" parameterType="String">
-       DELETE FROM room_image WHERE image_url = #{imageUrl}
+        DELETE FROM room_image WHERE image_url = #{imageUrl}
     </delete>
 
-    <select id="getRoomImageValidation" parameterType="RoomImage" resultType="int">
+    <select id="countValidRoomImage" parameterType="Map" resultType="int">
         SELECT COUNT(*) FROM room_image WHERE room_id = #{roomId} AND image_url = #{imageUrl}
     </select>
 
-    <select id="getAllImageUris" parameterType="Room" resultType="String">
-        SELECT ri.image_url FROM room_image AS ri JOIN room as r
-            ON ri.room_id = r.room_id
+    <select id="getAllImageUris" parameterType="Map" resultType="String">
+        SELECT ri.image_url FROM room_image AS ri JOIN room as r ON ri.room_id = r.room_id
             WHERE r.product_id = #{productId} AND ri.room_id = #{roomId};
     </select>
-   
+
 </mapper>

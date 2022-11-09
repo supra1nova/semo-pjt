@@ -2,12 +2,10 @@ package com.selfdriven.semo.dto.login;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
+@ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder
@@ -21,15 +19,4 @@ public class NaverAuthResponse {
     private String error;
     private String errorDescription;
 
-    @Override
-    public String toString() {
-        return "NaverAuthResponse{" +
-                "accessToken='" + accessToken + '\'' +
-                ", refreshToken='" + refreshToken + '\'' +
-                ", tokenType='" + tokenType + '\'' +
-                ", expiresIn=" + expiresIn +
-                ", error='" + error + '\'' +
-                ", errorDescription='" + errorDescription + '\'' +
-                '}';
-    }
 }

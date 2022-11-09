@@ -1,6 +1,6 @@
 package com.selfdriven.semo.repository;
 
-import com.selfdriven.semo.dto.Member;
+import com.selfdriven.semo.entity.Member;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -9,14 +9,14 @@ import java.util.List;
 @Mapper
 @Repository
 public interface MemberMapper {
-    int insertMember(Member member);
+    Integer insertMember(Member member);
     List<Member> selectAllMember();
     Member selectMember(String email);
     Member selectMemberById(String memberId);
-    int updateMember(Member member);
-    int deleteMember(String memberId);
-    int deleteAllMember();
-    int countAllMember();
+    Integer updateMember(Member member);
+    Integer deleteMember(String memberId);
+    Integer deleteAllMember();
+    Integer countAllMember();
     String selectMemberType(String memberId);
 }
 

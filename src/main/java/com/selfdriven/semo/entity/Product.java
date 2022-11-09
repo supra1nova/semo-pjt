@@ -1,4 +1,4 @@
-package com.selfdriven.semo.dto;
+package com.selfdriven.semo.entity;
 
 import java.time.LocalDateTime;
 
@@ -18,22 +18,29 @@ public class Product {
 
 	private int productId;
 
+	// TODO : 정규표현식 적용?
 	@NotBlank(message="아이디는 필수 입력 값입니다.")
 	private String memberId;
-	
+
+	// TODO : 정규표현식 적용?
 	@NotBlank(message="숙소이름은 필수 입력 값입니다.")
 	private String productName;
-	
+
+	// TODO : 정규표현식 적용?
 	@NotBlank(message="카테고리는 필수 입력 값입니다.")
 	private String productCategory;
-	
+
+	// TODO : 정규표현식 적용?
 	@NotBlank(message="주소는 필수 입력 값입니다.")
 	private String address;
-	
+
+	// TODO : 정규표현식 적용?
 	private String addressDetail;
-	
+
+	// TODO : 정규표현식 적용?
 	private String zipCode;
-	
+
+	// TODO : 정규표현식 적용?
 	private String telNum;
 	
     private LocalDateTime insDate;

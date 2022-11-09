@@ -1,8 +1,8 @@
 package com.selfdriven.semo.service;
 
-import com.selfdriven.semo.dto.Product;
-import com.selfdriven.semo.dto.ProductImage;
-import com.selfdriven.semo.dto.S3Component;
+import com.selfdriven.semo.config.S3Config;
+import com.selfdriven.semo.entity.ProductImage;
+import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.repository.ProductImageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,16 +20,18 @@ public class ProductImageService {
 
     private final ProductService productService;
     private final ProductImageMapper productImageMapper;
-    private final S3Component s3Component;
     private final S3UploadService s3UploadService;
+    private final S3Config s3Config;
 
-    public int insertProductImage(MultipartFile file, String memberId, int productId) {
+
+    public int insertProductImage(MultipartFile file, int productId, Login login) {
         int res = 0;
         StringBuilder s3FileKeyPrefixStringBuilder = null;
         String fileName = null;
         try {
-            Boolean productValidation = getProductValidation(memberId, productId);
-            if(!productValidation) throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
+            if(!productService.checkProduct(productId, login.getId())) {
+                throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
+            }
             s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
             fileName = s3UploadService.uploadImage(String.valueOf(s3FileKeyPrefixStringBuilder), file);
             ProductImage productImage = ProductImage.builder()
@@ -45,14 +47,30 @@ public class ProductImageService {
         return res;
     }
 
-    public String getProductImage(int productId, String fileName) {
+//    public String getProductImage(int productId, String fileName) {
+//        String imageUrl = null;
+//        try {
+//            if(!checkProductImage(productId, fileName)) {
+//                throw new Exception("업체 또는 객실이 존재하지 않습니다.");
+//            }
+//            StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
+//            String s3FileKey = String.valueOf(s3FileKeyPrefixStringBuilder.append("/").append(fileName));
+//            imageUrl = s3UploadService.getImageUrl(s3FileKey);
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        return imageUrl;
+//    }
+
+    // db를 통해 product 및 productImage 관련 유효성 검증한 뒤, 별도의 추가 db 접속 없이 fileName과 s3 url주소를 조합해 파일 url을 생성해 반환
+    public String getProductImage(int productId, String fileName){
         String imageUrl = null;
         try {
-            Boolean productImageValidation = getProductImageValidation(productId, fileName)  ? true : false;
-            if(!productImageValidation) throw new Exception("업체 또는 객실이 존재하지 않습니다.");
+            if(!checkProductImage(productId, fileName)) {
+                throw new Exception("업체 또는 객실이 존재하지 않습니다.");
+            }
             StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
-            String s3FileKey = String.valueOf(s3FileKeyPrefixStringBuilder.append("/").append(fileName));
-            imageUrl = s3UploadService.getImageUrl(s3FileKey);
+            imageUrl = s3Config.getUrlBeforePrefix().concat(String.valueOf(s3FileKeyPrefixStringBuilder.append("/").append(fileName)));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -68,7 +86,7 @@ public class ProductImageService {
 //            List<String> imageUrlsList = s3UploadService.getAllImageUrls(s3FileKeyPrefix);
 //            Iterator imageUrlsIterator = imageUrlsList.stream().iterator();
 //            while(imageUrlsIterator.hasNext()){
-//                imageUrls.add(s3Component.getUrlBeforePrefix()
+//                imageUrls.add(s3Config.getUrlBeforePrefix()
 //                        .concat(imageUrlsIterator.next().toString()));
 //            }
 //        } catch(Exception e) {
@@ -85,7 +103,7 @@ public class ProductImageService {
             List<String> imageUrlsList = productImageMapper.getAllImageUris(productId);
             Iterator imageUrlsIterator = imageUrlsList.stream().iterator();
             while(imageUrlsIterator.hasNext()){
-                imageUrls.add(s3Component.getUrlBeforePrefix()
+                imageUrls.add(s3Config.getUrlBeforePrefix()
                         .concat(getPathStringBuilder(productId).toString())
                         .concat("/")
                         .concat(imageUrlsIterator.next().toString()));
@@ -97,13 +115,13 @@ public class ProductImageService {
         return imageUrls;
     }
 
-    public int deleteProductImage(String memberId, int productId, String fileName) {
+    // TODO: (확인필요) db에서 삭제시 s3에서도 삭제 되었는지 검증가능해야하는데, 올바르지 않은 이미지를 삭제하거나 조회해도 return으로 주소값이 항상 나온다 -> 그럼 지금처럼 s3에서 목록확인한 다음 삭제해야하나?
+    public int deleteProductImage(int productId, String fileName, Login login) {
         int res = 0;
         try{
-            // memberId, productId 이용해 validation checking을 진행
-            Boolean productValidation = getProductValidation(memberId, productId);
-            if(!productValidation) throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
-            // 업체가 존재한다면 productId와 fileName을 이용해 s3 내 파일 삭제 진행
+            if(!productService.checkProduct(productId, login.getId())) {
+                throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
+            }
             StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
             String s3FileKey = String.valueOf(s3FileKeyPrefixStringBuilder);
             List<String> imageUriList = s3UploadService.getAllImageUrls(String.valueOf(s3FileKeyPrefixStringBuilder));
@@ -123,27 +141,18 @@ public class ProductImageService {
 
     private StringBuilder getPathStringBuilder(int productId) {
         StringBuilder s3FileKeyPrefixStringBuilder = new StringBuilder()
-                .append(s3Component.getProductPath())
+                .append(s3Config.getProductPath())
                 .append("/")
                 .append(productId);
         return s3FileKeyPrefixStringBuilder;
     }
 
-    private Boolean getProductValidation(String memberId, int productId) {
-        Product product = Product.builder()
-                .memberId(memberId)
-                .productId(productId)
-                .build();
-        Boolean productValidation = productService.checkProductValidation(product);
-        return productValidation;
-    }
-
-    private Boolean getProductImageValidation(int productId, String fileName) {
+    private Boolean checkProductImage(int productId, String fileName) {
         ProductImage productImage = ProductImage.builder()
                 .productId(productId)
                 .imageUrl(fileName)
                 .build();
-        return productImageMapper.getProductImageValidation(productImage) == 1 ? true : false;
+        return productImageMapper.countValidRoomImage(productImage) == 1 ? true : false;
     }
 
 }

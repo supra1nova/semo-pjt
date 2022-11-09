@@ -6,16 +6,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.selfdriven.semo.dto.Product;
+import com.selfdriven.semo.entity.Product;
 
 @Mapper
 @Repository
 public interface ProductMapper {
-    int addProduct(Product product);
-    Product getProductById(String productId);
-    Product getProductByMemberId(@Param("productId") String productId, @Param("memberId") String memberId);
+    Integer addProduct(Product product);
+    Product getProductById(int productId);
     List<Product> getProductList();
-    int deleteProduct(String productId);
-    int updateProduct(Product product);
-    int getProductValidation(Product product);
+    Integer updateProduct(Product product);
+    Integer deleteProduct(int productId);
+    Product getProductByMemberId(@Param("productId") String productId, @Param("memberId") String memberId);
 }

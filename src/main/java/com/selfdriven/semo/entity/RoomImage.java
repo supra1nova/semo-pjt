@@ -1,4 +1,4 @@
-package com.selfdriven.semo.dto;
+package com.selfdriven.semo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
