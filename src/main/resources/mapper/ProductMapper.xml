@@ -59,4 +59,8 @@
         WHERE product_id = #{productId} AND member_id = #{memberId}
     </select>
 
+    <select id="deleteAllProduct" >
+        DELETE FROM product;
+    </select>
+
 </mapper>

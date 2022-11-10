@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -17,5 +18,6 @@ public interface RoomMapper {
     Integer deleteRoom(int roomId);
     Integer countValidRoom(@Param("productId") int productId, @Param("roomId") int roomId);
     Integer getProductId(int roomId);
+    Integer getRoomPriceByDate(@Param("roomId") int roomId, @Param("daySequence") int daySequence);
 }
 

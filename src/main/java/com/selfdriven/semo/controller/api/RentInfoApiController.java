@@ -7,11 +7,13 @@ import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.service.RentInfoService;
 import com.selfdriven.semo.util.SessionUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -29,8 +31,8 @@ public class RentInfoApiController {
     }
 
     @PostMapping("/load-one")
-    public ApiResponse loadRentInfo(@RequestParam int roomId){
-        List<RentInfo> result = rentInfoService.getRentInfo(roomId);
+    public ApiResponse loadRentInfo(int rentId){
+        RentInfo result = rentInfoService.getRentInfo(rentId);
         return result != null ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
     }
 

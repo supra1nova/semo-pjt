@@ -4,10 +4,7 @@ import java.time.LocalDateTime;
 
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Getter
 @RequiredArgsConstructor
@@ -23,7 +20,7 @@ public class Room {
 	@NotNull(message= "업체id는 필수 값입니다. 다시 한 번 확인해 주세요.")
 	private int productId;
 
-	@NotBlank(message= "객실명은 필수 입력 값입니다. 한글/영문/-_ 문자를 이용해 2~10자로 입력해주세요.")
+	@NotBlank(message= "객실명은 필수 입력 값입니다. 한글/영문대소문자/숫자/-_ 등을 이용해 2~10자로 입력해주세요.")
 	@Pattern(regexp = "^[가-힣a-zA-Z0-9-_]{2,10}$", message = "객실명은 필수 입력 값입니다. 한글/영문/-_ 문자를 이용해 2~10자로 입력해주세요.")
 	private String roomName;
 
@@ -33,6 +30,14 @@ public class Room {
 
 	@Size(min = 0, max = 200, message = "객실에 대한 설명은 200자를 초과할 수 없습니다. 다시 한번 확인해주세요.")
 	private String roomDescription;
+
+	@NotNull(message = "숙박 비용 책정은 필수 입니다. 다시 한 번 확인해 주세요.")
+	@PositiveOrZero
+	private int roomWeekPrice;
+
+	@NotNull(message = "숙박 비용 책정은 필수 입니다. 다시 한 번 확인해 주세요.")
+	@PositiveOrZero
+	private int roomWeekendPrice;
     
 	private LocalDateTime insDate;
     

@@ -10,9 +10,9 @@
 
     <insert id="addRoom" parameterType="Room">
         INSERT INTO room
-            (product_id, room_name, room_type, room_description)
+            (product_id, room_name, room_type, room_description, room_week_price, room_weekend_price)
         VALUES
-            (#{productId}, #{roomName}, #{roomType}, #{roomDescription})
+            (#{productId}, #{roomName}, #{roomType}, #{roomDescription}, #{roomWeekPrice}, #{roomWeekendPrice})
     </insert>
 
     <select id="getRoomById" parameterType="Map" resultType="Room">
@@ -42,6 +42,12 @@
             <if test='roomDescription != null and roomDescription != ""'>
                 ,room_description = #{roomDescription}
             </if>
+            <if test='roomWeekPrice != null and roomWeekPrice != ""'>
+                ,room_week_price = #{roomWeekPrice}
+            </if>
+            <if test='roomWeekendPrice != null and roomWeekendPrice != ""'>
+                ,room_weekend_price = #{roomWeekendPrice}
+            </if>
         WHERE room_id = #{roomId}
     </update>
 
@@ -62,6 +68,19 @@
     <select id="getProductId" resultType="int">
         SELECT product_id FROM room
             WHERE room_id = #{roomId}
+    </select>
+
+    <select id="getRoomPriceByDate" parameterType="Map" resultType="int">
+        SELECT
+            <choose>
+                <when test='daySequence != 5 || daySequence != 6'>
+                    room_week_price
+                </when>
+                <otherwise>
+                    room_weekend_price
+                </otherwise>
+            </choose>
+        FROM room WHERE room_id = #{roomId}
     </select>
 
 </mapper>

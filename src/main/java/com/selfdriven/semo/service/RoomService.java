@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +113,11 @@ public class RoomService {
 
     public Integer getProductId(int roomId){
         return roomMapper.getProductId(roomId);
+    }
+
+    public int getRoomPrice(int roomId, LocalDate referenceDate){
+        int daySequence = referenceDate.getDayOfWeek().getValue();
+        return roomMapper.getRoomPriceByDate(roomId, daySequence);
     }
 
 }

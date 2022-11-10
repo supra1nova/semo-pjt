@@ -9,13 +9,21 @@
             ( #{roomId}, #{price}, #{startAt}, #{endAt})
     </insert>
 
-    <select id="getRentInfo" resultType="Map">
+    <select id="getRentInfo" resultType="RentInfo">
         SELECT rent_id, room_id, price,
                DATE_FORMAT(start_at, '%Y-%m-%d') as start_at,
                DATE_FORMAT(end_at, '%Y-%m-%d') as end_at
-            FROM rent_info
-            WHERE room_id = #{roomId} AND end_at >= CURRENT_DATE ORDER BY rent_id ASC;
+        FROM rent_info
+        WHERE rent_id = #{rentId};
     </select>
+
+<!--    <select id="getRentInfo" resultType="Map">-->
+<!--        SELECT rent_id, room_id, price,-->
+<!--               DATE_FORMAT(start_at, '%Y-%m-%d') as start_at,-->
+<!--               DATE_FORMAT(end_at, '%Y-%m-%d') as end_at-->
+<!--            FROM rent_info-->
+<!--            WHERE room_id = #{roomId} AND end_at >= CURRENT_DATE ORDER BY rent_id ASC;-->
+<!--    </select>-->
 
     <update id="updateRentInfo">
         UPDATE rent_info SET
@@ -34,4 +42,9 @@
     <delete id="deleteRentInfo">
         DELETE FROM rent_info WHERE rent_id = #{rentId}
     </delete>
+
+    <select id="getRentInfoPriceByDate" parameterType="Map" resultType="int">
+        SELECT price FROM rent_info
+        WHERE room_id = #{roomId} AND start_at <![CDATA[<=]]> #{referenceDate} AND end_at <![CDATA[>]]> #{referenceDate}
+    </select>
 </mapper>

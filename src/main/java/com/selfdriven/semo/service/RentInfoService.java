@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -44,10 +43,10 @@ public class RentInfoService {
         return result ;
     }
 
-    public List<RentInfo> getRentInfo(int roomId){
-        List<RentInfo> result = null;
+    public RentInfo getRentInfo(int rentId){
+        RentInfo result = null;
         try {
-            result = rentInfoMapper.getRentInfo(roomId);
+            result = rentInfoMapper.getRentInfo(rentId);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +62,7 @@ public class RentInfoService {
             LocalDate endAt = rentInfo.getEndAt();
             LocalDate now = LocalDate.now();
             if(now.until(startAt, ChronoUnit.DAYS) < 0) {
-                throw new Exception("시작 시간은 현재 시간으로부터 최소 1시간의 간격을 둬야 합니다. 다시 한 번 확인해주세요.");
+                throw new Exception("입실 시간은 현재 날짜로부터 최소 하루의 간격을 둬야 합니다. 다시 한 번 확인해주세요.");
             }
             if(startAt.until(endAt, ChronoUnit.DAYS) < 0) {
                 throw new Exception("예약 가능일을 시작일보다 과거의 시점으로 지정할 수는 없습니다. 다시 한 번 확인해주세요.");
@@ -100,5 +99,18 @@ public class RentInfoService {
         } else if(!productService.checkProduct(productId, memberId)) {
             throw new Exception("업체 또는 유저 정보가 유효하지 않습니다. 다시 한 번 확인해주세요.");
         }
+    }
+
+    public int getRentInfoPriceByDate(int roomId, LocalDate referenceDate) {
+        int result = 0;
+        try {
+            Integer res = rentInfoMapper.getRentInfoPriceByDate(roomId, referenceDate);
+            if(res != null){
+                result = res;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

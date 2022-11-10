@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface RoomImageMapper {
-
     Integer insertRoomImage(RoomImage roomImage);
     List<RoomImage> getRoomImagesById(int roomId);
     Integer deleteRoomImage(String fileName);
