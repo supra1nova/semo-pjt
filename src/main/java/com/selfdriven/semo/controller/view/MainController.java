@@ -22,7 +22,7 @@ public class MainController {
             session.setAttribute("login", null);
             session.removeAttribute("login");
         }
-        return "main";
+        return "mainPage";
     }
 
     @GetMapping("/join")
