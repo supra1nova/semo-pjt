@@ -1,4 +1,4 @@
-package com.selfdriven.semo.dto;
+package com.selfdriven.semo.entity;
 
 
 import lombok.*;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder    // builder 패턴 적용
 public class Member {
     @NotBlank(message="아이디는 필수 입력 값입니다.")
-    @Pattern(regexp="[a-zA-Z1-9_-]{6,256}", message = "아이디는 필수 자동 입력 값으로 영어와 숫자 포함 6~256자 이내의 값입니다.")
+    @Pattern(regexp="[a-zA-Z1-9_-]{6,256}", message = "아이디는 필수 자동 입력 값으로 영어 대소문자와 숫자 포함 6~256자 이내의 값으로 설정해 주세요")
     private String memberId;
 
     // Character 타입의 경우 validation 적용하기 어렵다 -> string으로 진행 -> @NotBlank 사용
@@ -43,8 +43,10 @@ public class Member {
 
     private LocalDateTime updDate;
 
-    public Member(String memberId, String email, String name, String phNum) {
+    public Member(String memberId, String memberType, String socialType, String email, String name, String phNum) {
         this.memberId = memberId;
+        this.memberType = memberType;
+        this.socialType = socialType;
         this.email = email;
         this.name = name;
         this.phNum = phNum;

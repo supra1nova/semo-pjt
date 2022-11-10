@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
 @Getter
+@ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
-@ToString
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KakaoAuthResponse {
@@ -20,16 +20,4 @@ public class KakaoAuthResponse {
     private Integer refreshTokenExpiresIn;
     private String scope;
 
-//    @Override
-//    public String toString() {
-//        return "KakaoAuthResponse{" +
-//                "tokenType='" + tokenType + '\'' +
-//                ", accessToken='" + accessToken + '\'' +
-//                ", idToken='" + idToken + '\'' +
-//                ", expiresIn=" + expiresIn +
-//                ", refreshToken='" + refreshToken + '\'' +
-//                ", refreshTokenExpiresIn=" + refreshTokenExpiresIn +
-//                ", scope='" + scope + '\'' +
-//                '}';
-//    }
 }

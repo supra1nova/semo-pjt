@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.selfdriven.semo.repository.RentInfoMapper">
+
+    <insert id="addRentInfo" parameterType="RentInfo">
+        INSERT INTO rent_info
+            (room_id, price, start_at, end_at)
+        VALUES
+            ( #{roomId}, #{price}, #{startAt}, #{endAt})
+    </insert>
+
+    <select id="getRentInfo" resultType="RentInfo">
+        SELECT rent_id, room_id, price,
+               DATE_FORMAT(start_at, '%Y-%m-%d') as start_at,
+               DATE_FORMAT(end_at, '%Y-%m-%d') as end_at
+        FROM rent_info
+        WHERE rent_id = #{rentId};
+    </select>
+
+<!--    <select id="getRentInfo" resultType="Map">-->
+<!--        SELECT rent_id, room_id, price,-->
+<!--               DATE_FORMAT(start_at, '%Y-%m-%d') as start_at,-->
+<!--               DATE_FORMAT(end_at, '%Y-%m-%d') as end_at-->
+<!--            FROM rent_info-->
+<!--            WHERE room_id = #{roomId} AND end_at >= CURRENT_DATE ORDER BY rent_id ASC;-->
+<!--    </select>-->
+
+    <update id="updateRentInfo">
+        UPDATE rent_info SET
+            <if test='price != null'>
+                price = #{price}
+            </if>
+            <if test='startAt != null'>
+                , start_at = #{startAt}
+            </if>
+            <if test='endAt != null'>
+                , end_at = #{endAt}
+            </if>
+        WHERE rent_id = #{rentId} AND room_id = #{roomId}
+    </update>
+
+    <delete id="deleteRentInfo">
+        DELETE FROM rent_info WHERE rent_id = #{rentId}
+    </delete>
+
+    <select id="getRentInfoPriceByDate" parameterType="Map" resultType="int">
+        SELECT price FROM rent_info
+        WHERE room_id = #{roomId} AND start_at <![CDATA[<=]]> #{referenceDate} AND end_at <![CDATA[>]]> #{referenceDate}
+    </select>
+</mapper>

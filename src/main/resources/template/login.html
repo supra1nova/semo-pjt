@@ -13,10 +13,9 @@
     <div th:if="${session.currentUser eq null}" style="text-align: center">
         <div>
             <h3>카카오 로그인</h3>
-        <!--    <a th:href="${authRequestUrl + '/kakao'}"><img th:src="@{/image/kakao_login_medium_narrow.png}" height="50" /></a>-->
-            <a id="kakaoLoginBtn" style="cursor: pointer"><img th:src="@{/image/kakao_login_medium_narrow.png}" height="50" /></a>
+            <a id="kakaoLoginBtn" style="cursor: pointer"><img src="/image/kakao_login_medium_narrow.png" height="50" /></a>
         </div>
-        <div >
+        <div>
             <h3>네이버 로그인</h3>
             <a id="naverLoginBtn" style="cursor: pointer"><img src="http://static.nid.naver.com/oauth/small_g_in.PNG" height="50" /></a>
         </div>
@@ -29,14 +28,16 @@
 
         <pre></pre>
         <span th:if="${session.login.socialType} == 'k'">
-            <a th:href="${'/api/login-out/kakao-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
+<!--            <a th:href="${'/api/login-out/kakao-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;-->
+            <a id="kakaoUserInfoBtn"  style="text-decoration: underline; color: blue; cursor: pointer">유저 정보(json) 조회</a>&nbsp;&nbsp;
     <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
             <a id="kakaoLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
     <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
             <a id="kakaoInvalidBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃(토큰,세션삭제)</a>
         </span>
         <span th:if="${session.login.socialType} == 'n'">
-            <a th:href="${'/api/login-out/naver-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;
+<!--            <a th:href="${'/api/login-out/naver-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;-->
+            <a id="naverUserInfoBtn" style="text-decoration: underline; color: blue; cursor: pointer">유저 정보(json) 조회</a>
     <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
             <a id="naverLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
     <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
@@ -60,17 +61,19 @@
 
 </body>
 
-<script th:inline="javascript">
+<script>
     // 카카오 로그인
     const kakaoLoginBtn = document.querySelector('#kakaoLoginBtn');
     const kakaoLogoutBtn = document.querySelector('#kakaoLogoutBtn');
     const kakaoInvalidBtn = document.querySelector('#kakaoInvalidBtn');
+    const kakaoUserInfoBtn = document.querySelector('#kakaoUserInfoBtn');
 
     kakaoLoginBtn.addEventListener("click", getKakaoLoginAuthURL);
 
     if(kakaoLogoutBtn != null || kakaoInvalidBtn != null){
         kakaoLogoutBtn.addEventListener("click", requestKakaoLogout);
-        kakaoInvalidBtn.addEventListener("click", requestKakaoInavalid);
+        kakaoInvalidBtn.addEventListener("click", requestKakaoInvalid);
+        kakaoUserInfoBtn.addEventListener("click", requestKakaoUserInfo);
     }
 
     async function getKakaoLoginAuthURL(){
@@ -87,7 +90,7 @@
     }
 
     async function requestKakaoLogout(){
-        const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/logout?accessToken=" + [[${session.accessToken}]];
+        const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/logout";
         const message = await fetch(kakaoLogoutUrl, {
             method: "GET",
             headers: {
@@ -101,7 +104,7 @@
         };
     }
 
-    async function requestKakaoInavalid(){
+    async function requestKakaoInvalid(){
         const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/invalid-session";
         const message = await fetch(kakaoLogoutUrl, {
             method: "GET",
@@ -116,17 +119,33 @@
         };
     }
 
+    async function requestKakaoUserInfo(){
+        const kakaoUserInfoUrl = "http://semo.com/api/login-out/kakao-login/user-info";
+        const data = await fetch(kakaoUserInfoUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(res => res.json())
+            .then(data => data);
+        if(data.message === "OK"){
+            console.log(data.data);
+        };
+    }
 
     // 네이버 로그인
     const naverLoginBtn = document.querySelector('#naverLoginBtn');
     const naverLogoutBtn = document.querySelector('#naverLogoutBtn');
     const naverInvalidBtn = document.querySelector('#naverInvalidBtn');
+    const naverUserInfoBtn = document.querySelector('#naverUserInfoBtn');
 
     naverLoginBtn.addEventListener("click", getNaverLoginAuthURL);
 
     if(naverLogoutBtn != null || naverInvalidBtn != null){
         naverLogoutBtn.addEventListener("click", requestNaverLogout);
         naverInvalidBtn.addEventListener("click", requestNaverInavalid);
+        naverUserInfoBtn.addEventListener("click", requestNaverUserInfo);
     }
 
     async function getNaverLoginAuthURL(){
@@ -148,12 +167,23 @@
     }
 
     async function requestNaverInavalid(){
-        const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/invalid-session?accessToken=" + [[${session.accessToken}]];
+        // const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/invalid-session?accessToken=" + [[${session.accessToken}]];
+        const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/invalid-session";
         const message = await fetch(naverLogoutUrl)
             .then(res => res.json())
             .then(data => data.message);
         if(message === "OK"){
             location.href="/";
+        };
+    }
+
+    async function requestNaverUserInfo(){
+        const naverUserInfoUrl = "/api/login-out/naver-login/user-info";
+        const data = await fetch(naverUserInfoUrl)
+            .then(res => res.json())
+            .then(data => data);
+        if(data.message === "OK"){
+            console.log(data.data);
         };
     }
 

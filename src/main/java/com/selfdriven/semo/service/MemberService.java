@@ -1,6 +1,6 @@
 package com.selfdriven.semo.service;
 
-import com.selfdriven.semo.dto.Member;
+import com.selfdriven.semo.entity.Member;
 import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;

@@ -14,19 +14,18 @@ import javax.servlet.http.HttpSession;
 public class CustomerCheckInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestURI = request.getRequestURI();
         log.info("인가 체크 인터셉터 실행 {}", requestURI);
 
         HttpSession session = request.getSession();
-        Login login = (Login)session.getAttribute("login");
         Boolean res = false;
-        if(login != null){
-            res = login.getMemberType().equals("c") ? true : false;
-        } else {
-            // TODO: 실패시 어디로 보내야하는지...?
+        try {
+            res = (((Login)session.getAttribute("login")).getMemberType()).equals("c") ? true : false;
+        } catch(Exception e) {
+            log.warn("=================== NO ACCESS RIGHT ===================");
+            // TODO: (개선필요) 404 잘못된 접근 페이지로 연결해준다?
+            response.sendRedirect("/");
         }
         return res;
     }

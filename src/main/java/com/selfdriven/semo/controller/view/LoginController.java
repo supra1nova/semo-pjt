@@ -3,24 +3,15 @@ package com.selfdriven.semo.controller.view;
 import com.selfdriven.semo.controller.api.KakaoLoginApiController;
 import com.selfdriven.semo.controller.api.NaverLoginApiController;
 import com.selfdriven.semo.dto.ApiResponse;
-import com.selfdriven.semo.dto.Member;
-import com.selfdriven.semo.dto.login.Login;
-import com.selfdriven.semo.enums.LoginEnum;
-import com.selfdriven.semo.enums.ResultCode;
-import com.selfdriven.semo.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller

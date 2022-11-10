@@ -10,29 +10,39 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-//    @Override
-//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-//        resolvers.add(new LoginMemberArgumentResolver());
-//    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LogInterceptor())
             .order(1)
             .addPathPatterns("/**")
-            .excludePathPatterns("/static/**", "/template/**", "/*.ico");
+            .excludePathPatterns(
+                    "/resources/**", "/template/**", "/*.ico");
 
         registry.addInterceptor(new LoginCheckInterceptor())
             .order(2)
-            .addPathPatterns("/api/room-image/upload/**", "/api/room-image/delete/**")
+            .addPathPatterns(
+                    "/api/member/list/**", "/api/member/info/**", "/api/member/edit/**", "/api/member/withdraw/**",
+                    "/api/product/create/**", "/api/product/delete/**", "/api/product/edit/**",
+                    "/api/room/create/**", "/api/room/delete/**", "/api/room/edit/**",
+                    "/api/room-image/upload/**", "/api/room-image/delete/**",
+                    "/api/product-image/upload/**", "/api/product-image/delete/**",
+                    "/api/rent-info/create/**", "/api/rent-info/update/**", "/api/rent-info/delete/**"
+            )
             .excludePathPatterns(
-                    "/api/room-image/load-one/**", "/api/room-image/load-all/**");
+                    "/resources/**", "/api/member/join/**", "/api/room-image/load-one/**", "/api/room-image/load-all/**");
 
         registry.addInterceptor(new CustomerCheckInterceptor())
             .order(3)
-            .addPathPatterns("/api/room-image/upload/**", "/api/room-image/delete/**")
+            .addPathPatterns(
+                    "/api/room-image/upload/**", "/api/room-image/delete/**", "/api/product-image/upload/**", "/api/product-image/delete/**",
+                    "/api/product/create/**", "/api/product/delete/**", "/api/product/edit/**",
+                    "/api/room/create/**", "/api/room/delete/**", "/api/room/edit/**",
+                    "/api/room-image/upload/**", "/api/room-image/delete/**",
+                    "/api/product-image/upload/**", "/api/product-image/delete/**",
+                    "/api/rent-info/create/**", "/api/rent-info/update/**", "/api/rent-info/delete/**"
+            )
             .excludePathPatterns(
-                    "/api/room-image/load-one/**", "/api/room-image/load-all/**");
+                    "/resources/**", "/api/room-image/load-one/**", "/api/room-image/load-all/**");
     }
 
 }
