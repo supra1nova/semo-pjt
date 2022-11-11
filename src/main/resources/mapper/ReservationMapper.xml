@@ -17,7 +17,6 @@
             ( #{memberId}, #{roomId}, #{paymentTerm}, #{totalPrice}, #{duration}, #{startAt}, #{endAt})
     </insert>
 
-<!--    <select id="getReservationInfo" parameterType="int" resultType="Reservation">-->
     <select id="getReservationInfo" parameterType="Reservation" resultType="Reservation">
         <include refid="selectFromReservation"/>
         WHERE reservation_id = #{reservationId} AND member_id = #{memberId} ORDER BY start_at ASC
@@ -60,15 +59,8 @@
         DELETE FROM reservation
     </delete>
 
-<!--    <select id="getInavailableStartDay" parameterType="String" resultType="int">-->
-<!--    <select id="getInavailableStartDay" parameterType="java.time.LocalDate" resultType="int">-->
-    <select id="getInavailableStartDate" resultType="int">
+    <select id="getInavailableDate" parameterType="Map" resultType="int">
         SELECT COUNT(*) FROM reservation
-        WHERE room_id = #{roomId} AND start_at <![CDATA[<=]]> #{date} AND end_at <![CDATA[>]]> #{date};
-    </select>
-
-    <select id="getInavailableEndDate" resultType="int">
-        SELECT COUNT(*) FROM reservation
-        WHERE room_id = #{roomId} AND start_at <![CDATA[<]]> #{date} AND end_at <![CDATA[>=]]> #{date};
+        WHERE room_id = #{roomId} AND start_at <![CDATA[<=]]> #{referenceDate}  AND end_at <![CDATA[>]]> #{referenceDate}
     </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.selfdriven.semo.service;
 
 import com.selfdriven.semo.entity.Reservation;
+import com.selfdriven.semo.enums.ResultCode;
+import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.repository.ReservationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,104 +20,84 @@ public class ReservationService {
     private final RentInfoService rentInfoService;
 
     public int insertReservation(Reservation reservation){
-        int result = 0;
-        try {
-            Map<String, String> map = new HashMap<>();
-            map.put("roomId", String.valueOf(reservation.getRoomId()));
-            map.put("startAt", reservation.getStartAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            map.put("endAt", reservation.getEndAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            if(!getAvailability(map)){
-                throw new Exception("해당 객실의 선택된 날짜는 이미 예약이 되었거나, 예약 진행중입니다. 다시 한 번 확인해주세요.");
-            }
-            result = reservationMapper.addReservation(reservation);
-        } catch(Exception e) {
-            e.printStackTrace();
+        Map<String, String> map = new HashMap<>();
+        map.put("roomId", String.valueOf(reservation.getRoomId()));
+        map.put("startAt", reservation.getStartAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        map.put("endAt", reservation.getEndAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        if(!getAvailability(map)){
+            throw new ApiException(ResultCode.INVALID_DATE_ERROR);
         }
-        return result;
+        return reservationMapper.addReservation(reservation);
     }
 
     public Reservation getReservationInfo(int reservationId, String memberId){
-        Reservation result = null;
-        try {
-            result = reservationMapper.getReservationInfo(reservationId, memberId);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        return reservationMapper.getReservationInfo(reservationId, memberId);
     }
 
     public List<Reservation> getReservationList(String memberId){
-        List<Reservation> result = null;
-        try {
-            result = reservationMapper.getReservationList(memberId);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        return reservationMapper.getReservationList(memberId);
     }
 
     // TODO: null 체크를 entity에서도 하고 있고, sql 내부에서 하고 있는데, 프론트에서도 null체크를 한번 하고 통과할 예정 -> sql에 있는 조건문을 빼도 되는지? 아니면 빼는게 맞는지?
     public int updateReservation(Reservation reservation, String memberId) {
-        int result = 0;
-        try {
-            if(!reservation.getMemberId().equals(memberId)){
-                throw new Exception("예약 당사자가 아닙니다. 다시 한 번 확인해 주세요.");
-            }
-            Map<String, String> map = new HashMap<>();
-            map.put("roomId", String.valueOf(reservation.getRoomId()));
-            map.put("startAt", reservation.getStartAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            map.put("endAt", reservation.getEndAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            if(!getAvailability(map)){
-                throw new Exception("해당 객실의 선택된 날짜는 이미 예약이 되었거나, 예약 진행중입니다. 다시 한 번 확인해주세요.");
-            }
-            if(!reservationMapper.getReservationInfo(reservation.getReservationId(), memberId).getStatus().equals("n")){
-                throw new Exception("이미 확정된 예약입니다. 확정 예약 내역에서 취소해주세요.");
-            }
-            result = reservationMapper.updateReservation(reservation);
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(!reservation.getMemberId().equals(memberId)){
+            throw new ApiException(ResultCode.ACCESS_DENIED);
         }
-        return result;
+        Map<String, String> map = new HashMap<>();
+        map.put("roomId", String.valueOf(reservation.getRoomId()));
+        map.put("startAt", reservation.getStartAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        map.put("endAt", reservation.getEndAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        if(!getAvailability(map)){
+            throw new ApiException(ResultCode.INVALID_DATE_ERROR);
+        }
+        if(!reservationMapper.getReservationInfo(reservation.getReservationId(), memberId).getStatus().equals("n")){
+            throw new ApiException(ResultCode.DATE_ALREADY_BOOKED);
+        }
+        return reservationMapper.updateReservation(reservation);
     }
 
     public int deleteReservation(int reservationId, String memberId){
-        int result = 0;
-        try {
-            if(getReservationInfo(reservationId, memberId).getStatus().equals("n")){
-                throw new Exception("확정된 예약입니다. 확정 예약 내역에서 취소해주세요.");
-            }
-            result = reservationMapper.deleteReservation(reservationId, memberId);
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(getReservationInfo(reservationId, memberId).getStatus().equals("n")){
+            throw new ApiException(ResultCode.DATE_ALREADY_BOOKED);
         }
-        return result;
+        return reservationMapper.deleteReservation(reservationId, memberId);
     }
 
 
     public Boolean getAvailability(Map<String, String> map) {
-        Boolean result = false;
         int roomId = Integer.valueOf(map.get("roomId"));
+        // 예약 시작일을 가져온다.
         LocalDate startAt = LocalDate.parse(map.get("startAt"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        // 예약 마지막일을 가져온다.
         LocalDate endAt = LocalDate.parse(map.get("endAt"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        try{
-            int gapFromToday = (int) ChronoUnit.DAYS.between(LocalDate.now(), startAt);
-            if(gapFromToday < 0) {
-                throw new Exception("입실 날짜는 현재 날짜보다 과거일 수 없습니다. 다시 한 번 확인해주세요.");
-            }
-            int gapFromStartAt = (int) ChronoUnit.DAYS.between(startAt, endAt);
-            if(gapFromStartAt <= 0){
-                throw new Exception("퇴실 날짜는 입실 날짜로부터 최소 하루의 차이가 있어야합니다.");
-            }
-            int unavailableStartDateCount = reservationMapper.getInavailableStartDate(roomId, startAt);
-            int unavailableEndDateCount = reservationMapper.getInavailableStartDate(roomId, endAt);
-            if(unavailableStartDateCount != 0 || unavailableEndDateCount != 0){
-                throw new Exception("해당 객실의 선택된 날짜는 이미 예약이 되었거나, 예약 진행중입니다. 다시 한 번 확인해주세요.");
-            }
-            result = true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        // 현재와 예약 시작일의 차이를 구한다.
+        int gapFromToday = (int) ChronoUnit.DAYS.between(LocalDate.now(), startAt);
+        // 만약 차이가 0보다 작으면 예약 불가
+        if(gapFromToday < 0) {
+            throw new ApiException(ResultCode.INVALID_START_DATE_ERROR);
         }
-        return result;
+        // 예약 시작일과 마지막일의 차이를 구한다.
+        int gapFromStartAt = (int) ChronoUnit.DAYS.between(startAt, endAt);
+        // 만약 차이가 0보다 작거나 같으면 예약 불가
+        if(gapFromStartAt <= 0){
+            throw new ApiException(ResultCode.INVALID_FINISH_DATE_ERROR);
+        }
+        // 예약 기간에 해당하는 날짜를 모두를 가져온다.
+        List<LocalDate> dateList = new ArrayList<>();
+        while(!startAt.equals(endAt)){
+            dateList.add(startAt);
+            startAt = startAt.plusDays(1L);
+        }
+        // 각 날짜가 유효한 예약일인지 확인한다.
+        Iterator dateIterator = dateList.iterator();
+        while(dateIterator.hasNext()){
+            LocalDate referenceDate = (LocalDate) dateIterator.next();
+            int inavailableDate = reservationMapper.getInavailableDate(roomId, referenceDate);
+            if(inavailableDate > 0) {
+                throw new ApiException(ResultCode.INVALID_DATE_ERROR);
+            }
+        }
+        return true;
     }
 
     public int getTotalPrice(Map<String, String> map) {
@@ -139,7 +121,6 @@ public class ReservationService {
                     result += roomService.getRoomPrice(roomId, referenceDate);
                 }
             }
-
         } catch(Exception e) {
             e.printStackTrace();
         }

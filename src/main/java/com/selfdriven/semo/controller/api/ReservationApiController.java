@@ -64,6 +64,7 @@ public class ReservationApiController {
     @PostMapping("/check-available-date")
     public ApiResponse checkAvailableDate(@RequestBody Map<String, String> map){
         Boolean result = reservationService.getAvailability(map);
-        return result != false ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.NULLABLE_OBJECT_RETURNED.getCode(), ResultCode.NULLABLE_OBJECT_RETURNED.getMessage());
+//        return result != false ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.NULLABLE_OBJECT_RETURNED.getCode(), ResultCode.NULLABLE_OBJECT_RETURNED.getMessage());
+        return ApiResponse.ok(result);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-@Transactional
+//@Transactional -> transactional 은 각 메서드에 걸어사 사용
 public class ProductService {
 	private final ProductMapper productMapper;
 	private final ProductImageMapper productImageMapper;
@@ -29,13 +29,12 @@ public class ProductService {
 		return result;
 	}
 
-    // TODO: (확인필요) 특정 service 에서 관련되지 않은 다른 mapper를 호출해서 사용해도 좋은지?
+    // TODO: (확인필요) 특정 service 에서 관련되지 않은 다른 mapper를 호출해서 사용해도 좋은지?-> 재활용하는 것이 좋다.
 	public  Map<String, Object> getProductById(int productId) {
 		Map<String, Object> result = new LinkedHashMap<String, Object>();
 		try {
 			result.put("productInfo", productMapper.getProductById(productId));
 			result.put("imageList", productImageMapper.getProductImagesById(productId));
-//			result.put("imageList", productImageService.getAllProductImagesByProductId(productId));
 		} catch(Exception e) {
 		    e.printStackTrace();
 		}

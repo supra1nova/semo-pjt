@@ -18,7 +18,5 @@ public interface ReservationMapper {
     Integer updateReservation(Reservation reservation);
     Integer deleteReservation(@Param("reservationId") int reservationId, @Param("memberId") String memberId);
     Integer deleteAllReservation();
-//    Integer getInavailableStartDate(String date);
-    Integer getInavailableStartDate(@Param("roomId") int roomId, @Param("date") LocalDate date);
-    Integer getInavailableEndDate(@Param("roomId") int roomId, @Param("date") LocalDate date);
+    Integer getInavailableDate(@Param("roomId") int roomId, @Param("referenceDate") LocalDate referenceDate);
 }

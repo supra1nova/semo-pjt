@@ -33,9 +33,9 @@ public class Reservation {
     @PositiveOrZero
     private int totalPrice;
 
-    // TODO : startAt과 endAt이 있는데 duration 이 필요할지?
-    @PositiveOrZero
-    private int duration;
+//    // TODO : startAt과 endAt이 있는데 duration 이 필요할지?
+//    @PositiveOrZero
+//    private int duration;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -54,12 +54,13 @@ public class Reservation {
     
     private LocalDateTime updDate;
 
-    public Reservation(String memberId, int roomId, String paymentTerm, int totalPrice, int duration, LocalDate startAt, LocalDate endAt){
+//    public Reservation(String memberId, int roomId, String paymentTerm, int totalPrice, int duration, LocalDate startAt, LocalDate endAt){
+    public Reservation(String memberId, int roomId, String paymentTerm, int totalPrice, LocalDate startAt, LocalDate endAt){
         this.memberId = memberId;
         this.roomId = roomId;
         this.paymentTerm = paymentTerm;
         this.totalPrice = totalPrice;
-        this.duration = duration;
+//        this.duration = duration;
         this.startAt = startAt;
         this.endAt = endAt;
     }

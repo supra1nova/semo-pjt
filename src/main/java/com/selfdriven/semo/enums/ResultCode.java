@@ -19,8 +19,12 @@ public enum ResultCode {
     CANNOT_UPLOAD_IMAGE(1009, "이미지 업로드에 문제가 있습니다. 업체 및 객실 정보 또는 파일이 유효한 값인지 확인해주세요"),
     CANNOT_DELETE_IMAGE(1010, "이미지 삭제에 문제가 있습니다. 업체 및 객실 정보 또는 파일이 유효한지 확인해주세요."),
     CANNOT_LOAD_IMAGE_URL(1011, "이미지를 불러올 수 없습니다. 업체 및 객실 정보 또는 파일이 유효한지 확인해주세요."),
-    INTERNAL_SERVER_ERROR(199, "서버에 문제가 있습니다.");
+    INVALID_START_DATE_ERROR(1012, "입실 날짜는 현재 날짜보다 과거일 수 없습니다. 다시 한 번 확인해주세요."),
+    INVALID_FINISH_DATE_ERROR(1013, "퇴실 날짜는 입실 날짜로부터 최소 하루의 차이가 있어야합니다."),
+    INVALID_DATE_ERROR(1014, "해당 객실의 선택된 날짜는 이미 예약이 되었거나, 예약 진행중입니다. 다시 한 번 확인해주세요."),
+    DATE_ALREADY_BOOKED(1015, "이미 확정된 예약입니다. 확정 예약 내역에서 취소해주세요."),
 
+    INTERNAL_SERVER_ERROR(199, "서버에 문제가 있습니다.");
 
     private final int code;
     private final String message;
