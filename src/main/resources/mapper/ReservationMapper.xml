@@ -3,18 +3,14 @@
 <mapper namespace="com.selfdriven.semo.repository.ReservationMapper">
 
     <sql id="selectFromReservation">
-        --         SELECT reservation_id, member_id, room_id, payment_term, total_price, duration,
---                DATE_FORMAT(start_at, '%Y-%m-%d') as start_at,
---                DATE_FORMAT(end_at, '%Y-%m-%d') as end_at,
---                status, ins_date, upd_date
         SELECT * FROM reservation
     </sql>
 
     <insert id="addReservation" parameterType="Reservation">
         INSERT INTO reservation
-        (member_id, room_id, payment_term, total_price, duration, start_at, end_at)
+        (member_id, room_id, payment_term, total_price, start_at, end_at)
         VALUES
-            ( #{memberId}, #{roomId}, #{paymentTerm}, #{totalPrice}, #{duration}, #{startAt}, #{endAt})
+            ( #{memberId}, #{roomId}, #{paymentTerm}, #{totalPrice}, #{startAt}, #{endAt})
     </insert>
 
     <select id="getReservationInfo" parameterType="Reservation" resultType="Reservation">
@@ -42,9 +38,6 @@
         </if>
         <if test='totalPrice != null || totalPrice != "" '>
             , total_price = #{totalPrice}
-        </if>
-        <if test='duration != null || duration != "" '>
-            , duration = #{duration}
         </if>
         <if test='startAt != null || startAt != "" '>
             , start_at = #{startAt}

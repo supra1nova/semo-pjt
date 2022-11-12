@@ -101,15 +101,12 @@ public class RentInfoService {
         }
     }
 
+    // 특정날짜에 별도의 가격 설정이 되어 있는지 확인하고 있으면 가격을 리턴, 없으면 0을 return
     public int getRentInfoPriceByDate(int roomId, LocalDate referenceDate) {
         int result = 0;
-        try {
-            Integer res = rentInfoMapper.getRentInfoPriceByDate(roomId, referenceDate);
-            if(res != null){
-                result = res;
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
+        Integer res = rentInfoMapper.getRentInfoPriceByDate(roomId, referenceDate);
+        if(res != null){
+            result = res;
         }
         return result;
     }

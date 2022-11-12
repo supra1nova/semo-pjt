@@ -63,22 +63,19 @@ public class ReservationService {
         return reservationMapper.deleteReservation(reservationId, memberId);
     }
 
-
     public Boolean getAvailability(Map<String, String> map) {
         int roomId = Integer.valueOf(map.get("roomId"));
         // 예약 시작일을 가져온다.
         LocalDate startAt = LocalDate.parse(map.get("startAt"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         // 예약 마지막일을 가져온다.
         LocalDate endAt = LocalDate.parse(map.get("endAt"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        // 현재와 예약 시작일의 차이를 구한다.
+        // 현재와 예약 시작일의 차이를 구하고 0보다 작으면 예외 처리한다.
         int gapFromToday = (int) ChronoUnit.DAYS.between(LocalDate.now(), startAt);
-        // 만약 차이가 0보다 작으면 예약 불가
         if(gapFromToday < 0) {
             throw new ApiException(ResultCode.INVALID_START_DATE_ERROR);
         }
-        // 예약 시작일과 마지막일의 차이를 구한다.
+        // 예약 시작일과 마지막일의 차이를 구하고 0보다 작거나 같으면 예외 처리한다.
         int gapFromStartAt = (int) ChronoUnit.DAYS.between(startAt, endAt);
-        // 만약 차이가 0보다 작거나 같으면 예약 불가
         if(gapFromStartAt <= 0){
             throw new ApiException(ResultCode.INVALID_FINISH_DATE_ERROR);
         }
@@ -88,7 +85,7 @@ public class ReservationService {
             dateList.add(startAt);
             startAt = startAt.plusDays(1L);
         }
-        // 각 날짜가 유효한 예약일인지 확인한다.
+        // 각 날짜가 유효한 예약일인지 조회하고 다른 예약일이 존재하면 예외 처리한다.
         Iterator dateIterator = dateList.iterator();
         while(dateIterator.hasNext()){
             LocalDate referenceDate = (LocalDate) dateIterator.next();
@@ -105,24 +102,24 @@ public class ReservationService {
         int roomId = Integer.valueOf(map.get("roomId"));
         LocalDate startAt = LocalDate.parse(map.get("startAt"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate endAt = LocalDate.parse(map.get("endAt"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        try{
-            List<LocalDate> dateList = new ArrayList<>();
-            while(!startAt.equals(endAt)){
-                dateList.add(startAt);
-                startAt = startAt.plusDays(1L);
+        // 예약 시작일부터 마지막날 전날까지의 날짜를 가져와 리스트에 담는다.
+        List<LocalDate> dateList = new ArrayList<>();
+        while(!startAt.equals(endAt)){
+            dateList.add(startAt);
+            startAt = startAt.plusDays(1L);
+        }
+        // 리스트 내의 각 날짜들에 별도의 가격 설정이 되어 있는지 확인하고 있으면 별도 가격을 리턴, 없으면 room 에 설정된 가격을 리턴한다.
+        // room 가격의 경우 해당 날짜가 금요일, 또는 토요일이면 성수기 가격으로 리턴한다.
+        // TODO: 별도 가격을 책정할 때에도 주중, 주말 구분이 필요할까...?
+        Iterator dateIterator = dateList.iterator();
+        while(dateIterator.hasNext()){
+            LocalDate referenceDate = (LocalDate) dateIterator.next();
+            int rentInfoPrice = rentInfoService.getRentInfoPriceByDate(roomId, referenceDate);
+            if(rentInfoPrice > 0) {
+                result += rentInfoPrice;
+            } else {
+                result += roomService.getRoomPrice(roomId, referenceDate);
             }
-            Iterator dateIterator = dateList.iterator();
-            while(dateIterator.hasNext()){
-                LocalDate referenceDate = (LocalDate) dateIterator.next();
-                int rentInfoPrice = rentInfoService.getRentInfoPriceByDate(roomId, referenceDate);
-                if(rentInfoPrice > 0) {
-                    result += rentInfoPrice;
-                } else {
-                    result += roomService.getRoomPrice(roomId, referenceDate);
-                }
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
         }
         return result;
     }
