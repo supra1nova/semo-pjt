@@ -13,9 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 public class MemberService {
-    // DI 의존성 주입 - 생성자 메서드 주입 방식
-//    @Autowired
-//    MemberMapper memberMapper;
+
     private final MemberMapper memberMapper;
 
     public Login insertMember(Member member) {
@@ -31,7 +29,6 @@ public class MemberService {
                 .build();
         }
         Login login = loginBuilder.build();
-        System.out.println("login = " + login);
         return login;
     }
 
@@ -47,8 +44,20 @@ public class MemberService {
         return memberMapper.selectMemberById(memberId);
     }
 
-    public int updateMember(Member member) {
-        return memberMapper.updateMember(member);
+    public Login updateMember(Member member) {
+        int res = memberMapper.updateMember(member);
+        Login.LoginBuilder loginBuilder = Login.builder();
+        if(res != 0){
+            loginBuilder
+                    .id(member.getMemberId())
+                    .name(member.getName())
+                    .email(member.getEmail())
+                    .memberType(member.getMemberType())
+                    .socialType(member.getSocialType())
+                    .build();
+        }
+        Login login = loginBuilder.build();
+        return login;
     }
 
     public int deleteMember(String memberId){

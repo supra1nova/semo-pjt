@@ -99,8 +99,6 @@
             member.name = name.value;
             member.phNum = phNum.value;
             member.socialType = socialType.value;
-            console.log(member);
-
             const kakaoURL = "/api/member/join";
             const res = await fetch(kakaoURL, {
                 method: "POST",
@@ -111,8 +109,11 @@
             })
                 .then(res => res.json())
                 .then(data => data);
-            console.log(res);
-            location.href="/";
+            if(!res.data){
+                alert("빈값입니다.");
+            } else{
+                location.href="/";
+            }
         }
     }
 

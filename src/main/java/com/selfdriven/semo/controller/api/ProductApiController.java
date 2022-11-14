@@ -30,31 +30,26 @@ public class ProductApiController {
 	@PostMapping("/create")
 	public ApiResponse createProduct(@Valid @RequestBody Product product) {
 		int result = productService.addProduct(product);
-		ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-		return response;
+		return ApiResponse.ok(result);
 	}
 
 	@PostMapping("/info")
 	public ApiResponse getProductById(@RequestParam int productId) {
 		Map<String, Object> result = productService.getProductById(productId);
-		ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-		return response;
+		return ApiResponse.ok(result);
 	}
 
 	// TODO: return에 들어가는 객체의 정보가 DB내 정보와 동일함에 따라 불필요한 정보가 노출됨 -> 선별해서 return 할 수 있도록 새로운 DTO 생성해서 return 하는 것이 나을 것 같음. 고려해 볼 것.
 	@GetMapping("/list")
 	public ApiResponse getProductList() {
 		List<Product> result = productService.getProductList();
-		ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-		return response;
+		return ApiResponse.ok(result);
 	}
 
 	@PostMapping("/edit")
-	public ApiResponse editProduct(@Valid @RequestBody Product product, HttpSession session) {
-		Login login = SessionUtil.getLoginFromSession(session);
-		int result = productService.updateProduct(product, login);
-		ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-		return response;
+	public ApiResponse editProduct(@Valid @RequestBody Product product) {
+		int result = productService.updateProduct(product);
+		return ApiResponse.ok(result);
 	}
 
 	// TODO: 삭제시 객실 및 이미지 정보들 모두 삭제? 아니면 DB 이전 보관? 고민 필요
@@ -62,8 +57,7 @@ public class ProductApiController {
 	public ApiResponse deleteProduct(@RequestParam int productId, HttpSession session) {
 		Login login = SessionUtil.getLoginFromSession(session);
 		int result = productService.deleteProduct(productId, login);
-		ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-		return response;
+		return ApiResponse.ok(result);
 	}
 
 }

@@ -73,7 +73,7 @@
     <select id="getRoomPriceByDate" parameterType="Map" resultType="int">
         SELECT
             <choose>
-                <when test='daySequence != 5 || daySequence != 6'>
+                <when test='daySequence != 4 || daySequence != 5'>
                     room_week_price
                 </when>
                 <otherwise>

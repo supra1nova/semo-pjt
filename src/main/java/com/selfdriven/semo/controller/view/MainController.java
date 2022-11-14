@@ -40,4 +40,9 @@ public class MainController {
     public String join(){
         return "join";
     }
+
+    @GetMapping("/uploadtest")
+    public String uploadtest(){
+        return "uploadtest";
+    }
 }

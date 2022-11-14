@@ -24,46 +24,46 @@ public class ReservationApiController {
     @PostMapping("/create")
     public ApiResponse createReservation(@Valid @RequestBody Reservation reservation){
         int result = reservationService.insertReservation(reservation);
-        return result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/load-one")
     public ApiResponse loadReservationInfo(int reservationId, HttpSession session){
         Login login = (Login)session.getAttribute("login");
         Reservation result = reservationService.getReservationInfo(reservationId, login.getId());
-        return result != null ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/load-all")
     public ApiResponse loadReservationList(HttpSession session){
         Login login = (Login)session.getAttribute("login");
         List<Reservation> result = reservationService.getReservationList(login.getId());
-        return result != null ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/update")
     public ApiResponse updateReservationInfo(@Valid @RequestBody Reservation reservation, HttpSession session){
         Login login = (Login)session.getAttribute("login");
         int result = reservationService.updateReservation(reservation, login.getId());
-        return result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/delete")
     public ApiResponse deleteReservation(int reservationId, HttpSession session) {
         Login login = SessionUtil.getLoginFromSession(session);
         int result = reservationService.deleteReservation(reservationId, login.getId());
-        return result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.UNKNOWN_ERROR.getCode(), ResultCode.UNKNOWN_ERROR.getMessage());
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/check-price")
     public ApiResponse checkReservationPrice(@RequestBody Map<String, String> map){
         int result = reservationService.getTotalPrice(map);
-        return result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.NULLABLE_OBJECT_RETURNED.getCode(), ResultCode.NULLABLE_OBJECT_RETURNED.getMessage());
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/check-available-date")
     public ApiResponse checkAvailableDate(@RequestBody Map<String, String> map){
         Boolean result = reservationService.getAvailability(map);
-        return result != false ? ApiResponse.ok(result) : ApiResponse.fail(ResultCode.NULLABLE_OBJECT_RETURNED.getCode(), ResultCode.NULLABLE_OBJECT_RETURNED.getMessage());
+        return ApiResponse.ok(result);
     }
 }

@@ -38,7 +38,7 @@
             <if test='address != null and address != ""'>
                 , address = #{address}
             </if>
-            <if test='addressDetail != null and addressDetail != ""'>
+            <if test='addressDetail != null'>
                 , address_detail = #{addressDetail}
             </if>
             <if test='zipCode != null and zipCode != ""'>
@@ -47,11 +47,11 @@
             <if test='telNum != null and telNum != ""'>
                 , tel_num = #{telNum}
             </if>
-        WHERE product_id = #{productId}
+        WHERE product_id = #{productId} AND member_id = #{memberId}
     </update>
     
-    <delete id="deleteProduct">
-        DELETE FROM product WHERE product_id = #{productId}
+    <delete id="deleteProduct"  parameterType="Map">
+        DELETE FROM product WHERE product_id = #{productId} AND member_id = #{memberId}
     </delete>
 
     <select id="getProductByMemberId" parameterType="Map" resultType="Product">

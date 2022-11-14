@@ -13,7 +13,7 @@
     <div th:if="${session.currentUser eq null}" style="text-align: center">
         <div>
             <h3>카카오 로그인</h3>
-            <a id="kakaoLoginBtn" style="cursor: pointer"><img src="/image/kakao_login_medium_narrow.png" height="50" /></a>
+            <img id="kakaoLoginBtn" src="/image/kakao_login_medium_narrow.png" height="50" style="cursor: pointer" />
         </div>
         <div>
             <h3>네이버 로그인</h3>
@@ -77,16 +77,17 @@
     }
 
     async function getKakaoLoginAuthURL(){
-        const kakaoURL = "http://semo.com/api/login-out/kakao-login/auth-url";
-        const authURL = await fetch(kakaoURL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(res => res.json())
-            .then(data => data.data);
-        location.href=authURL;
+        // const kakaoURL = "http://semo.com/api/login-out/kakao-login/auth-url";
+        // const authURL = await fetch(kakaoURL, {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(data => data.data);
+        // location.href=authURL;
+        location.href="https://kauth.kakao.com/oauth/authorize?client_id=e64b7d5f26b6b46201c22456474bc99c&response_type=code&redirect_uri=http://semo.com/login-out/kakao-login";
     }
 
     async function requestKakaoLogout(){

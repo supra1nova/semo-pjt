@@ -15,7 +15,7 @@ public interface ProductMapper {
     Product getProductById(int productId);
     List<Product> getProductList();
     Integer updateProduct(Product product);
-    Integer deleteProduct(int productId);
-    Product getProductByMemberId(@Param("productId") String productId, @Param("memberId") String memberId);
+    Integer deleteProduct(@Param("productId") int productId, @Param("memberId") String memberId);
+    Product getProductByMemberId(@Param("productId") int productId, @Param("memberId") String memberId);
     Integer deleteAllProduct();
 }
