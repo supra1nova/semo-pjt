@@ -65,7 +65,7 @@ public class S3UploadService {
 		StringBuilder fileNameStringBuilder = new StringBuilder()
 				.append(UUID.randomUUID())
 				.append("-")
-				.append(file.getOriginalFilename());
+				.append(file.getOriginalFilename().replace(" ", "_"));
 		return String.valueOf(fileNameStringBuilder);
 	}
 }

@@ -34,29 +34,26 @@ public class KakaoLoginApiController {
 
     private final MemberService memberService;
 
-    @GetMapping("/auth-url")
-    public ApiResponse getKakaoAuthorizeUrl() throws UnsupportedEncodingException {
-        SecureRandom random = new SecureRandom();
-        String state = new BigInteger(200, random).toString();
-
-        String redirectURI = URLEncoder.encode(KAKAO_LOGIN_REDIRECT.getString(), "UTF-8");
-
-        StringBuffer apiURL = new StringBuffer();
-        apiURL.append("https://kauth.kakao.com/oauth/authorize?");
-        apiURL.append("client_id=");
-        apiURL.append(KAKAO_REST_API_KEY.getString());
-        apiURL.append("&response_type=code");
-        apiURL.append("&redirect_uri=");
-        apiURL.append(redirectURI);
-        apiURL.append("&state=" + state);
-
-        ApiResponse response = ApiResponse.ok(apiURL.toString());
-
-        apiURL.delete(0, apiURL.length());  // StringBuffer 초기화
-
-        return response;
-    }
-
+//    @GetMapping("/auth-url")
+//    public ApiResponse getKakaoAuthorizeUrl() throws UnsupportedEncodingException {
+//        SecureRandom random = new SecureRandom();
+//
+//        String redirectURI = URLEncoder.encode(KAKAO_LOGIN_REDIRECT.getString(), "UTF-8");
+//
+//        StringBuffer apiURL = new StringBuffer();
+//        apiURL.append("https://kauth.kakao.com/oauth/authorize?");
+//        apiURL.append("client_id=");
+//        apiURL.append(KAKAO_REST_API_KEY.getString());
+//        apiURL.append("&response_type=code");
+//        apiURL.append("&redirect_uri=");
+//        apiURL.append(redirectURI);
+//
+//        ApiResponse response = ApiResponse.ok(apiURL.toString());
+//
+//        apiURL.delete(0, apiURL.length());  // StringBuffer 초기화
+//
+//        return response;
+//    }
 
     @GetMapping("/tokens-and-user-info")
     public ApiResponse getKakaoAccessToken(@RequestParam String code, HttpSession session) throws IOException {

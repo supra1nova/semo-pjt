@@ -3,12 +3,18 @@ package com.selfdriven.semo.service;
 import com.selfdriven.semo.config.S3Config;
 import com.selfdriven.semo.entity.ProductImage;
 import com.selfdriven.semo.dto.login.Login;
+import com.selfdriven.semo.enums.ResultCode;
+import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.repository.ProductImageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,26 +30,18 @@ public class ProductImageService {
     private final S3Config s3Config;
 
 
-    public int insertProductImage(MultipartFile file, int productId, Login login) {
-        int res = 0;
-        StringBuilder s3FileKeyPrefixStringBuilder = null;
-        String fileName = null;
-        try {
-            if(!productService.checkProduct(productId, login.getId())) {
-                throw new Exception("업체가 존재하지 않거나 권한이 없습니다.");
-            }
-            s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
-            fileName = s3UploadService.uploadImage(String.valueOf(s3FileKeyPrefixStringBuilder), file);
-            ProductImage productImage = ProductImage.builder()
-                    .imageUrl(fileName)
-                    .productId(productId).build();
-            res = productImageMapper.insertProductImage(productImage);
-        } catch(Exception e) {
-            e.printStackTrace();
-            if(fileName != null){
-                s3UploadService.deleteImage(String.valueOf(s3FileKeyPrefixStringBuilder.append(fileName)));
-            }
+    public int insertProductImage(MultipartFile file, int productId, Login login) throws IOException {
+        if(!productService.checkProduct(productId, login.getId())) {
+            throw new ApiException(ResultCode.ACCESS_DENIED);
         }
+        StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
+        String fileName = s3UploadService.uploadImage(String.valueOf(s3FileKeyPrefixStringBuilder), file);
+        System.out.println("fileName = " + fileName);
+        System.out.println("fileName.length() = " + fileName.length());
+        ProductImage productImage = ProductImage.builder()
+                .imageUrl(fileName)
+                .productId(productId).build();
+        int res = productImageMapper.insertProductImage(productImage);
         return res;
     }
 
@@ -63,18 +61,14 @@ public class ProductImageService {
 //    }
 
     // db를 통해 product 및 productImage 관련 유효성 검증한 뒤, 별도의 추가 db 접속 없이 fileName과 s3 url주소를 조합해 파일 url을 생성해 반환
-    public String getProductImage(int productId, String fileName){
-        String imageUrl = null;
-        try {
-            if(!checkProductImage(productId, fileName)) {
-                throw new Exception("업체 또는 객실이 존재하지 않습니다.");
-            }
-            StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
-            imageUrl = s3Config.getUrlBeforePrefix().concat(String.valueOf(s3FileKeyPrefixStringBuilder.append("/").append(fileName)));
-        } catch(Exception e) {
-            e.printStackTrace();
+    public String getProductImage(int productId, String fileName) throws UnsupportedEncodingException {
+//        fileName = URLDecoder.decode(fileName, "UTF-8");
+        System.out.println("3. fileName = " + fileName);
+        if(!checkProductImage(productId, fileName)) {
+            throw new ApiException(ResultCode.CANNOT_LOAD_IMAGE_URL);
         }
-        return imageUrl;
+        StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
+        return s3Config.getUrlBeforePrefix().concat(String.valueOf(s3FileKeyPrefixStringBuilder.append("/").append(fileName)));
     }
 
 //    // s3 aws 에서 모든 이미지 주소를 가져옴
@@ -99,18 +93,14 @@ public class ProductImageService {
     // db에서 이미지 uri와 이름을 가져와 url과 합친 뒤 컨트롤러로 반환
     public List<String> getAllProductImagesByProductId(int productId){
         List<String> imageUrls = new ArrayList<>();
-        try {
-            List<String> imageUrlsList = productImageMapper.getAllImageUris(productId);
-            Iterator imageUrlsIterator = imageUrlsList.stream().iterator();
-            while(imageUrlsIterator.hasNext()){
-                imageUrls.add(s3Config.getUrlBeforePrefix()
-                        .concat(getPathStringBuilder(productId).toString())
-                        .concat("/")
-                        .concat(imageUrlsIterator.next().toString()));
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-            imageUrls.clear();
+        List<String> imageUrlsList = productImageMapper.getAllImageUris(productId);
+        Iterator imageUrlsIterator = imageUrlsList.stream().iterator();
+        while(imageUrlsIterator.hasNext()){
+            // imageUrl 을 가져올때 문제가 있으면 imageUrls를 롤백해야되는데 방법이 있나...?
+            imageUrls.add(s3Config.getUrlBeforePrefix()
+                    .concat(getPathStringBuilder(productId).toString())
+                    .concat("/")
+                    .concat(imageUrlsIterator.next().toString()));
         }
         return imageUrls;
     }
@@ -148,6 +138,7 @@ public class ProductImageService {
     }
 
     private Boolean checkProductImage(int productId, String fileName) {
+        System.out.println(fileName);
         ProductImage productImage = ProductImage.builder()
                 .productId(productId)
                 .imageUrl(fileName)

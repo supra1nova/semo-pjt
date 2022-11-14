@@ -6,6 +6,7 @@ import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.repository.ReservationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

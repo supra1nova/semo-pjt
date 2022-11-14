@@ -21,41 +21,39 @@ public class MemberApiController {
     @PostMapping("/join")
     public ApiResponse joinMember(@Valid @RequestBody Member member, HttpSession session) {
         Login login = memberService.insertMember(member);
-        ApiResponse response = null;
         if(login != null){
             session.setAttribute("login", login);
-            response = ApiResponse.ok(login);
-            return response;
         }
-        response = ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-        return response;
+        return ApiResponse.ok(login);
     }
 
+    // TODO: Admin 페이지가 구현되면 memberList 를 연결해주자
     @GetMapping("/list")
     public ApiResponse getMemberList() {
         List<Member> result = memberService.getMemberList();
-        ApiResponse response = result.size() != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-        return response;
+        return ApiResponse.ok(result);
     }
 
+    // 회원 정보 조회 - 본인만 되도록
     @GetMapping("/info")
     public ApiResponse getMemberByEmail(String email) {
         Member result = memberService.getMemberByEmail(email);
-        ApiResponse response = result != null ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-        return response;
+        return ApiResponse.ok(result);
     }
 
     @PostMapping("/edit")
-    public ApiResponse editMember(Member member) {
-        int result = memberService.updateMember(member);
-        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-        return response;
+    public ApiResponse editMember(@Valid @RequestBody Member member, HttpSession session) {
+        Login login = memberService.updateMember(member);
+        if(login != null){
+            session.setAttribute("login", login);
+        }
+        return ApiResponse.ok(login);
     }
 
     @PostMapping("/withdraw")
-    public ApiResponse withdrawMember(@RequestParam String memberId) {
-        int result = memberService.deleteMember(memberId);
-        ApiResponse response = result != 0 ? ApiResponse.ok(result) : ApiResponse.fail(1002, "빈객체가 반환되었습니다.");
-        return response;
+    public ApiResponse withdrawMember(HttpSession session) {
+        Login login = (Login) session.getAttribute("login");
+        int result = memberService.deleteMember(login.getId());
+        return ApiResponse.ok(result);
     }
 }
