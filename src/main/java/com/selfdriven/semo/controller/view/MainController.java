@@ -35,6 +35,40 @@ public class MainController {
     public String paycheck(){
         return "paycheck";
     }
+    @GetMapping("/paycheck/fine")
+    public String paycheckFine(){
+        return "paycheckFine";
+    }
+    
+    
+
+    @GetMapping("/hotelMap")
+    public String hotelMap(){
+        return "hotelMap";
+    }
+
+    @GetMapping("/qna")
+    public String qna(){
+        return "qna";
+    }
+
+    @GetMapping("/mytrip")
+    public String mytrip(){
+        return "mytrip";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "mypage";
+    }
+
+    @GetMapping("/mypage/review")
+    public String mypageReview(){
+        return "mypageReview";
+    }
+    
+
+    
 
     @GetMapping("/join")
     public String join(){
