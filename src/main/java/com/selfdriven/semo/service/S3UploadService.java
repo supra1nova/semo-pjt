@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +27,7 @@ public class S3UploadService {
 
 	public String uploadImage(String uploadUri, MultipartFile file) throws IOException {
 		String fileName = generateFileName(file);
+		fileName = Normalizer.normalize(fileName, Normalizer.Form.NFC);
 		StringBuilder s3FileKeyStringBuilder = new StringBuilder()
 				.append(uploadUri)
 				.append("/")
@@ -36,9 +40,9 @@ public class S3UploadService {
 		return fileName;
 	}
 
-//	public String getImageUrl(String s3FileName) throws UnsupportedEncodingException {
-//		return URLDecoder.decode(amazonS3.getUrl(s3ComponentTest.getBucketName(), s3FileName).toString(), "utf-8");  // aws에서 반환한 url 강제 utf-8 decoding
-//	}
+	public String getImageUrl(String s3FileName) throws UnsupportedEncodingException {
+		return URLDecoder.decode(amazonS3.getUrl(s3Config.getBucketName(), s3FileName).toString(), "utf-8");  // aws에서 반환한 url 강제 utf-8 decoding
+	}
 
 	public List<String> getAllImageUrls(String s3FileKeyPrefix) {
 		List<String> imageUriList = new ArrayList<>();
