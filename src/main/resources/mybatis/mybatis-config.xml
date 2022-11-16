@@ -16,6 +16,7 @@
         <typeAlias alias="roomImage" type="com.selfdriven.semo.entity.RoomImage"/>
         <typeAlias alias="rentInfo" type="com.selfdriven.semo.entity.RentInfo"/>
         <typeAlias alias="reservation" type="com.selfdriven.semo.entity.Reservation"/>
+        <typeAlias alias="booking" type="com.selfdriven.semo.entity.Booking"/>
     </typeAliases>
 
 
