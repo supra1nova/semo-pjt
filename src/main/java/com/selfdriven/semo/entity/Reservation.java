@@ -27,9 +27,11 @@ public class Reservation {
     // roomId 받아오므로 validation 불필요
     private int roomId;
 
+    // TODO: paymentTerm 카드, 현금, 계좌 이체로 구분?
     @NotBlank
     private String paymentTerm;
 
+    @NotNull
     @PositiveOrZero
     private int totalPrice;
 

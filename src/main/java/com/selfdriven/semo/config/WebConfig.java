@@ -26,10 +26,12 @@ public class WebConfig implements WebMvcConfigurer {
                     "/api/room/create/**", "/api/room/delete/**", "/api/room/edit/**",
                     "/api/room-image/upload/**", "/api/room-image/delete/**",
                     "/api/product-image/upload/**", "/api/product-image/delete/**",
-                    "/api/rent-info/create/**", "/api/rent-info/update/**", "/api/rent-info/delete/**"
+                    "/api/rent-info/create/**", "/api/rent-info/update/**", "/api/rent-info/delete/**",
+                    "/api/reservation/create/**", "/api/reservation/update/**", "/api/reservation/delete/**"
             )
             .excludePathPatterns(
-                    "/resources/**", "/api/member/join/**", "/api/room-image/load-one/**", "/api/room-image/load-all/**");
+//                    "/resources/**", "/api/member/join/**", "/api/room-image/load-one/**", "/api/room-image/load-all/**", "/api/product-image/load-one/**", "/api/product-image/load-all/**");
+                    "/resources/**");
 
         registry.addInterceptor(new CustomerCheckInterceptor())
             .order(3)
@@ -39,10 +41,12 @@ public class WebConfig implements WebMvcConfigurer {
                     "/api/room/create/**", "/api/room/delete/**", "/api/room/edit/**",
                     "/api/room-image/upload/**", "/api/room-image/delete/**",
                     "/api/product-image/upload/**", "/api/product-image/delete/**",
-                    "/api/rent-info/create/**", "/api/rent-info/update/**", "/api/rent-info/delete/**"
+                    "/api/rent-info/create/**", "/api/rent-info/update/**", "/api/rent-info/delete/**",
+                    "/api/reservation/create/**", "/api/reservation/update/**", "/api/reservation/delete/**"
             )
             .excludePathPatterns(
-                    "/resources/**", "/api/room-image/load-one/**", "/api/room-image/load-all/**");
+//                    "/resources/**", "/api/room-image/load-one/**", "/api/room-image/load-all/**", "/api/product-image/load-one/**", "/api/product-image/load-all/**");
+                    "/resources/**");
     }
 
 }

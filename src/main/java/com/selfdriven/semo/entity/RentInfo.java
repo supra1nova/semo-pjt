@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 @Getter
@@ -18,10 +19,11 @@ public class RentInfo {
 	private Integer rentId;
 
     @NotNull
+    @PositiveOrZero
 	private Integer roomId;
 
-    @Min(0)
     @NotNull
+    @PositiveOrZero
     private Integer price;
 
     @NotNull

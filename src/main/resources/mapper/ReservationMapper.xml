@@ -15,7 +15,7 @@
 
     <select id="getReservationInfo" parameterType="Reservation" resultType="Reservation">
         <include refid="selectFromReservation"/>
-        WHERE reservation_id = #{reservationId} AND member_id = #{memberId} ORDER BY start_at ASC
+        WHERE reservation_id = #{reservationId} AND member_id = #{memberId}
     </select>
 
     <select id="getReservationList" parameterType="string" resultType="Reservation">
@@ -30,7 +30,7 @@
 
     <update id="updateReservation" parameterType="Reservation">
         UPDATE reservation SET
-        <if test='totalPrice != null || totalPrice != "" '>
+        <if test='roomId != null || roomId != "" '>
             room_id = #{roomId}
         </if>
         <if test='paymentTerm != null || paymentTerm != "" '>

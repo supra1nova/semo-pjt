@@ -36,7 +36,7 @@ public class ProductImageApiController {
 	@PostMapping("/load-one")
 	public ApiResponse loadProductImage(
 			@RequestParam int productId,
-			@RequestParam @Pattern(regexp="^[가-힣a-zA-Z0-9-_.]{1,144}[.]((jpg|jpeg|gif|bmp|png){1})$", message = "유효하지 않은 이미지 파일명입니다. 다시 한번 확인해주세요.") String fileName) throws UnsupportedEncodingException {
+			@RequestParam @Pattern(regexp="^[가-힣a-zA-Z0-9-_.%]{1,144}[.]((jpg|jpeg|gif|bmp|png){1})$", message = "유효하지 않은 이미지 파일명입니다. 다시 한번 확인해주세요.") String fileName) throws UnsupportedEncodingException {
 		String imageUrl = productImageService.getProductImage(productId, fileName);
 		return ApiResponse.ok(imageUrl);
 	}
@@ -50,10 +50,10 @@ public class ProductImageApiController {
 	@PostMapping("/delete")
 	public ApiResponse deleteProductImage(
 			@RequestParam int productId,
-			@RequestParam @Pattern(regexp="^[a-zA-Z0-9-_]{1,144}[.]((jpg|jpeg|gif|bmp|png){1})$", message = "유효하지 않은 이미지 파일명입니다. 다시 한번 확인해주세요.") String fileName,
+			@RequestParam @Pattern(regexp="^[가-힣a-zA-Z0-9-_.%]{1,144}[.]((jpg|jpeg|gif|bmp|png){1})$", message = "유효하지 않은 이미지 파일명입니다. 다시 한번 확인해주세요.") String fileName,
 			HttpSession session) {
 		Login login = SessionUtil.getLoginFromSession(session);
 		int res = productImageService.deleteProductImage(productId, fileName, login);
-		return res != 0 ? ApiResponse.ok(res) : ApiResponse.fail(CANNOT_DELETE_IMAGE.getCode(), CANNOT_DELETE_IMAGE.getMessage());
+		return ApiResponse.ok(res);
 	}
 }
