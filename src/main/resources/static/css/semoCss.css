@@ -5990,10 +5990,65 @@ NavigationContainer [data-framer-component-type=NavigationContainer]>*,[data-fra
 	}
 }
 
+.sns_div1 {
+	position: absolute;
+	pointer-events: none;
+	user-select: none;
+	border-radius: inherit;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0
+}
+.sns_div2{
+	display:contents;border-radius:inherit;pointer-events:none;
+}
+.sns_image {
+	pointer-events: none;
+	user-select: none;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+	object-position: center;
+	object-fit: cover;
+	image-rendering: auto;
+}
 
-
-
-
+#login_div1 {
+	outline: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	transform: none;
+}
+#login_div2 {
+	outline: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
+	transform: none;
+}
+#login_div3{
+	outline:none;display:flex;flex-direction:column;justify-content:flex-end;flex-shrink:0;transform:translateX(-50%);
+}
+#sns_font1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 102);
+}
+#sns_font2{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
+}
+#sns_font3{
+	--font-selector:R0Y7TWFucm9wZS04MDA=;--framer-font-family:'Manrope', serif;--framer-font-size:20px;--framer-font-weight:800;--framer-letter-spacing:1px;--framer-line-height:1em;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 255)
+}
+#sns_font4{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgba(102, 102, 102, 0.7);
+}
+#login_input1{
+	--framer-text-alignment:left;width:275px;border:0px;outline:none;
+}
 /* join */
 
 
