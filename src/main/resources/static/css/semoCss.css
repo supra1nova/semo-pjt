@@ -5635,9 +5635,9 @@ NavigationContainer [data-framer-component-type=NavigationContainer]>*,[data-fra
 	width:300px
 }
 .framer-mgNGw .framer-9p8kb7 {
-	bottom:159px;
+	top:100px;
 	flex:none;
-	height:91px;
+	height:130px;
 	left:0;
 	overflow:hidden;
 	position:absolute;
@@ -5662,10 +5662,10 @@ NavigationContainer [data-framer-component-type=NavigationContainer]>*,[data-fra
 }
 .framer-mgNGw .framer-19kk552,.framer-mgNGw .framer-1xlawej {
 	flex:none;
-	height:55px;
+	height:70px;
 	overflow:visible;
 	position:relative;
-	width:55px
+	width:70px
 }
 .framer-mgNGw .framer-13jt142 {
 	align-content:center;
@@ -6035,7 +6035,7 @@ NavigationContainer [data-framer-component-type=NavigationContainer]>*,[data-fra
 	outline:none;display:flex;flex-direction:column;justify-content:flex-end;flex-shrink:0;transform:translateX(-50%);
 }
 #sns_font1{
-	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 102);
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 102);
 }
 #sns_font2{
 	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
