@@ -97,7 +97,8 @@ public class BookingMapperTest {
         Booking booking = new Booking("2465994341", 1, 4, startAt, endAt);
         bookingMapper.addBooking(booking);
         List<Booking> bookingList = bookingMapper.getBookingList(booking.getMemberId());
-        bookingMapper.deleteBooking(bookingList.get(0).getBookingId(), booking.getMemberId());
+//        bookingMapper.deleteBooking(bookingList.get(0).getBookingId(), booking.getMemberId());
+        bookingMapper.deleteBooking(bookingList.get(0).getBookingId());
         assertThat(bookingMapper.getBookingList(booking.getMemberId()).size()).isEqualTo(0);
     }
 

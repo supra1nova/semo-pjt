@@ -18,12 +18,12 @@ public class RentInfo {
 
 	private Integer rentId;
 
-    @PositiveOrZero
     @NotNull
+    @PositiveOrZero
 	private Integer roomId;
 
-    @PositiveOrZero
     @NotNull
+    @PositiveOrZero
     private Integer price;
 
     @NotNull

@@ -23,9 +23,11 @@
         WHERE member_id = #{memberId} ORDER BY start_at ASC
     </select>
 
-    <delete id="deleteBooking" parameterType="Booking">
+<!--    <delete id="deleteBooking" parameterType="Booking">-->
+    <delete id="deleteBooking" parameterType="int">
         DELETE FROM booking
-        WHERE booking_id = #{bookingId} AND member_id = #{memberId}
+--         WHERE booking_id = #{bookingId} AND member_id = #{memberId}
+        WHERE booking_id = #{bookingId}
     </delete>
 
     <update id="updateBooking" parameterType="Booking">

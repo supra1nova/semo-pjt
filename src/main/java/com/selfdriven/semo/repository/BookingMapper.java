@@ -16,6 +16,6 @@ public interface BookingMapper {
     Booking getBookingInfo(@Param("bookingId") int bookingId, @Param("memberId") String memberId);
     List<Booking> getBookingList(String memberId);
     Integer updateBooking(Booking booking);
-    Integer deleteBooking(@Param("bookingId") int bookingId, @Param("memberId") String memberId);
+    Integer deleteBooking(int bookingId);
     Integer deleteAllBooking();
 }
