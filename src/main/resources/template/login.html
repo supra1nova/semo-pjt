@@ -1,192 +1,131 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>로그인 페이지</title>
-    <style>
-        pre{
-            overflow: scroll;
-        }
-    </style>
+<meta charset="utf-8">
+<title>Insert title here</title>
+
 </head>
 <body>
-    <div th:if="${session.currentUser eq null}" style="text-align: center">
-        <div>
-            <h3>카카오 로그인</h3>
-            <img id="kakaoLoginBtn" src="/image/kakao_login_medium_narrow.png" height="50" style="cursor: pointer" />
-        </div>
-        <div>
-            <h3>네이버 로그인</h3>
-            <a id="naverLoginBtn" style="cursor: pointer"><img src="http://static.nid.naver.com/oauth/small_g_in.PNG" height="50" /></a>
-        </div>
-    </div>
+	<div layout:fragment="content">
 
-    <pre></pre>
+			
 
-    <div th:if="${session.login ne null}" style="text-align: center">
-        <h3 style="text-align: center">이 부분은 로그인한 사용자한테만 보임</h3>
 
-        <pre></pre>
-        <span th:if="${session.login.socialType} == 'k'">
-<!--            <a th:href="${'/api/login-out/kakao-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;-->
-            <a id="kakaoUserInfoBtn"  style="text-decoration: underline; color: blue; cursor: pointer">유저 정보(json) 조회</a>&nbsp;&nbsp;
-    <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
-            <a id="kakaoLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
-    <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
-            <a id="kakaoInvalidBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃(토큰,세션삭제)</a>
-        </span>
-        <span th:if="${session.login.socialType} == 'n'">
-<!--            <a th:href="${'/api/login-out/naver-login/user-info?accessToken=' + session.accessToken}">유저 정보(json) 조회</a>&nbsp;&nbsp;-->
-            <a id="naverUserInfoBtn" style="text-decoration: underline; color: blue; cursor: pointer">유저 정보(json) 조회</a>
-    <!--        <a th:href="${'/api/member/refreshToken?refreshToken=' + session.refreshToken}">토큰갱신</span></a>&nbsp;&nbsp;-->
-            <a id="naverLogoutBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃</a>&nbsp;&nbsp;
-    <!--        <a th:href="${'semo/api/login-out/kakao-login/invalide-session'}">로그아웃(토큰삭제)</span></a>&nbsp;&nbsp;-->
-            <a id="naverInvalidBtn" style="text-decoration: underline; color: blue; cursor: pointer">로그아웃(토큰,세션삭제)</a>
-        </span>
-        <p style="text-align: left">
-            session : <span th:text="${session}"></span> </br>
-            session.currentAT : <span th:text="${session.accessToken}"></span> </br>
-            session.currentRT : <span th:text="${session.refreshToken}"></span> </br>
-            session.login : <span th:text="${session.login}"></span> </br>
-            session.login.name : <span th:text="${session.login.name}"></span> </br>
-            session.login.email : <span th:text="${session.login.email}"></span> </br>
-            session.login.memberType : <span th:text="${session.login.memberType}"></span> </br>
-            session.login.socialType : <span th:text="${session.login.socialType}"></span> </br>
-        </p>
-    </div>
 
-    <div style="text-align: center">
-        <input type="button" onclick="location.href='/'" value="메인" style="width:100px; height: 100px">
-    </div>
+<div id="main" data-framer-hydrate-v2="{'routeId':'fyxHY82ZH'}" data-framer-ssr-released-at="2022-11-09T12:05:04.254Z" data-framer-page-optimized-at="2022-11-09T16:04:56.963Z">
+	<div data-framer-generated="true" class="framer-mgNGw framer-VGtr3 framer-hoagE framer-f1XTd" style="display:contents">
+		<div class="framer-1l1gc90" style="min-height:100%;width:auto">
+			<div class="framer-lhnxd7">
+				<div class="framer-4chfxs">
+					<div class="framer-9p8kb7" data-framer-name="sns 간편 로그인" name="sns 간편 로그인">
+						<div class="framer-1upoaik">
+							<div class="framer-1xlawej" data-framer-name="kakaoLogo" name="kakaoLogo">
+								<div style="position:absolute;pointer-events:none;user-select:none;border-radius:inherit;top:0;right:0;bottom:0;left:0" data-framer-background-image-wrapper="true">
+									<div style="display:contents;border-radius:inherit;pointer-events:none">
+										<img src="https://framerusercontent.com/images/Uoz4SWTh3gXCtuagH2SJvlD5FQ.png" alt="" style="pointer-events:none;user-select:none;display:block;width:100%;height:100%;border-radius:inherit;object-position:center;object-fit:cover;image-rendering:auto">
+									</div>
+								</div>
+							</div>
+							<div class="framer-19kk552" data-framer-name="naverLogo" name="naverLogo">
+								<div style="position:absolute;pointer-events:none;user-select:none;border-radius:inherit;top:0;right:0;bottom:0;left:0" data-framer-background-image-wrapper="true">
+									<div style="display:contents;border-radius:inherit;pointer-events:none">
+										<img src="https://framerusercontent.com/images/BbKUuen4acP8oLqjKkLsoEjolOU.png" alt="" style="pointer-events:none;user-select:none;display:block;width:100%;height:100%;border-radius:inherit;object-position:center;object-fit:cover;image-rendering:auto">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="framer-13jt142">
+							<div class="framer-6nbikm" style="outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:none" data-framer-component-type="RichTextContainer">
+								<p style="--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 102)" class="framer-text">
+									sns계정으로 간편 로그인/회원가입
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="framer-1lq5xzu" data-framer-name="비밀번호 재설정 / 회원 가입" name="비밀번호 재설정 / 회원 가입">
+						<div class="framer-1wojz1p" preload="oSqiE1i1k" style="outline:none;display:flex;flex-direction:column;justify-content:center;flex-shrink:0;transform:none" data-framer-component-type="RichTextContainer">
+							<p class="framer-text framer-styles-preset-k7wxme" data-styles-preset="h_mrf03EN">
+								<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="./join">회원 가입</a>
+							</p>
+						</div>
+						<div class="framer-bjg373" preload="HU0mXVW4y" style="outline:none;display:flex;flex-direction:column;justify-content:center;flex-shrink:0;transform:none" data-framer-component-type="RichTextContainer">
+							<p class="framer-text framer-styles-preset-k7wxme" data-styles-preset="h_mrf03EN">
+								<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="./pwdchange-emailcheck">비밀번호 재설정</a>
+							</p>
+						</div>
+					</div>
+					<div class="framer-1wf1t2" data-framer-name="이메일 / 비밀번호" name="이메일 / 비밀번호">
+						<div class="framer-14swxaj" data-border="true">
+							<div class="framer-1m4z366-container">
+								<div data-framer-generated="true" class="framer-idMWu framer-f1XTd framer-v-16q7mcr" style="display:contents">
+									<div class="framer-16q7mcr" data-framer-name="Variant 1" style="height:100%;width:100%">
+												<p class="framer-text framer-styles-preset-1dpwnmc" data-styles-preset="Pt0N2c1Lm">
+													이메일
+												</p>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="framer-kthuxh" data-border="true">
+							<div class="framer-1hlmyb8" data-framer-name="이메일" name="이메일">
+								<div class="framer-d75dw7" style="outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:none" data-framer-component-type="RichTextContainer">
+									<p class="framer-text framer-styles-preset-1dpwnmc" data-styles-preset="Pt0N2c1Lm" style="--framer-text-alignment:left">
+										비밀번호
+									</p>
+								</div>
+							</div>
+						</div>
+						<a class="framer-9y6a3d" href="./">
+						<div class="framer-8ojqwl" data-framer-name="이메일" name="이메일">
+							<div class="framer-4mleor" style="outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:none" data-framer-component-type="RichTextContainer">
+								<p style="--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255)" class="framer-text">
+									로그인
+								</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="framer-9zawjf" data-framer-name="마크" name="마크">
+						<a class="framer-suwys1" data-framer-name="고객센터" name="고객센터" href="./">
+						<div class="framer-8ws41r-container">
+							<div style="display:contents">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
+					focusable="false" color="rgb(102, 102, 255)"
+					style="user-select: none; cursor:pointer;width: 100%; height: 100%; display: inline-block; fill: rgb(102, 102, 255); flex-shrink: 0; cursor: auto;">
+					<g color="rgb(102, 102, 255)" weight="regular">
+					<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
+						fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
+						stroke-linejoin="round" stroke-width="16"></path></g></svg>
+							</div>
+						</div>
+						<div class="framer-1lf74ur" style="outline:none;display:flex;flex-direction:column;justify-content:flex-end;flex-shrink:0;transform:translateX(-50%)" data-framer-component-type="RichTextContainer">
+							<h2 style="--font-selector:R0Y7TWFucm9wZS04MDA=;--framer-font-family:'Manrope', serif;--framer-font-size:20px;--framer-font-weight:800;--framer-letter-spacing:1px;--framer-line-height:1em;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 255)" class="framer-text">semo</h2>
+						</div>
+						</a>
+					</div>
+					<div class="framer-1sica4r" data-border="true">
+						<div class="framer-kfdi3b" style="outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:none" data-framer-component-type="RichTextContainer">
+							<p style="--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgba(102, 102, 102, 0.7)" class="framer-text">
+								로그인에 문제가 있으신가요?
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="overlay">
+		</div>
+	</div>
+</div>
+<div id="svg-templates" style="position: absolute; overflow: hidden; top: 0; left: 0; width: 0; height: 0">
+</div>
 
+
+	</div>
 </body>
-
-<script>
-    // 카카오 로그인
-    const kakaoLoginBtn = document.querySelector('#kakaoLoginBtn');
-    const kakaoLogoutBtn = document.querySelector('#kakaoLogoutBtn');
-    const kakaoInvalidBtn = document.querySelector('#kakaoInvalidBtn');
-    const kakaoUserInfoBtn = document.querySelector('#kakaoUserInfoBtn');
-
-    kakaoLoginBtn.addEventListener("click", getKakaoLoginAuthURL);
-
-    if(kakaoLogoutBtn != null || kakaoInvalidBtn != null){
-        kakaoLogoutBtn.addEventListener("click", requestKakaoLogout);
-        kakaoInvalidBtn.addEventListener("click", requestKakaoInvalid);
-        kakaoUserInfoBtn.addEventListener("click", requestKakaoUserInfo);
-    }
-
-    async function getKakaoLoginAuthURL(){
-        // const kakaoURL = "http://semo.com/api/login-out/kakao-login/auth-url";
-        // const authURL = await fetch(kakaoURL, {
-        //     method: "GET",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     }
-        // })
-        //     .then(res => res.json())
-        //     .then(data => data.data);
-        // location.href=authURL;
-        location.href="https://kauth.kakao.com/oauth/authorize?client_id=e64b7d5f26b6b46201c22456474bc99c&response_type=code&redirect_uri=http://semo.com/login-out/kakao-login";
-    }
-
-    async function requestKakaoLogout(){
-        const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/logout";
-        const message = await fetch(kakaoLogoutUrl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(res => res.json())
-            .then(data => data.message);
-        if(message === "OK"){
-            location.href="/";
-        };
-    }
-
-    async function requestKakaoInvalid(){
-        const kakaoLogoutUrl = "http://semo.com/api/login-out/kakao-login/invalid-session";
-        const message = await fetch(kakaoLogoutUrl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(res => res.json())
-            .then(data => data.message);
-        if(message === "OK"){
-            location.href="/";
-        };
-    }
-
-    async function requestKakaoUserInfo(){
-        const kakaoUserInfoUrl = "http://semo.com/api/login-out/kakao-login/user-info";
-        const data = await fetch(kakaoUserInfoUrl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(res => res.json())
-            .then(data => data);
-        if(data.message === "OK"){
-            console.log(data.data);
-        };
-    }
-
-    // 네이버 로그인
-    const naverLoginBtn = document.querySelector('#naverLoginBtn');
-    const naverLogoutBtn = document.querySelector('#naverLogoutBtn');
-    const naverInvalidBtn = document.querySelector('#naverInvalidBtn');
-    const naverUserInfoBtn = document.querySelector('#naverUserInfoBtn');
-
-    naverLoginBtn.addEventListener("click", getNaverLoginAuthURL);
-
-    if(naverLogoutBtn != null || naverInvalidBtn != null){
-        naverLogoutBtn.addEventListener("click", requestNaverLogout);
-        naverInvalidBtn.addEventListener("click", requestNaverInavalid);
-        naverUserInfoBtn.addEventListener("click", requestNaverUserInfo);
-    }
-
-    async function getNaverLoginAuthURL(){
-        const naverURL = "http://semo.com/api/login-out/naver-login/auth-url";
-        const authURL = await fetch(naverURL)
-            .then(res => res.json())
-            .then(data => data.data);
-        location.href=authURL;
-    }
-
-    async function requestNaverLogout(){
-        const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/logout";
-        const message = await fetch(naverLogoutUrl)
-            .then(res => res.json())
-            .then(data => data.message);
-        if(message === "OK"){
-            location.href="/";
-        };
-    }
-
-    async function requestNaverInavalid(){
-        // const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/invalid-session?accessToken=" + [[${session.accessToken}]];
-        const naverLogoutUrl = "http://semo.com/api/login-out/naver-login/invalid-session";
-        const message = await fetch(naverLogoutUrl)
-            .then(res => res.json())
-            .then(data => data.message);
-        if(message === "OK"){
-            location.href="/";
-        };
-    }
-
-    async function requestNaverUserInfo(){
-        const naverUserInfoUrl = "/api/login-out/naver-login/user-info";
-        const data = await fetch(naverUserInfoUrl)
-            .then(res => res.json())
-            .then(data => data);
-        if(data.message === "OK"){
-            console.log(data.data);
-        };
-    }
-
-</script>
 </html>

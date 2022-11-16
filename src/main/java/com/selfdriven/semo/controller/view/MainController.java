@@ -75,6 +75,15 @@ public class MainController {
         return "join";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/join/fine")
+    public String joinFine(){
+        return "joinFine";
+    }
     @GetMapping("/uploadtest")
     public String uploadtest(){
         return "uploadtest";
