@@ -6271,10 +6271,69 @@ position: absolute;
 
 
 
-
-
-
-
+#jn_div1{
+	outline:none;display:flex;flex-direction:column;justify-content:center;flex-shrink:0;transform:none;
+}
+#jn_div2{
+	outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:none;
+}
+#jn_div3{
+	position:absolute;pointer-events:none;user-select:none;border-radius:inherit;top:0;right:0;bottom:0;left:0;
+}
+#jn_div4{
+	display:contents;border-radius:inherit;pointer-events:none;
+}
+#jn_img1{
+	pointer-events:none;user-select:none;display:block;width:100%;height:100%;border-radius:inherit;object-position:center;object-fit:cover;image-rendering:auto;
+}
+#jn_p1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:left;--framer-text-color:rgb(66, 66, 66);
+	}
+#jn_p2{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(51, 51, 51);
+	}
+#jn_p3{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:10px;--framer-text-alignment:center;--framer-text-color:rgba(102, 102, 102, 0.8);
+}
+#jn_p4{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(51, 51, 51);
+}
+#jn_p5{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 255);
+}
+#jn_p6{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(153, 153, 153);
+}
+#jn_p7{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgba(102, 102, 102, 0.8);
+}
+#jn_p8{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;--framer-text-color:rgb(102, 102, 102);
+}
+#jn_p9{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;--framer-text-color:rgba(187, 187, 187, 0.7);
+}
+#jn_p10{
+	--framer-text-alignment:center;--framer-text-color:rgb(51, 51, 51);
+}
+#jn_p11{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+}
+#jn_p12{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:20px;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:left;--framer-text-color:rgb(66, 66, 66);
+}
+#jn_p13{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 102);
+}
+#jn_p14{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-font-size:17px;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
+}
+#jn_p15{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:center;--framer-text-color:rgb(85, 85, 85);
+}
+#jn_p16{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:center;--framer-text-decoration:underline;
+}
 
 .framer-2Gxmt [data-border=true]::after {
 	content:"";
@@ -6376,7 +6435,7 @@ position: absolute;
 .framer-2Gxmt .framer-26sr49 {
 	align-content:center;
 	align-items:center;
-	bottom:208px;
+	top:1000px;
 	display:flex;
 	flex:none;
 	flex-direction:column;
@@ -6433,7 +6492,7 @@ position: absolute;
 .framer-2Gxmt .framer-nu8bna {
 	align-content:center;
 	align-items:center;
-	bottom:308px;
+	top:650px;
 	display:flex;
 	flex:none;
 	flex-direction:column;
@@ -6600,7 +6659,7 @@ position: absolute;
 	padding:0;
 	position:absolute;
 	right:0;
-	top:calc(54.75000000000002% - 141px/2)
+	top:510px;
 }
 .framer-2Gxmt .framer-f23zok {
 	flex:none;
@@ -6675,16 +6734,16 @@ position: absolute;
 }
 .framer-2Gxmt .framer-erfgql {
 	flex:none;
-	height:758px;
+	height:450px;
 	left:0;
 	overflow:hidden;
 	position:absolute;
 	right:0;
-	top:70px;
+	top:80px;
 	z-index:1
 }
 .framer-2Gxmt .framer-hgz8gr {
-	bottom:16px;
+	bottom:20px;
 	flex:none;
 	height:141px;
 	left:0;
@@ -6792,7 +6851,7 @@ position: absolute;
 }
 .framer-2Gxmt .framer-pa26pd {
 	flex:none;
-	height:155px;
+	height:91px;
 	left:0;
 	overflow:hidden;
 	position:absolute;
@@ -6958,7 +7017,7 @@ position: absolute;
 .framer-2Gxmt .framer-bwhd3u {
 	align-content:center;
 	align-items:center;
-	bottom:178px;
+	top:1100px;
 	display:flex;
 	flex:none;
 	flex-direction:row;
