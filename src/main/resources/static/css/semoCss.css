@@ -7336,3 +7336,78 @@ position: absolute;
 		margin-right:calc(1px/2)
 	}
 }
+
+
+
+
+
+/* roomDetail */
+
+
+
+#rd_div1{
+	display:contents;
+}
+#rd_div2{
+	min-height:100%;width:auto;
+}
+#rd_div3{
+outline:none;display:flex;flex-direction:column;justify-content:center;flex-shrink:0;transform:none;
+}
+#rd_div4{
+	outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:none;
+}
+#rd_div5{
+	position:absolute;pointer-events:none;user-select:none;border-radius:inherit;top:0;right:0;bottom:0;left:0;
+}
+#rd_div6{
+	display:contents;border-radius:inherit;pointer-events:none;
+}
+#rd_div7{
+	outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:translateX(-50%);
+}
+#rd_p1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(85, 85, 85);
+}
+#rd_p2{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgba(187, 187, 187, 0.5);
+}
+#rd_p3{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:14px;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:left;--framer-text-color:rgb(102, 102, 255);
+}
+#rd_p4{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(51, 51, 51);
+}
+#rd_p5{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 102);
+}
+#rd_p6{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(119, 119, 119);
+}
+#rd_p7{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(119, 119, 119);
+}
+#rd_p8{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:20px;--framer-text-alignment:center;
+}
+#rd_p9{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:18px;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
+}
+#rd_p10{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(119, 119, 119);
+}
+#rd_p11{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(119, 119, 119);
+}
+#rd_p12{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:32px;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;
+}
+#rd_p13{
+    --font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:25px;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
+}
+#rd_p14{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:20px;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
+}
+#rd_span1{
+	--framer-text-color:rgb(102, 102, 255);
+}
