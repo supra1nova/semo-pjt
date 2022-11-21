@@ -19,13 +19,51 @@ body,button,input,select,textarea {
 	font-size:12px;
 	font-family:sans-serif
 }
+
 .layout_header{
 	
     position: fixed;
     z-index: 5;
     width: 100%;
 }
-@font-face {
+
+/* header
+ */
+ 
+ #hd_nav1 {
+	width: 1200px;
+	margin: 0 auto;
+	background-color: rgb(255, 255, 255);}
+ 
+ #hd_svg {
+	user-select: none;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
+	display: inline-block;
+	fill: rgb(102, 102, 255);
+	flex-shrink: 0;
+	cursor: auto;}
+ 
+ #hd_div1{
+ outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;--extracted-1of0zx5:rgb(102, 102, 255);--framer-paragraph-spacing:0px;transform:translateY(-50%);
+ }
+ 
+ #hd_h1{
+ --font-selector:R0Y7TWFucm9wZS04MDA=;--framer-font-family:'Manrope', serif;--framer-font-weight:800;--framer-letter-spacing:1px;--framer-line-height:2em;--framer-text-alignment:left;--framer-text-color:var(--extracted-1of0zx5);
+ }
+ #hd_p1{
+ outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;--framer-paragraph-spacing:0px;transform:none;
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ @font-face {
 	src:url(https://framerusercontent.com/modules/assets/pM3FxJTRGOIxoy3amDceDWsndg~jhzYMY9MFUs4DxhtTdgZJWIArWpZ1VeUxeDwKFIjI50.otf);
 	font-family:'Noto Sans KR Medium'
 }
