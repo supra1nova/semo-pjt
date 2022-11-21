@@ -4390,6 +4390,88 @@ NavigationContainer [data-framer-component-type=NavigationContainer]>*,[data-fra
 
 
 
+#paycheck_div1 {
+	outline: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	transform: none;
+}
+#paycheck_div2
+{
+position: absolute;
+	pointer-events: none;
+	user-select: none;
+	border-radius: inherit;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+#paycheck_div3
+{
+	
+	display:contents;border-radius:inherit;pointer-events:none;
+}
+#paycheck_img1{
+	pointer-events:none;user-select:none;display:block;width:100%;height:100%;border-radius:inherit;object-position:center;object-fit:cover;image-rendering:auto;
+}
+
+#paycheck_p1 {
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(119, 119, 119);
+}
+#paycheck_p2
+{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:18px;--framer-text-alignment:center;--framer-text-color:rgb(255, 255, 255);
+}
+#paycheck_p3
+{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;
+}
+#paycheck_p4
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(85, 85, 85)
+}
+#paycheck_p5
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;}
+#paycheck_p6
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;}
+#paycheck_p7
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:20px;--framer-text-alignment:center;--framer-text-color:rgb(85, 85, 85);}
+#paycheck_p8
+{--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-text-alignment:center;
+}
+#paycheck_p9
+{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:32px;--framer-text-alignment:center;
+}
+#paycheck_p10
+{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:center;
+
+	}
+#paycheck_p11
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-text-alignment:center;--framer-text-decoration:underline
+}
+#paycheck_p12
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-line-height:1.3em;--framer-text-alignment:left;
+}
+#paycheck_p13
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-line-height:1.3em;--framer-text-alignment:left;}
+#paycheck_span1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-text-decoration:underline;
+}
+#paycheck_h1
+{
+--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-color:#000000;
+}
 
 /* paycheckFine */
 
