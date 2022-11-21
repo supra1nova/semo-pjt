@@ -5049,7 +5049,18 @@ position: absolute;
 
 /* hotelMap */
 
-
+#hm_div1{
+	outline:none;display:flex;flex-direction:column;justify-content:flex-start;flex-shrink:0;transform:translate(-50%, -50%);
+}
+#hm_p1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBNZWRpdW0=;--framer-font-family:'Noto Sans KR Medium', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;
+}
+#hm_p2{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:14px;--framer-text-alignment:center;--framer-text-color:rgb(85, 85, 85);
+}
+#hm_img1{
+	pointer-events:none;user-select:none;display:block;width:100%;height:100%;border-radius:inherit;object-position:center;object-fit:contain;image-rendering:auto;
+}
 .framer-3DSGA [data-border=true]::after,.framer-c9fp1 [data-border=true]::after {
 	content:"";
 	border-width:var(--border-top-width,0) var(--border-right-width,0) var(--border-bottom-width,0) var(--border-left-width,0);
@@ -5624,7 +5635,9 @@ position: absolute;
 
 
 
-
+#my_p1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:32px;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-color:#000000;
+}
 
 .framer-GkbpP [data-border=true]::after,.framer-HoMV2 [data-border=true]::after {
 	content:"";
@@ -7097,7 +7110,15 @@ position: absolute;
 
 
 
-
+#jnfn_p1{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;--framer-text-color:rgb(102, 102, 255);
+}
+#jnfn_p2{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-font-size:12px;--framer-text-alignment:center;
+}
+#jnfn_p3{
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBCb2xk;--framer-font-family:'Noto Sans KR Bold', sans-serif;--framer-letter-spacing:0.2px;--framer-line-height:1.6em;--framer-text-alignment:left;--framer-text-color:rgb(102, 102, 255);
+}
 .framer-HoMV2 [data-border=true]::after,.framer-x1fTc [data-border=true]::after {
 	content:"";
 	border-width:var(--border-top-width,0) var(--border-right-width,0) var(--border-bottom-width,0) var(--border-left-width,0);
