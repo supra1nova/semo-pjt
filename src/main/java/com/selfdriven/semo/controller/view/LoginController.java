@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/login-out")
+@RequestMapping("/login")
 public class LoginController {
 
     public final NaverLoginApiController naverLoginApiController;
@@ -28,14 +28,14 @@ public class LoginController {
     }
 
     // 2. 카카오 로그인 인증 요청, 토큰 발급, 회원 정보 조회 후 메인으로 리턴.
-    @GetMapping("/kakao-login")
+    @GetMapping("/kakao")
     public String kakaoLogin(@RequestParam String code, HttpSession session, RedirectAttributes rdrt) throws IOException {
         ApiResponse response = kakaoLoginApiController.getKakaoAccessToken(code, session);
         return getRedirect(rdrt, response);
     }
 
     // 3. 네이버 로그인 인증 요청, 토큰 발급, 회원 정보 조회 후 메인으로 리턴.
-    @GetMapping("/naver-login")
+    @GetMapping("/naver")
     public String naverLogin(@RequestParam String code, @RequestParam String state, HttpSession session, RedirectAttributes rdrt) throws IOException {
         ApiResponse response = naverLoginApiController.getNaverAccessToken(code, state, session);
         return getRedirect(rdrt, response);
@@ -45,7 +45,6 @@ public class LoginController {
         if(response.getResultCode() == 1008) {
             return "redirect:/join";
         }
-        System.out.println("response.getData().toString : " + response.getData().getClass().toString());
         rdrt.addFlashAttribute("response", response);
         return "redirect:/";
     }

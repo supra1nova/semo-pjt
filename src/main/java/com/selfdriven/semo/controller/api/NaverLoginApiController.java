@@ -35,7 +35,7 @@ import static com.selfdriven.semo.enums.ResultCode.UNREGISTERED_MEMBER;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/login-out/naver-login")
+@RequestMapping("/api/login/naver")
 public class NaverLoginApiController {
 
     private final MemberService memberService;

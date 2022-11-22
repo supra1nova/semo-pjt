@@ -29,7 +29,7 @@ import static com.selfdriven.semo.enums.ResultCode.UNREGISTERED_MEMBER;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/login-out/kakao-login")
+@RequestMapping("/api/login/kakao")
 public class KakaoLoginApiController {
 
     private final MemberService memberService;

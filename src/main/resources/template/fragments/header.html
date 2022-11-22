@@ -3,61 +3,85 @@
 <!--headerFragment 선언-->
 <head>
 </head>
-<div th:fragment="headerFragment"class="layout_header">
-
-
-			<div class="framer-15e638z" style="background-color: white;">
-				<div class="framer-isrt2c" >
-				</div>
-				<div class="framer-1a0ocjm-container" style="
-    border-bottom: 1px solid rgba(187,187,187,.3);">
-					<div  class="framer-HoMV2 framer-vg7ew framer-dmdge framer-v-1h3kkwj" style="display:contents">
-						<nav id="hd_nav1"class="framer-1h3kkwj">
+<body>
+	<div th:fragment="headerFragment"class="layout_header">
+		<div class="framer-15e638z" style="background-color: white;">
+<!--			<div class="framer-isrt2c" >-->
+<!--			</div>-->
+			<div class="framer-1a0ocjm-container" style="
+border-bottom: 1px solid rgba(187,187,187,.3);">
+				<div  class="framer-HoMV2 framer-vg7ew framer-dmdge framer-v-1h3kkwj" style="display:contents">
+					<nav id="hd_nav1"class="framer-1h3kkwj">
 						<div class="framer-19nhdre" >
 							<a class="framer-w2m1tg" href="/">
-							<div class="framer-1al4dv3-container">
-								<div style="display:contents">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
-					focusable="false" color="rgb(102, 102, 255)"
-					id="hd_svg">
-					<g color="rgb(102, 102, 255)" weight="regular">
-					<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
-						fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
-						stroke-linejoin="round" stroke-width="16"></path></g></svg>
+								<div class="framer-1al4dv3-container">
+									<div style="display:contents">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
+										focusable="false" color="rgb(102, 102, 255)"
+										id="hd_svg">
+										<g color="rgb(102, 102, 255)" weight="regular">
+											<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
+												fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
+												stroke-linejoin="round" stroke-width="16" />
+										</g>
+									</svg>
+									</div>
 								</div>
-							</div>
-							<div class="framer-q7dosh" id="hd_div1" >
-								<h2 id="hd_h1" class="framer-text">semo</h2>
-							</div>
+								<div class="framer-q7dosh" id="hd_div1" >
+									<h2 id="hd_h1" class="framer-text">semo</h2>
+								</div>
 							</a>
 						</div>
-						<div class="framer-4pnlrx"  tabindex="1" id="hd_p1">
+
+<!--						<div class="framer-4pnlrx"  tabindex="1" id="hd_p1">-->
+						<div class="framer-4pnlrx top-nav" tabindex="1">
 							<p class="framer-text framer-styles-preset-2bhu8p" data-styles-preset="x6mixVNe9">
 								<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="/mytrip">예약 내역</a>
 							</p>
 						</div>
-						<div class="framer-wzr83z"  tabindex="1" id="hd_p1">
+<!--						<div class="framer-wzr83z"  tabindex="1" id="hd_p1">-->
+						<div class="framer-wzr83z top-nav" tabindex="1">
 							<p class="framer-text framer-styles-preset-2bhu8p" data-styles-preset="x6mixVNe9">
-								<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="/mypage">내 정보</a>
+								<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="/mypage" id="myInfoBtn">내 정보</a>
 							</p>
 						</div>
-						<div class="framer-9rkqj0" id="hd_p1">
+<!--						<div class="framer-9rkqj0" id="hd_p1">-->
+						<div class="framer-9rkqj0">
 							<p class="framer-text framer-styles-preset-2bhu8p" data-styles-preset="x6mixVNe9" >
 
-							<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="/login">로그인</a>
-
-							<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="./login-out">로그인</a>
-
+							<span class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" id="loginBtn" style="cursor: pointer">로그인</span>
 							</p>
 						</div>
-						</nav>
-					</div>
+					</nav>
 				</div>
 			</div>
+		</div>
 
+	<script th:inline="javascript">
+		const topNavElements = document.getElementsByClassName("top-nav");
+		const loginBtn = document.querySelector("#loginBtn");
+		const loginInfo = /*[[${session.login}]]*/;
+		if(loginInfo){
+			loginBtn.innerHTML = "logout";
+			loginBtn.addEventListener("click", logout);
+			async function logout(e){
+				e.preventDefault();
+				const logoutUrl = loginInfo.socialType == "k" ? "/api/login/kakao/logout" : "/api/login/naver/logout";
+				await fetch(logoutUrl)
+				location.href="/";
+			}
+		} else{
+			for (const elem of topNavElements) {
+				elem.style.display = 'none';
+			}
+			loginBtn.addEventListener("click", function(e){
+				e.preventDefault();
+				location.href="/login";
+			})
+		}
+	</script>
+	</div>
 
+</body>
 
-
-
-</div>
 </html>
