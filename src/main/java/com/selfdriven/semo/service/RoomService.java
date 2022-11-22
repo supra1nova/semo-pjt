@@ -35,7 +35,6 @@ public class RoomService {
         return result;
     }
 
-//    TODO: (확인필요) 특정 service 에서 관련되지 않은 다른 mapper를 호출해서 사용해도 좋은지?
     public Map<String, Object> getRoomById(Map<String, Integer> map) {
         Map<String, Object> result = new LinkedHashMap<>();
         try {

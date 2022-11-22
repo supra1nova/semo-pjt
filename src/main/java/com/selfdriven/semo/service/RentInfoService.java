@@ -21,6 +21,9 @@ public class RentInfoService {
     private final ProductService productService;
     private final RentInfoMapper rentInfoMapper;
 
+    /*
+    함수에 대한 설명 주석을 달면 다른 곳에서 호출할 시에도 주석이 보임.
+    */
     public int insertRentInfo(RentInfo rentInfo, Login login){
         int result = 0;
         // 객실, 업체, 유저 정보 유효성 평가 진행
@@ -46,7 +49,6 @@ public class RentInfoService {
         return result;
     }
 
-//    // TODO: update 로직은 어떻게 가야할지? 단순히 시간 조정이 가능하도록? 아니면 생성과 동일한 로직?(시작 시간 > 현재 시간, 마감시간 > 시작시간)
     public int updateRentInfo(RentInfo rentInfo, Login login) {
         checkRentInfo(rentInfo, login.getId());
         LocalDate startAt = rentInfo.getStartAt();
