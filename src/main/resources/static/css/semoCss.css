@@ -16,10 +16,39 @@ figure,h1,h2,h3,h4,h5,h6,p {
 	margin:0
 }
 body,button,input,select,textarea {
-	font-size:12px;
-	font-family:sans-serif
+	font-size:14px;
 }
-
+  textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px 10px;
+        font-size: 20px;
+      }
+input::-webkit-input-placeholder {
+	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+        color: rgba(187, 187, 187, 0.7);
+        
+      }
+      input:-ms-input-placeholder {
+        --font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+        color: rgba(187, 187, 187, 0.7);
+      }
+      textarea::-webkit-input-placeholder {
+        --font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+        color: rgba(187, 187, 187, 0.7);
+      }
+      textarea:-ms-input-placeholder {
+        --font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+        color: rgba(187, 187, 187, 0.7);
+      }
+      input::placeholder {
+        --font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+        color: rgba(187, 187, 187, 0.7);
+      }
+      textarea::placeholder {
+       --font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
+        color: rgba(187, 187, 187, 0.7);
+      }
 .layout_header{
 	
     position: fixed;
@@ -6448,7 +6477,7 @@ position: absolute;
 .framer-2Gxmt .framer-26sr49 {
 	align-content:center;
 	align-items:center;
-	top:1000px;
+	top:960px;
 	display:flex;
 	flex:none;
 	flex-direction:column;
@@ -6505,7 +6534,7 @@ position: absolute;
 .framer-2Gxmt .framer-nu8bna {
 	align-content:center;
 	align-items:center;
-	top:650px;
+	top:610px;
 	display:flex;
 	flex:none;
 	flex-direction:column;
@@ -6625,6 +6654,24 @@ position: absolute;
 	width:22px;
 	will-change:transform
 }
+.checkbox_join
+{
+	cursor: pointer;
+	--border-bottom-width:1px;
+	--border-color:rgba(187,187,187,0.5);
+	--border-left-width:1px;
+	--border-right-width:1px;
+	--border-style:solid;
+	--border-top-width:1px;
+	border-bottom-left-radius:4px;
+	border-bottom-right-radius:4px;
+	border-top-left-radius:4px;
+	border-top-right-radius:4px;
+	width:100%;
+	height:100%;
+	margin:0;
+
+}
 .framer-2Gxmt .framer-1eisnh8 {
 	align-content:center;
 	align-items:center;
@@ -6672,7 +6719,7 @@ position: absolute;
 	padding:0;
 	position:absolute;
 	right:0;
-	top:510px;
+	top:470px;
 }
 .framer-2Gxmt .framer-f23zok {
 	flex:none;
@@ -6742,12 +6789,12 @@ position: absolute;
 	border-top-left-radius:4px;
 	border-top-right-radius:4px;
 	height:40px;
-	padding:14px;
+	padding:0 14px;
 	will-change:transform
 }
 .framer-2Gxmt .framer-erfgql {
 	flex:none;
-	height:450px;
+	height:405px;
 	left:0;
 	overflow:hidden;
 	position:absolute;
@@ -6869,7 +6916,7 @@ position: absolute;
 	overflow:hidden;
 	position:absolute;
 	right:0;
-	top:202px
+	top:160px
 }
 .framer-2Gxmt .framer-kdppf4 {
 	aspect-ratio:7.2/1;
@@ -6934,7 +6981,7 @@ position: absolute;
 	height:40px;
 	justify-content:flex-start;
 	overflow:hidden;
-	padding:14px;
+	padding:0px 14px;
 	width:46%;
 	will-change:transform
 }
@@ -6952,7 +6999,7 @@ position: absolute;
 	overflow:hidden;
 	position:absolute;
 	right:0;
-	top:145px
+	top:100px
 }
 .framer-2Gxmt .framer-1jhdnab,.framer-2Gxmt .framer-hozqj9 {
 	display:flex;
@@ -6987,14 +7034,15 @@ position: absolute;
 	top:18px
 }
 .framer-2Gxmt .framer-zfx59g {
-	flex:none;
-	height:88px;
-	left:0;
-	overflow:hidden;
-	position:absolute;
-	right:0;
-	top:62px
-}
+	display:flex;
+	flex: none;
+	height: 40px;
+	left: 0;
+	justify-content: space-between;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 62px}
 .framer-2Gxmt .framer-18erpjo,.framer-2Gxmt .framer-98zlls {
 	align-content:center;
 	align-items:center;
@@ -7030,7 +7078,7 @@ position: absolute;
 .framer-2Gxmt .framer-bwhd3u {
 	align-content:center;
 	align-items:center;
-	top:1100px;
+	top:1060px;
 	display:flex;
 	flex:none;
 	flex-direction:row;
