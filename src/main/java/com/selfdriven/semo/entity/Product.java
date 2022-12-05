@@ -29,6 +29,9 @@ public class Product {
 	@Pattern(regexp = "^[hmp]$", message = "카테고리에 h, m, p 중 한 글자를 필수로 넣어주세요. (h: hotel, m: motel, p: pension)")
 	private String productCategory;
 
+	@Pattern(regexp = "^[가-힣a-zA-Z0-9-_\\s]{0,500}$", message = "한글/영문대소문자/숫자/-_ 등을 이용해 500자 내외로 입력해주세요.")
+	private String productDescription;
+
 	@NotBlank(message="주소는 필수 입력 값입니다.")
 	@Pattern(regexp = "^[가-힣a-zA-Z0-9-_\\s]{5,100}$", message = "주소 값은 필수 입력 값입니다. 한글/영문대소문자/숫자/-_ 등을 이용해 5~100자로 입력해주세요.")
 	private String address;

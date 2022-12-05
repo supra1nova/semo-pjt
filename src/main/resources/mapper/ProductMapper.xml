@@ -4,7 +4,7 @@
 
     <sql id="selectFromProduct">
         SELECT
-            product_id, member_id, product_name, product_category, address, address_detail, zip_code, tel_num, ins_date, upd_date
+            product_id, member_id, product_name, product_description, product_category, address, address_detail, zip_code, tel_num, ins_date, upd_date
         FROM
             product
     </sql>
@@ -15,9 +15,17 @@
 
     <insert id="addProduct" parameterType="Product">
         INSERT INTO product
-            (member_Id, product_name, product_category, address, address_detail, zip_code, tel_num)
+            (member_Id, product_name,
+             <if test='productDescription != null and productDescription != ""'>
+                 product_description,
+             </if>
+             product_category, address, address_detail, zip_code, tel_num)
         VALUES
-            (#{memberId}, #{productName}, #{productCategory}, #{address}, #{addressDetail}, #{zipCode}, #{telNum})
+            (#{memberId}, #{productName},
+             <if test='productDescription != null and productDescription != ""'>
+                 #{productDescription},
+             </if>
+             #{productCategory}, #{address}, #{addressDetail}, #{zipCode}, #{telNum})
     </insert>
 
     <select id="getProductList" resultType="Product">
@@ -31,6 +39,9 @@
         SET
             <if test='productName != null and productName != ""'>
                 product_name = #{productName}
+            </if>
+            <if test='productDescription != null and productDescription != ""'>
+                , product_description = #{productDescription}
             </if>
             <if test='productCategory != null and productCategory != ""'>
                 , product_category = #{productCategory}
