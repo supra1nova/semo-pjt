@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/common.css" />
+	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> <!-- jQuery 사용하기 위해 cdn 호출-->
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div id="main">
+
+			<!-- 실제 모든 내용을 담는 틀-->
+			<div style="top: 300px; width: 100%; padding-top: 77px;">
+
+				<!-- 서브 nav 감싸는 div -->
+				<div style="margin: 10px auto 5px; width: 1200px; text-align: center">
+					<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
+					<div style="height: 50px; width: 500px; font-size: 16px">
+						<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+						<ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a href="/" style="text-decoration: none; color: rgba(102,102,255,255); font-weight: bold">서비스 소개</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a href="/product/list" style="text-decoration: none;">제휴 업체</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- main content 감싸는 div -->
+				<div style="width: 100%; border-top: 1px solid rgb(235, 236, 237);">
+					<!-- 실제 예약 및 목록 관련 내용들 -->
+					<div style="margin-left: auto; margin-right: auto; width: 1200px; text-align: center" >
+						here it is
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

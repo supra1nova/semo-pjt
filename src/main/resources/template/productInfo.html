@@ -4,79 +4,64 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 <head>
-	<style></style>
 	<meta charset="utf-8">
 	<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/productInfo.css" />
+	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> <!-- jQuery 사용하기 위해 cdn 호출-->
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>	<!-- slick -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>	<!-- slick -->
+	<script>let productId = [[${productId}]];</script>	<!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+	<script src="/js/common.js"></script>
+	<script src="/js/productInfo.js"></script>
 </head>
 <body>
 	<div layout:fragment="content">
 		<div id="main">
 
-			<!-- jQuery 사용학 위해 cdn 호출-->
-			<script
-					src="https://code.jquery.com/jquery-3.6.1.js"
-					integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-					crossorigin="anonymous">
-			</script>
-
-			<!-- backend data 전달 테스트용 코드 -->
-			<div th:text="${productId}"></div>
-
-			<!-- jQuery 출력 테스트용 코드 -->
-			<script>
-				let productId = [[${productId}]];
-				console.log(productId);
-				$(function(){
-					alert("hello Jquerry !!!");
-					getProductInfo();
-				});
-				async function getProductInfo(){
-					const getProductInfoUrl = "/api/product/info/" + productId;
-					console.log(getProductInfoUrl);
-					const data = await fetch(getProductInfoUrl, {
-							method: "GET",
-							headers: {
-								"Content-Type": "application/json",
-							}
-						})
-						.then(res => res.json())
-						.then(data => data);
-					if(data.message === "OK"){
-						console.log(data.data);
-					};
-				}
-			</script>
-			<style type="text/css">
-				li:hover {
-					color: rgba(43, 206, 255,255);
-				}
-			</style>
-
 			<!-- 실제 모든 내용을 담는 틀-->
-			<div style="top: 300px; margin-left: auto; margin-right: auto; width: 1200px; height: 800px; text-align: center; padding-top: 60px; ">
-				<div style="height: 50px; width: 500px; font-size: 16px">
+			<div style="top: 300px; width: 100%; padding-top: 77px;">
+<!--				<div style="top: 300px; margin-left: auto; margin-right: auto; width: 1200px; height: 800px; text-align: center; padding-top: 60px; ">-->
+				<!-- 서브 nav 감싸는 div -->
+				<div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
 					<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
-					<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
-					<ul style="padding: 0; display: flex; justify-content: space-around; line-height: 50px; font-weight: bold; color: grey;">
-						<li style="list-style: none; cursor: pointer; color: rgba(102,102,255,255)">숙소 소개</li>
-						<li style="list-style: none; cursor: pointer">예약 하기</li>
-						<li style="list-style: none; cursor: pointer">오시는 길</li>
-						<li style="list-style: none; cursor: pointer">문의하기</li>
-					</ul>
+					<div style="height: 50px; width: 500px; font-size: 16px">
+						<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+						<ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="productInfoBtn" class="currentBtn" href="" style="text-decoration: none">숙소 소개</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="reservationBtn" href="" style="text-decoration: none">예약하기</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="locationBtn" href="" style="text-decoration: none">오시는 길</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="qnaBtn" href="" style="text-decoration: none">문의하기</a></li>
+						</ul>
+					</div>
 				</div>
 
-				<!-- 이미지 슬라이드(carousel) -->
-				<div style="width: 100%; height: 300px; border-top: 0.5px solid rgb(235, 236, 237); display: flex; justify-content: center;">
-					<div style="width:400px; height: 300px; padding: 0; background: yellow">test</div>
-					<div style="width:400px; height: 300px; padding: 0; background: green">test</div>
-					<div style="width:400px; height: 300px; padding: 0; background: blue">test</div>
+				<!-- main content 감싸는 div -->
+				<div style="width: 100%; border-top: 1px solid rgb(235, 236, 237);">
+
+					<!-- 실제 예약 및 목록 관련 내용들 -->
+					<div style="margin-left: auto; margin-right: auto; width: 1200px; text-align: center" >
+
+						<!-- 이미지 슬라이드(carousel) -->
+						<!-- border 색상 rgb(235, 236, 237) -->
+						<div class="post-slider">
+							<h1 class="sider-title" id="product-name"></h1>
+							<div class="post-wrapper" id="product-image"></div>
+						</div>
+
+						<!-- 태그 정의 후 버튼은 임의의 클래스를 지정한다.-->
+						<div class="indicator" style="display: flex; justify-content: center; align-items: center; height: 50px;">
+							<span class="prevArrow" style="margin: 0 15px 0">이전</span>
+							<span class="nextArrow" style="margin: 0 15px 0">다음</span>
+						</div>
+
+						<!-- 각 숙박업소 소개글-->
+						<div id="productDescription" style="width: 100%; margin-top: 20px; padding: 10px; height: 100px; border: 1px rgb(235, 236, 237) solid; text-align: left"></div>
+					</div>
+
 				</div>
 
-				<!-- 각 숙박업소 소개글-->
-				<dib>숙박 업소 소개 글</dib>
 			</div>
-
-
 
 		</div>
 	</div>

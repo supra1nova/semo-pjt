@@ -19,7 +19,7 @@ import java.util.Map;
 //@Transactional -> transactional 은 각 메서드에 걸어사 사용
 public class ProductService {
 	private final ProductMapper productMapper;
-	private final ProductImageMapper productImageMapper;
+	private final ProductImageService productImageService;
 
 	public int addProduct(Product product) {
 		int result = productMapper.addProduct(product);
@@ -32,7 +32,7 @@ public class ProductService {
 	public  Map<String, Object> getProductById(int productId) {
 		Map<String, Object> result = new LinkedHashMap<String, Object>();
 		result.put("productInfo", productMapper.getProductById(productId));
-		result.put("imageList", productImageMapper.getProductImagesById(productId));
+		result.put("imageList", productImageService.getAllProductImagesByProductId(productId));
 		return result;
 	}
 
@@ -57,8 +57,8 @@ public class ProductService {
 		return result;
 	}
 
-	public  Boolean checkProduct(int productId, String memberId) {
-		return productMapper.getProductByMemberId(productId, memberId) != null ? true : false;
-	}
+//	public  Boolean checkProduct(int productId, String memberId) {
+//		return productMapper.getProductByMemberId(productId, memberId) != null ? true : false;
+//	}
 
 }

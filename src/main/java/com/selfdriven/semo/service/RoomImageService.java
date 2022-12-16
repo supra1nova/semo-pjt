@@ -21,14 +21,15 @@ import java.util.List;
 @Service
 public class RoomImageService {
 
-    private final ProductService productService;
+//    private final ProductService productService;
+    private final ProductImageService productImageService;
     private final RoomService roomService;
     private final RoomImageMapper roomImageMapper;
     private final S3UploadService s3UploadService;
     private final S3Config s3Config;
 
     public int insertRoomImage(MultipartFile file, int productId, int roomId, Login login) throws IOException {
-        if(!productService.checkProduct(productId, login.getId())) {
+        if(!productImageService.checkProduct(productId, login.getId())) {
             throw new ApiException(ResultCode.ACCESS_DENIED);
         } else if (!roomService.checkRoom(productId, roomId)) {
             throw new ApiException(ResultCode.INVALID_PARAMETER);
@@ -109,7 +110,7 @@ public class RoomImageService {
     // TODO: (확인필요) db에서 삭제시 s3에서도 삭제 되었는지 검증가능해야하는데, 올바르지 않은 이미지를 삭제하거나 조회해도 return으로 주소값이 항상 나온다 -> 그럼 지금처럼 s3에서 목록확인한 다음 삭제해야하나?
     public int deleteRoomImage(int productId, int roomId, String fileName, Login login){
         int res = 0;
-        if(!productService.checkProduct(productId, login.getId())) {
+        if(!productImageService.checkProduct(productId, login.getId())) {
             throw new ApiException(ResultCode.ACCESS_DENIED);
         } else if(!roomService.checkRoom(productId, roomId)) {
             throw new ApiException(ResultCode.INVALID_PARAMETER);

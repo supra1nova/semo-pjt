@@ -3,384 +3,139 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
-
 <head>
-<meta charset="utf-8">
-<title>semo</title>
-	<style>
-	
-.box-radio-input input[type="radio"]{
-  display:none;
-  
-}
-
-.box-radio-input input[type="radio"] + span{
-  display:inline-block;
-  background:none;
-  border:1px solid #dfdfdf;  
-  padding:0px 10px;
-  text-align:center;
-  height:40px;
-  line-height:38px;
-  font-weight:500;
-  cursor:pointer;
-  width:100%;
-}
-
-.box-radio-input input[type="radio"]:checked + span{
-  border:1px solid #23a3a7;
-  background:#23a3a7;
-  color:#fff;
-}</style>
+	<meta charset="utf-8">
+	<title>semo</title>
+	<link rel="stylesheet" href="/css/common.css" />
+<!--	<link rel="stylesheet" href="/css/join.css" />-->
+	<!-- jQuery 사용하기 위해 cdn 호출-->
+	<script
+			src="https://code.jquery.com/jquery-3.6.1.js"
+			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+			crossorigin="anonymous">
+	</script>
+	<script th:inline="javascript">
+		let origMemberId = null;
+		let origSocialType = null;
+		$(function(){
+			let session = [[${session}]];
+			origMemberId = session.login.id;
+			origSocialType = session.login.socialType;
+		});
+	</script>
+	<script src="/js/join.js"></script>
 </head>
 <body>
 	<div layout:fragment="content">
 
-<th:block layout:fragment="script">
-<script type="text/javascript">
+		<div id="main">
 
-function selectAll(selectAll)  {
-	  const checkboxes 
-	     = document.querySelectorAll('input[type="checkbox"]');
-	  
-	  checkboxes.forEach((checkbox) => {
-	    checkbox.checked = selectAll.checked
-	  })
-	}
+			<!-- 실제 모든 내용을 담는 틀-->
+			<div style="top: 300px; width: 100%; padding-top: 77px;">
 
-async function joinMemberViaKakao() {
-	 let member = {};
-    let email = document.querySelector('#email');
-    let email2 = document.querySelector('#email2');
+				<!-- main content 감싸는 div -->
+				<div style="margin: 10px auto; width: 100%; ">
+					<!-- 실제 회원가입 입력부분 -->
+					<div style="margin: 30px auto; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 1200px; text-align: center" >
 
-     let memberType = document.querySelector('input[name="memberType"]:checked');
-    let memberId = document.querySelector('#memberId'); 
-    let name = document.querySelector('#name');
-    let phNum = document.querySelector('#phNum');    
-    let socialType = document.querySelector('#socialType');
+						<!-- 글-->
+						<div style="margin-bottom: 50px; width: 400px; display: flex; flex-direction: column; justify-content: center;" >
 
+							<form>
+								<div style="margin: 10px 0 30px; font-size: 30px">회원 가입</div>
 
+								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">회원 유형</div>
+								<div style="margin: 10px 0 30px; display: flex; justify-content: center;">
+									<label id="firstLabel" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 10px 0 0 10px; background-color: rgba(102,102,255,255); color: white">
+										<input type="radio" name="memberType" value="m" style="margin: -10px; opacity: 0%" checked="checked" /><span style="line-height: 40px; font-size: 15px">일반 회원</span>
+									</label>
+									<label id="secondLabel" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-left: none; border-radius: 0px 10px 10px 0; ">
+										<input type="radio" name="memberType" value="c" style="margin: -10px; opacity: 0%" /><span style="line-height: 40px; font-size: 15px">사업자 회원</span></input>
+									</label>
+								</div>
 
-    member.email = email.value +  email2.value;
+								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">이메일</div>
+								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+									<div style="margin: 0; padding: 0; display: flex; justify-content: center;">
+										<input id="emailId" name="emailId" type="text" maxlength="15" style="width: 46%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; text-align: center" placeholder="아이디를 입력하세요." />
+										<div style="width: 8%; height: 40px; font-size: 20px; font-weight: bold; text-align: center; line-height: 40px">@</div>
+										<select name="emailDomain" style="width: 46%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; text-align: center">
+											<option value="none" selected disabled>== 도메인 주소 선택 ==</option>
+											<option value="daum.com">daum.com</option>
+											<option value="google.com">google.com</option>
+											<option value="hanmail.com">hanmail.com</option>
+											<option value="kakao.com">kakao.com</option>
+											<option value="naver.com">naver.com</option>
+											<option value="직접입력">직접입력</option>	<!-- 직접 입력 버튼 어떻게 처리해야할지 고민 -->
+										</select>
+									</div>
+									<div id="emailTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">이메일을 입력해주세요.</div>
+								</div>
 
+								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">이름<span style="margin:0 5px; font-size: 12px; color: grey">(한글 2-10자로 입력해주세요)</span></div>
+								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+									<input name="name" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center" placeholder="홍길동">
+									<div id="nameTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">이름을 입력해주세요.</div>
+								</div>
 
-    
-    member.memberType = memberType.value;
-    member.memberId = memberId.value; 
-    member.name = name.value;
-    member.phNum = "010" + phNum.value;
-alert(member.memberType);
-    member.socialType = socialType.value;
-    const kakaoURL = "/api/member/join";
-    const res = await fetch(kakaoURL, {
-        method: "POST",
-        body: JSON.stringify(member),
-        headers: {
-            "Content-Type": "application/json",
-        }
-    })
-        .then(res => res.json())
-        .then(data => data);
-    if(!res.data){
-        alert("빈값입니다.");
-    } else{
-        location.href="/";
-    }
-}
+								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">전화번호<span style="margin:0 5px; font-size: 12px; color: grey">('-' 를 제외한 번호를 입략해주세요.)</span></div>
+								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+									<div style="margin: 0; width: 100%; display: flex; justify-content: space-between">
+										<select name="firstPhNum" style="width: 20%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; text-align:center; -webkit-appearance:none; -moz-appearance:none; appearance:none;">
+											<option value="010">010</option>
+											<option value="011">011</option>
+											<option value="012">012</option>
+											<option value="016">016</option>
+											<option value="019">019</option>
+										</select>
+										<span style="width: 10%; height: 40px; font-size: 20px; font-weight: bold; text-align: center; line-height: 40px; border: none; background: transparent" > - </span>
+										<input name="secondPhNum" style="width: 30%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center">
+										<span style="width: 10%; height: 40px; font-size: 20px; font-weight: bold; text-align: center; line-height: 40px; border: none; background: transparent" > - </span>
+										<input name="thirdPhNum" style="width: 30%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center">
+									</div>
+									<div id="phNumTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">전화번호를 입력해주세요.</div>
+								</div>
 
-    </script>
-    
-</th:block>
+<!--								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">약관동의</div>-->
+<!--								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">-->
+<!--									<div style="margin: 0; padding: 20px 20px 10px; width: 100%; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #dfdfdf; border-radius: 5px; font-size: 15px; text-align: left">-->
+<!--										<p style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #dfdfdf; font-size: 20px; font-weight: bold"><label><input type="checkbox" name="nb[]" value="0"> 전체동의</label></p>-->
+<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="1"> 만 14세 이상입니다.</label></p>-->
+<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="2"> 이용약관</label></p>-->
+<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="3"> 개인정보수집 및 이용동의</label></p>-->
+<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="4"> 개인정보 마케팅 활용 동의</label></p>-->
+<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="5"> 이벤트, 쿠폰, 특가 알림 메일 및 SMS 등 수신</label></p>-->
+<!--									</div>-->
+<!--								</div>-->
+								<div>
+<!--									<input type="hidden" name="socialType" id="socialType" th:value="${session.login.socialType}">-->
+<!--									<input type="hidden" name="memberId" id="memberId"  th:value="${session.login.id}">-->
+<!--									<input type="hidden" name="socialType" id="socialType" th:value="${session.login.socialType}">-->
+<!--									<input type="hidden" name="memberId" id="memberId"  th:value="${session.login.id}">-->
 
-			<div id="main">
-	<div data-framer-generated="true" class="framer-2Gxmt framer-hoagE" style="display:contents">
-		<div class="framer-2iyou3" style="min-height:100%;width:auto">
-		<form id="join_form">
-			<div class="framer-kthkgp">
-			
-				<div class="framer-1sdyb7r">
-					
-	
-					
-					<div class="framer-erfgql">
-							<div class="framer-1jhdnab" >
-							<div class="framer-19gxqko" id="jn_div2">
-								<p id="jn_p12" class="framer-text">
-									회원가입
-								</p>
-							</div>
-						</div>
-						<div class="framer-zfx59g" >
-						<label class="box-radio-input" style="width:50%;">
-						<input type="radio"name="memberType" value="m" checked="checked"><span>일반회원</span></label>
-                        <label class="box-radio-input"style="width:50%;"><input type="radio" name="memberType" value="c"><span>사업자회원</span></label>
-							 
-						<!-- 	 
-                    <input type="hidden" name="socialType" id="socialType" th:value="${session.login.socialType}">
-                    <input type="hidden" name="memberId" id="memberId"  th:value="${session.login.id}"> -->
-                    
-						</div>
-					
-								<div class="framer-pa26pd" >
-							
-							<div class="framer-1clavjp">
-								<div class="framer-1ga43ak" id="jn_div1">
-									<p id="jn_p1" class="framer-text">
-										이메일
-									</p>
+<!--									<script th:inline="javascript">-->
+<!--										let origMemberId = null;-->
+<!--										let origSocialType = null;-->
+<!--										$(function(){-->
+<!--											let session = [[${session}]];-->
+<!--											origMemberId = session.login.id;-->
+<!--											origSocialType = session.login.socialType;-->
+<!--											// console.log($("input[name='memberId']").value)-->
+<!--										});-->
+<!--									</script>-->
 								</div>
-							</div>
-							<div class="framer-ok8t4x">
-								<div class="framer-9hljh9" data-border="true">
-									<div class="framer-1tbnq6x" id="jn_div2">
-										
-										<input type="text" name="email" id="email" style="border: none;width:135px;"placeholder="이메일을 입력하세요">
-								
-									</div>
+								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+									<button class="colorBtn" type="submit" style="margin: 0; width: 100%">회원 가입하기</button>
 								</div>
-								<div class="framer-rhxs5p">
-									<div class="framer-fa8hmf" id="jn_div2">
-										<p id="jn_p10" class="framer-text">
-											@
-										</p>
-									</div>
-								</div>
-								<div class="framer-19e1iu0" data-border="true">
-									<div class="framer-fwatlf" id="jn_div2">
-										<p id="jn_p11" class="framer-text">
-											<select name="email2" id="email2"style="border:none;width:135px;">
-											<option value="@naver.com">naver.com</option>
-											<option value="@daum.net">daum.net</option>
-											<option value="@gmail.com">gmail.com</option>
-											<option value="@nate.com">nate.com</option>
-											
-											</select>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="framer-hgz8gr" >
-							<div class="framer-1aszz9s">
-								<div class="framer-4wf9fw">
-									<div class="framer-1l2mibm" id="jn_div1">
-										<p id="jn_p1" class="framer-text">
-											이름
-										</p>
-									</div>
-								</div>
-								<div class="framer-1b2sezu">
-									<div class="framer-bbuhlk" id="jn_div2">
-										<p id="jn_p7" class="framer-text">
-											다른 유저와 곂치지 않도록 입력해주세요. (2~15자)
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="framer-n0je14">
-								<div class="framer-1n903k">
-									<div class="framer-1swcrma" data-border="true">
-										<div class="framer-n3hek4" id="jn_div2">
-											<input type="text" name="name" id="name" style="border: none;width:332px;"placeholder="이름을 입력하세요">
+							</form>
 
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-			
-						<div class="framer-4957c2" >
-							<div class="framer-hozqj9" data-border="true">
-							</div>
-						</div>
-						
-				
-					</div>
-					<div class="framer-1tyalbe" >
-						<div class="framer-f23zok">
-							<div class="framer-su9g17">
-								<div class="framer-ay4duj" id="jn_div1">
-									<p id="jn_p1" class="framer-text">
-										휴대전화
-									</p>
-								</div>
-							</div>
-							<div class="framer-10tys98">
-								<div class="framer-1emz3r7" id="jn_div2">
-								
-									<p id="jn_p7" class="framer-text">
-										'-' 를 제외한 번호 8자리를 입략해주세요.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="framer-t8ecku">
-							<div class="framer-hfsbg3" data-border="true">
-								<div class="framer-5ythjt" id="jn_div2">
-									<p id="jn_p8" class="framer-text">
-										(+82) 010 -
-									</p>
-								</div>
-								<div class="framer-1gkhqio" id="jn_div2">
-						   		    <input type="text" name="phNum" id="phNum" style="border: none;width:250px;"placeholder="전화번호를 입력하세요">
-
-								</div>
-							</div>
-						</div>
-					</div>
-									<div class="framer-nu8bna" >
-						<div class="framer-o5fxyp">
-						</div>
-						<div class="framer-1pzmg15">
-							<div class="framer-1rj5iat" id="jn_div1">
-								<p id="jn_p1" class="framer-text">
-									약관동의
-								</p>
-							</div>
-						</div>
-						<div class="checkbox_group">
-						<div class="framer-160ylao" data-border="true">
-							<div class="framer-ka80sb">
-								<div class="framer-133kf3j">
-									<div class="framer-eejoxi">
-									</div>
-								</div>
-								<div class="framer-4ffou3">
-									<div class="framer-7g7os8" data-border="true">
-									<input type="checkbox" name="agree_all" id="agree_all" onclick='selectAll(this)' class="checkbox_join" >
-									</div>
-									<div class="framer-1ozyvtm" id="jn_div2">
-										<p id="jn_p2" class="framer-text">
-											전체동의
-										</p>
-									</div>
-									<div class="framer-86md3o" id="jn_div2">
-										<p id="jn_p3" class="framer-text">
-											선택항목에 대한 동의 포함
-										</p>
-									</div>
-								</div>
-								<div class="framer-1eisnh8">
-									<div class="framer-1j9vxui">
-										<div class="framer-1y2tq8y" data-border="true">
-											<input type="checkbox" name="agree_1"  class="checkbox_join">
-										
-										</div>
-										<div class="framer-yffryv" id="jn_div2">
-											<p id="jn_p4" class="framer-text">
-												만 14세 이상입니다.
-											</p>
-										</div>
-										<div class="framer-50vcyh" id="jn_div2">
-											<p id="jn_p5" class="framer-text">
-												(필수)
-											</p>
-										</div>
-									</div>
-									<div class="framer-1033grr">
-										<div class="framer-1itgopi" data-border="true">
-										<input type="checkbox" name="agree_2"  class="checkbox_join" >
-										</div>
-										<div class="framer-fp2wkk" id="jn_div2">
-											<p id="jn_p4" class="framer-text">
-												이용약관
-											</p>
-										</div>
-										<div class="framer-1xa2sa6" id="jn_div2">
-											<p id="jn_p5" class="framer-text">
-												(필수)
-											</p>
-										</div>
-									</div>
-									<div class="framer-18fe54n">
-										<div class="framer-osktwv" data-border="true">
-										<input type="checkbox" name="agree_3" class="checkbox_join" >
-										</div>
-										<div class="framer-11trt30" id="jn_div2">
-											<p id="jn_p4" class="framer-text">
-												개인정보수집 및 이용동의
-											</p>
-										</div>
-										<div class="framer-6v635l" id="jn_div2">
-											<p id="jn_p5" class="framer-text">
-												(필수)
-											</p>
-										</div>
-									</div>
-									<div class="framer-b8nt0d">
-										<div class="framer-1kiluow" data-border="true">
-										<input type="checkbox" name="agree_4"  class="checkbox_join" >
-										</div>
-										<div class="framer-iyzuz0" id="jn_div2">
-											<p id="jn_p4" class="framer-text">
-												개인정보 마케팅 활용 동의
-											</p>
-										</div>
-										<div class="framer-cpqy0v" id="jn_div2">
-											<p id="jn_p6" class="framer-text">
-												(선택)
-											</p>
-										</div>
-									</div>
-									<div class="framer-1h1y6j2">
-										<div class="framer-obphk6" data-border="true">
-										<input type="checkbox" name="agree_5" class="checkbox_join" >
-										</div>
-										<div class="framer-927s7h" id="jn_div2">
-											<p id="jn_p4" class="framer-text">
-												이벤트, 쿠폰, 특가 알림 메일 및 SMS 등 수신
-											</p>
-										</div>
-										<div class="framer-10c8q1d" id="jn_div2">
-											<p id="jn_p6" class="framer-text">
-												(선택)
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-																						
-						
-						</div>
-					</div>
-					<div class="framer-26sr49" >
-						<a class="framer-atwnct" style="cursor:pointer;"onclick="joinMemberViaKakao()">
-						<div class="framer-1g65q9g" >
-							<div class="framer-zcubmh" id="jn_div2">
-								<p id="jn_p14" class="framer-text">
-								
-									회원 가입하기
-								</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="framer-bwhd3u">
-						<div class="framer-1p3kv0x" id="jn_div2">
-							<p id="jn_p15" class="framer-text">
-								이미 아이디가 있으신가요?
-							</p>
-						</div>
-						<div class="framer-19627qu"  id="jn_div2">
-							<p id="jn_p16" class="framer-text">
-								<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/login">로그인</a>
-							</p>
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
-			</form>
+
 		</div>
-		
-	</div>
-</div>
-
-
-
 	</div>
 
 </body>

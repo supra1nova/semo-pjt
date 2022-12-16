@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    color: black;
+    font-weight: normal;
+}
+
+/* hover 시 생상 설정*/
+li:hover > a {
+    color: rgba(43, 206, 255,255);
+}
+.currentBtn, li:hover > .currentBtn {
+    color: rgba(102,102,255,255);
+    font-weight: bold;
+}
+
+/* 메일 배경색의 버튼 및 호버 효과*/
+.colorBtn{
+    margin: 20px 10px;
+    width: 100px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(102,102,255,255);
+    color: white;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.colorBtn:hover {
+    cursor: pointer;
+    background: white;
+    border: 1px solid rgba(102,102,255,255);
+    color: rgba(102,102,255,255);
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}

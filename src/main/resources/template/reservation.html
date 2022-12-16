@@ -3,546 +3,106 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
-
 <head>
-<style>
-</style>
-<meta charset="utf-8">
-<title>semo</title>
+	<meta charset="utf-8">
+	<title>semo</title>
+	<!-- 공통 css 내용 -->
+	<link rel="stylesheet" href="/css/common.css" />
 </head>
 <body>
-<div layout:fragment="content">
-	
+	<div layout:fragment="content">
 
+		<div id="main">
 
+			<!-- jQuery 사용하기 위해 cdn 호출-->
+			<script
+					src="https://code.jquery.com/jquery-3.6.1.js"
+					integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+					crossorigin="anonymous">
+			</script>
 
-<div id="main">
-	<div class="framer-XTgPR framer-hoagE framer-tXvOs" id="rv_div5">
-		<div class="framer-7ordep" id="rv_div6">
-	
-			<div class="framer-on0ys8">
-			</div>
-			<div class="framer-tlqjot" >
-				<div class="framer-y72on9" data-border="true">
-					<div class="framer-hx1q6j">
-						<div class="framer-hzoqh4"  >
-							<div class="framer-1ie09vt" id="rv_div1">
-								<p id="rv_p1" class="framer-text">
-									<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/">숙소 소개</a>
-								</p>
-							</div>
-						</div>
-						<div class="framer-1mp2hif" >
-							<div class="framer-btlhpz" id="rv_div1" >
-								<p id="rv_p2" class="framer-text">
-									예약하기
-								</p>
-							</div>
-						</div>
-						<div class="framer-134285t" >
-							<div class="framer-12syz3x"  id="rv_div1">
-								<p id="rv_p1" class="framer-text">
-									<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/hotelMap">오시는길</a>
-								</p>
-							</div>
-						</div>
-						<div class="framer-1q68mq5" >
-							<div class="framer-1drjhxp" id="rv_div1">
-								<p id="rv_p1" class="framer-text">
-									<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/qna">문의하기</a>
-								</p>
-							</div>
-						</div>
+			<!-- date picker 관련 cdn -->
+			<link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+			<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
+
+			<!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+			<script>
+				let productId = [[${productId}]];
+			</script>
+
+			<!-- js 코드 대부분 외부 js로 이동-->
+			<script src="/js/common.js"></script>
+			<script src="/js/reservation.js"></script>
+
+			<!-- 실제 모든 내용을 담는 틀-->
+			<div style="width: 100%; padding-top: 77px;">
+
+				<!-- 서브 nav 감싸는 div -->
+				<div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
+					<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
+					<div style="height: 50px; width: 500px; font-size: 16px">
+						<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+						<ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="productInfoBtn" href="" style="text-decoration: none">숙소 소개</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="reservationBtn" class="currentBtn" href="" style="text-decoration: none">예약하기</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="locationBtn" href="" style="text-decoration: none">오시는 길</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="qnaBtn" href="" style="text-decoration: none">문의하기</a></li>
+						</ul>
 					</div>
 				</div>
-			</div>
-			<div class="framer-b2gaex" >
-				<div class="framer-flr17d">
-					<div class="framer-1m5zo06" >
-						<div class="framer-7afsvr" data-border="true" >
-							<div class="framer-1l2z67v" >
-								<div class="framer-hic40e">
-									<div class="framer-kzntby" data-border="true">
-										<div class="framer-sfb7o9" data-border="true">
-											<div class="framer-1mi8bar">
-												<div class="framer-lsw82o" id="rv_div1">
-													<p id="rv_p3" class="framer-text">
-														인원
-													</p>
-												</div>
-											</div>
-											<div class="framer-1lvxgd8">
-												<div class="framer-xlc2mi" id="rv_div1">
-													<p id="rv_p4" class="framer-text">
-														1 명
-													</p>
-												</div>
-											</div>
-											<div class="framer-t5j1fq" data-border="true">
-												<div class="framer-1oaa5xh">
-													<div class="framer-alrsdd" id="rv_div2">
-														<p id="rv_p5" class="framer-text">
-															-
-														</p>
-													</div>
-												</div>
-												<div class="framer-15rqhkq" data-border="true">
-													<div class="framer-1aqz06w" id="rv_div1">
-														<p id="rv_p6" class="framer-text">
-															+
-														</p>
-													</div>
-												</div>
-											</div>
+
+				<!-- 실제 예약 및 목록 관련 내용들 -->
+				<div style="display: flex; justify-content: center; border-top: 1px solid rgb(235, 236, 237)" >
+
+					<!-- left frame wrapper -->
+					<div style="width: 400px; display: flex; flex-direction: column; justify-content: start; align-items: center">
+						<div style="margin: 10px 0; padding: 10px 0; font-size: 20px; width: 350px; text-align: left; border-bottom: 1px solid rgb(235, 236, 237)">예약 정보</div>
+						<!-- outer wrapper -->
+						<div style="margin: 10px 0 0; width: 350px; height: 250px; border: 1px solid rgb(235, 236, 237); border-radius: 10px;">
+							<form action="" method="post">
+								<div style="margin: 10px 0 0 0; display: flex; justify-content: center;">
+									<!-- date picker 실제 내용들 -->
+									<div class="tui-datepicker-input tui-datetime-input tui-has-focus" style="margin: 10px 0 0; padding: 0; width: 150px; height: 50px; border: 1px solid rgb(235, 236, 237); border-radius: 10px 0 0 0; display: flex; flex-direction: column ;justify-content: center; font-size: 12px; text-align: center">
+										<label for="startpicker-input"><div style="margin: 5px; cursor:pointer;">체크인</div></label>
+										<input id="startpicker-input" type="text" aria-label="Date" style="padding: 0; text-align: center; font-size: 15px; font-weight: bold; cursor:pointer;">
+										<div id="startpicker-container" style="margin-left: 0px;"></div>
+									</div>
+									<div class="tui-datepicker-input tui-datetime-input tui-has-focus"  style="margin: 10px 0 0; padding: 0; width: 150px; height: 50px; border: 1px solid rgb(235, 236, 237); border-left: none; border-radius: 0 10px 0 0; display: flex; flex-direction: column ;justify-content: center; font-size: 12px; text-align: center">
+										<label for="endpicker-input"><div style="margin: 5px; cursor:pointer;">체크아웃</div></label>
+										<input id="endpicker-input" type="text" aria-label="Date" style="padding: 0; text-align: center; font-size: 15px; font-weight: bold; cursor:pointer;">
+										<div id="endpicker-container" style="margin-left: -127px;"></div>
+									</div>
+								</div>
+								<div style="display: flex; justify-content: center;">
+									<div style="display: flex; justify-content: center; width: 300px; height: 50px; border: 1px solid rgb(235, 236, 237); border-top: none; border-radius: 0 0 10px 10px; ">
+										<div style="width: 260px; text-align: center; display: flex; flex-direction: column; justify-content: space-evenly;">
+											<div style="margin-left: 10px; width: 100%; cursor:pointer; font-size: 12px; ">인원</div>
+											<input id="personNumInput" style="margin-left: 10px; width: 100%; border: none; text-align: center; font-size: 15px; font-weight: bold; background: white" value="0" disabled>
 										</div>
-										<div class="framer-yi6sbf" data-border="true">
-											<div class="framer-joh66z">
-												<div class="framer-1m5onky" id="rv_div1">
-													<p id="rv_p3" class="framer-text">
-														체크인
-													</p>
-												</div>
-											</div>
-											<div class="framer-9wtfpg">
-												<div class="framer-gxzzs5" id="rv_div1" >
-													<p id="rv_p4" class="framer-text">
-														yyyy - dd - mm
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="framer-1xiyb56">
-											<div class="framer-7izi6o">
-												<div class="framer-alcs6s" id="rv_div1">
-													<p id="rv_p3" class="framer-text">
-														체크 아웃
-													</p>
-												</div>
-											</div>
-											<div class="framer-1va47iz">
-												<div class="framer-1kt496c" id="rv_div1">
-													<p id="rv_p4" class="framer-text">
-														yyyy - dd - mm
-													</p>
-												</div>
-											</div>
+										<div style="display: flex; flex-direction: column; justify-content: center">
+											<button type="button" id="personNumPlusBtn" style="margin: 0; padding: 0; width: 25px; height: 20px; border: 1px solid rgb(235, 236, 237); border-radius: 7px 7px 0 0; background: white; text-align: center; cursor: pointer">+</button>
+											<button type="button" id="personNumMinusBtn" style="margin: 0; padding: 0; width: 25px; height: 20px; border: 1px solid rgb(235, 236, 237); border-radius: 0 0 7px 7px; background: white; text-align: center; cursor: pointer">-</button>
 										</div>
 									</div>
 								</div>
-								<div class="framer-t4sxo3">
-									<div class="framer-1lz3urh">
-										<div class="framer-4wwtha" >
-											<div id="rv_div3">
-												<div id="rv_div4">
-													<img src="https://framerusercontent.com/images/GXhyKW91EYrVHFGzEr5azo5adw.png" alt="" class="rv_img2">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="framer-1r5ha5" >
-										<div class="framer-1aolv6p">
-											<div class="framer-bqvra7" id="rv_div1">
-												<p id="rv_p11" class="framer-text">
-													₩ 60,000
-												</p>
-											</div>
-											<div class="framer-1oss0hw" id="rv_div1">
-												<p id="rv_p11" class="framer-text">
-													/
-												</p>
-											</div>
-											<div class="framer-mczu72" id="rv_div1">
-												<p id="rv_p11" class="framer-text">
-													3
-												</p>
-											</div>
-											<div class="framer-1pgx23v" id="rv_div1">
-												<p id="rv_p11" class="framer-text">
-													박
-												</p>
-											</div>
-										</div>
-									</div>
+								<div style="display: flex; justify-content: center; flex-direction: column; justify-content: center; align-items: center">
+									<button type="submit" style="margin-top: 20px; width: 300px; height: 50px; border: none; border-radius: 10px; background: rgba(102,102,255,255); color: white; font-size: 18px; font-weight: bolder">객실 조회하기</button>
+									<div style="margin-top: 20px; font-size: 12px">※ 7세 이하 어린이는 인원에 포함되지 않습니다.</div>
 								</div>
-								<div class="framer-o8jjei">
-									<div class="framer-dvthaz">
-										<div class="framer-zc55tq" id="rv_div1">
-											<p id="rv_p8" class="framer-text">
-												객실 조회하기
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="framer-csetyt">
-									<div class="framer-vn7gv" id="rv_div1">
-										<p id="rv_p12"class="framer-text">
-											예약 확정 전에는 요금이 청구되지 않습니다.
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="framer-rpyoah"  >
-							<div class="framer-1rlzagl">
-							</div>
-						</div>
-						<div class="framer-2seg52"  >
-							<div class="framer-4gc999" id="rv_div1">
-								<h3 class="framer-text framer-styles-preset-1yghfzr" data-styles-preset="gLdVtPW0L">예약 정보</h3>
-							</div>
+							</form>
 						</div>
 					</div>
-					<div class="framer-19usb75"  >
-						<div class="framer-1ajh70w"  >
-							<div class="framer-1b6sk05" id="rv_div1">
-								<h3 class="framer-text framer-styles-preset-1yghfzr" data-styles-preset="gLdVtPW0L">객실 목록</h3>
-							</div>
-						</div>
-						<div class="framer-lsn2kw" >
-							<div class="framer-1v4r4hx">
-							</div>
-						</div>
-						<div class="framer-1oxxsns" >
-							<div class="framer-7wgswy" >
-								<div class="framer-3x107g">
-								</div>
-							</div>
-							<div class="framer-1ovbi8j">
-								<div class="framer-ct4eet">
-									<div class="framer-lv12se" >
-										<div class="framer-yh7301" id="rv_div1" >
-											<p id="rv_p9" class="framer-text">
-												115,000원 ~
-											</p>
-										</div>
-									</div>
-									<div class="framer-xmreif" >
-										<div class="framer-169oq11" id="rv_div1" >
-											<p id="rv_p10" class="framer-text">
-												기준2 / 최대 2
-											</p>
-										</div>
-										<div class="framer-1ih4bfa" id="rv_div1" >
-											<p id="rv_p13" class="framer-text">
-												1박 / VAT포함
-											</p>
-										</div>
-									</div>
-									<div class="framer-mpcviy" >
-										<div class="framer-1twxdck" id="rv_div1" >
-											<p id="rv_p11" class="framer-text">
-												Standard Twin
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="framer-16dxq80" >
-									<a class="framer-11cdq50" href="/roomdetail">
-									<div id="rv_div3">
-										<div id="rv_div4">
-											<img src="https://framerusercontent.com/images/tbE6e6Qu1vOvqgcvadZ6twvOw.jpg" alt="" srcset="https://framerusercontent.com/images/tbE6e6Qu1vOvqgcvadZ6twvOw.jpg?scale-down-to=512 512w, https://framerusercontent.com/images/tbE6e6Qu1vOvqgcvadZ6twvOw.jpg?scale-down-to=1024 1024w, https://framerusercontent.com/images/tbE6e6Qu1vOvqgcvadZ6twvOw.jpg?scale-down-to=2048 2048w, https://framerusercontent.com/images/tbE6e6Qu1vOvqgcvadZ6twvOw.jpg?scale-down-to=4096 4096w, https://framerusercontent.com/images/tbE6e6Qu1vOvqgcvadZ6twvOw.jpg 6000w" sizes="300px" class="rv_img1">
-										</div>
-									</div>
-									<div class="framer-17zf6ea">
-										<div class="framer-6b1vej" id="rv_div1" >
-											<p id="rv_p14" class="framer-text">
-												객실 상세 보기
-											</p>
-										</div>
-										<div class="framer-1lk3ie6" id="rv_div1" >
-											<p id="rv_p7" class="framer-text">
-												→
-											</p>
-										</div>
-									</div>
-									</a>
-								</div>
-								<div class="framer-1agscge"  >
-									<a class="framer-1h8kpqv" href="/roomdetail">
-									<div class="framer-uchkwr" id="rv_div1" >
-										<p id="rv_p8" class="framer-text">
-											예약하기
-										</p>
-									</div>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="framer-1i0m79g" >
-							<div class="framer-it47xp"  >
-								<div class="framer-f2j03f">
-								</div>
-							</div>
-							<div class="framer-1vlgh9j">
-								<div class="framer-1rv3qnz"  >
-									<div class="framer-x4dy0r" >
-										<div class="framer-ccj7rd" id="rv_div1" >
-											<p id="rv_p9" class="framer-text">
-												130,000원 ~
-											</p>
-										</div>
-									</div>
-									<div class="framer-j18kpf" >
-										<div class="framer-h33nc2" id="rv_div1" >
-											<p id="rv_p10" class="framer-text">
-												기준2 / 최대 2
-											</p>
-										</div>
-										<div class="framer-1lesthf" id="rv_div1" >
-											<p id="rv_p13" class="framer-text">
-												1박 / VAT포함
-											</p>
-										</div>
-									</div>
-									<div class="framer-46qr4l" >
-										<div class="framer-j7u9su" id="rv_div1" >
-											<p id="rv_p11" class="framer-text">
-												Deluxe Twin
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="framer-kebr4m" >
-									<a class="framer-1ttu2r1" href="/roomdetail">
-									<div id="rv_div3" >
-										<div id="rv_div4">
-											<img src="https://framerusercontent.com/images/8USkKla0j0gIvRTp1xDSHZEM90c.jpg?scale-down-to=512" alt="" srcset="https://framerusercontent.com/images/8USkKla0j0gIvRTp1xDSHZEM90c.jpg?scale-down-to=512 512w, https://framerusercontent.com/images/8USkKla0j0gIvRTp1xDSHZEM90c.jpg 720w" sizes="300px" class="rv_img1">
-										</div>
-									</div>
-									<div class="framer-4a47pt">
-										<div class="framer-mro3x0" id="rv_div1" >
-											<p id="rv_p14" class="framer-text">
-												객실 상세 보기
-											</p>
-										</div>
-										<div class="framer-osuc27" id="rv_div1" >
-											<p id="rv_p7" class="framer-text">
-												→
-											</p>
-										</div>
-									</div>
-									</a>
-								</div>
-								<div class="framer-ibebfx" >
-									<a class="framer-39ok34" href="/roomdetail">
-									<div class="framer-ylzp78" id="rv_div1" >
-										<p id="rv_p8" class="framer-text">
-											예약하기
-										</p>
-									</div>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="framer-ww8yri" >
-							<div class="framer-1sshype" >
-								<div class="framer-1wwmwn3">
-								</div>
-							</div>
-							<div class="framer-rsd5xn">
-								<div class="framer-b9ore9"  >
-									<div class="framer-1ovdjqs">
-										<div class="framer-145sulh" id="rv_div1" >
-											<p id="rv_p9" class="framer-text">
-												140,000원 ~
-											</p>
-										</div>
-									</div>
-									<div class="framer-iqnv9n" name="기준일">
-										<div class="framer-g043ya" id="rv_div1" >
-											<p id="rv_p10" class="framer-text">
-												기준2 / 최대 2
-											</p>
-										</div>
-										<div class="framer-1slc7cm" id="rv_div1" >
-											<p id="rv_p13" class="framer-text">
-												1박 / VAT포함
-											</p>
-										</div>
-									</div>
-									<div class="framer-1fvi02u" >
-										<div class="framer-nn1hs2" id="rv_div1" >
-											<p id="rv_p11" class="framer-text">
-												HollyWood King
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="framer-10rj6hb" >
-									<a class="framer-4o7n7r"   href="/roomdetail">
-									<div id="rv_div3" >
-										<div id="rv_div4">
-											<img src="https://framerusercontent.com/images/W2sVTLJP8otNNv9XTDIZ0r90hLo.jpg" alt="" srcset="https://framerusercontent.com/images/W2sVTLJP8otNNv9XTDIZ0r90hLo.jpg?scale-down-to=512 512w, https://framerusercontent.com/images/W2sVTLJP8otNNv9XTDIZ0r90hLo.jpg 1000w" sizes="300px" class="rv_img1">
-										</div>
-									</div>
-									<div class="framer-1vgain3">
-										<div class="framer-vxzjy7" id="rv_div1" >
-											<p id="rv_p14" class="framer-text">
-												객실 상세 보기
-											</p>
-										</div>
-										<div class="framer-3p46q0" id="rv_div1" >
-											<p id="rv_p7" class="framer-text">
-												→
-											</p>
-										</div>
-									</div>
-									</a>
-								</div>
-								<div class="framer-11i4kt8"  >
-									<a class="framer-6wpp3j" href="/roomdetail">
-									<div class="framer-4vrd09" id="rv_div1" >
-										<p id="rv_p8" class="framer-text">
-											예약하기
-										</p>
-									</div>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="framer-1ge56li" >
-							<div class="framer-1iaewzn">
-								<div class="framer-1sy27ho">
-								</div>
-							</div>
-							<div class="framer-1ug11wt">
-								<div class="framer-svuor7"  >
-									<div class="framer-13vxa5o">
-										<div class="framer-1fw4pf2" id="rv_div1" >
-											<p id="rv_p9" class="framer-text">
-												185,000원 ~
-											</p>
-										</div>
-									</div>
-									<div class="framer-6uqeye" >
-										<div class="framer-1qieebk" id="rv_div1" >
-											<p id="rv_p10" class="framer-text">
-												기준2 / 최대 2
-											</p>
-										</div>
-										<div class="framer-1lxjv8q" id="rv_div1" >
-											<p id="rv_p13" class="framer-text">
-												1박 / VAT포함
-											</p>
-										</div>
-									</div>
-									<div class="framer-ka5q8f" >
-										<div class="framer-1wurhtm" id="rv_div1" >
-											<p id="rv_p11" class="framer-text">
-												Boutique Double
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="framer-1tfmjju" >
-									<a class="framer-1aq5475"  href="/roomdetail">
-									<div id="rv_div3" >
-										<div id="rv_div4">
-											<img src="https://framerusercontent.com/images/kVt9tVQT1IJd3L71uU8MTLOjJU.jpg" alt="" srcset="https://framerusercontent.com/images/kVt9tVQT1IJd3L71uU8MTLOjJU.jpg?scale-down-to=512 512w, https://framerusercontent.com/images/kVt9tVQT1IJd3L71uU8MTLOjJU.jpg?scale-down-to=1024 1024w, https://framerusercontent.com/images/kVt9tVQT1IJd3L71uU8MTLOjJU.jpg?scale-down-to=2048 2048w, https://framerusercontent.com/images/kVt9tVQT1IJd3L71uU8MTLOjJU.jpg 4000w" sizes="300px" class="rv_img1">
-										</div>
-									</div>
-									<div class="framer-1btb5qo">
-										<div class="framer-iutgry" id="rv_div1" >
-											<p id="rv_p14" class="framer-text">
-												객실 상세 보기
-											</p>
-										</div>
-										<div class="framer-uvys5f" id="rv_div1" >
-											<p id="rv_p7" class="framer-text">
-												→
-											</p>
-										</div>
-									</div>
-									</a>
-								</div>
-								<div class="framer-n1h72d"  >
-									<a class="framer-1xcglj3" href="/roomdetail">
-									<div class="framer-42zt7z" id="rv_div1" >
-										<p id="rv_p8" class="framer-text">
-											예약하기
-										</p>
-									</div>
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="framer-9zrz65"  >
-							<div class="framer-17rri3i" >
-								<div class="framer-10zeqpv">
-								</div>
-							</div>
-							<div class="framer-pgv4vo">
-								<div class="framer-177ngs9" >
-									<div class="framer-77fkd7" >
-										<div class="framer-1g74qnl" id="rv_div1" >
-											<p id="rv_p9" class="framer-text">
-												250,000원 ~
-											</p>
-										</div>
-									</div>
-									<div class="framer-105qae9" >
-										<div class="framer-snnbde" id="rv_div1" >
-											<p id="rv_p10" class="framer-text">
-												기준2 / 최대 2
-											</p>
-										</div>
-										<div class="framer-1tbwm2p" id="rv_div1" >
-											<p id="rv_p13" class="framer-text">
-												1박 / VAT포함
-											</p>
-										</div>
-									</div>
-									<div class="framer-1718sby" >
-										<div class="framer-y533ts" id="rv_div1" >
-											<p id="rv_p11" class="framer-text">
-												Semo Suite
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="framer-lqi8yx" >
-									<a class="framer-1g4minj"  href="/roomdetail">
-									<div id="rv_div3" >
-										<div id="rv_div4">
-											<img src="https://framerusercontent.com/images/n425s7gPeSyKtd65nuAhdBGyIw.jpg" alt="" srcset="https://framerusercontent.com/images/n425s7gPeSyKtd65nuAhdBGyIw.jpg?scale-down-to=512 512w, https://framerusercontent.com/images/n425s7gPeSyKtd65nuAhdBGyIw.jpg?scale-down-to=1024 1024w, https://framerusercontent.com/images/n425s7gPeSyKtd65nuAhdBGyIw.jpg?scale-down-to=2048 2048w, https://framerusercontent.com/images/n425s7gPeSyKtd65nuAhdBGyIw.jpg 3745w" sizes="300px" class="rv_img1" loading="lazy">
-										</div>
-									</div>
-									<div class="framer-2mjp3v">
-										<div class="framer-12j8wl8" id="rv_div1" >
-											<p id="rv_p14" class="framer-text">
-												객실 상세 보기
-											</p>
-										</div>
-										<div class="framer-uokw8b" id="rv_div1" >
-											<p id="rv_p7" class="framer-text">
-												→
-											</p>
-										</div>
-									</div>
-									</a>
-								</div>
-								<div class="framer-jd2kir">
-									<a class="framer-1ry9dhh" href="/roomdetail">
-									<div class="framer-kf8hgd" id="rv_div1" >
-										<p id="rv_p8" class="framer-text">
-											예약하기
-										</p>
-									</div>
-									</a>
-								</div>
-							</div>
-						</div>
+
+					<!-- product list wrapper  -->
+					<div style="width: 800px; display: flex; flex-direction: column; justify-content: start; align-items: center">
+						<div style="margin: 10px 0; padding: 10px 0; font-size: 20px; width: 700px; text-align: left; border-bottom: 1px solid rgb(235, 236, 237)">객실 목록</div>
+						<div style="width: 700px; height: 500px; border: 1px solid black; margin: 10px 0"></div>
 					</div>
 				</div>
+
 			</div>
+
 		</div>
 	</div>
-</div>
-
-
-
-	</div>
-	
-	
 </body>
 </html>

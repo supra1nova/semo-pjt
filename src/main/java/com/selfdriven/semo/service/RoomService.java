@@ -18,13 +18,14 @@ import java.util.Map;
 @Transactional
 public class RoomService {
     private final RoomMapper roomMapper;
-    private final ProductService productService;
+//    private final ProductService productService;
+    private final ProductImageService productImageService;
     private final RoomImageMapper roomImageMapper;
 
     public int addRoom(Room room, Login login) {
         int result = 0;
         try {
-            if(productService.checkProduct(room.getProductId(), login.getId()) == false) {
+            if(productImageService.checkProduct(room.getProductId(), login.getId()) == false) {
                 throw new Exception("업체 또는 유저 정보가 유효하지 않습니다. 다시 한 번 확인해주세요.");
             }
             result = roomMapper.addRoom(room);
@@ -73,7 +74,7 @@ public class RoomService {
     public int updateRoom(Room room, Login login) {
         int result = 0;
         try {
-            if(!productService.checkProduct(room.getProductId(), login.getId())){
+            if(!productImageService.checkProduct(room.getProductId(), login.getId())){
                 throw new Exception("업체 또는 유저 정보가 유효하지 않습니다. 다시 한 번 확인해주세요.");
             } else if(!checkRoom(room.getProductId(), room.getRoomId())) {
                 throw new Exception("업체 또는 객실 정보가 유효하지 않습니다. 다시 한 번 확인해주세요.");
@@ -93,7 +94,7 @@ public class RoomService {
             Integer roomId = map.get("roomId");
             if(productId == null || roomId == null) {
                 throw new Exception("올바르지 않은 형태의 값이 업체 또는 객실 정보에 입력되었습니다. 다시 한 번 확인해주세요.");
-            } else if(!productService.checkProduct(productId, login.getId())) {
+            } else if(!productImageService.checkProduct(productId, login.getId())) {
                 throw new Exception("업체 또는 유저 정보가 유효하지 않습니다. 다시 한 번 확인해주세요.");
             } else if(!checkRoom(productId, roomId)) {
                 throw new Exception("업체 또는 객실 정보가 유효하지 않습니다. 다시 한 번 확인해주세요.");

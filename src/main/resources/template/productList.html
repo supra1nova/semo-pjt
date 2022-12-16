@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+	<style></style>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div id="main">
+
+			<!-- jQuery 사용하기 위해 cdn 호출-->
+			<script
+					src="https://code.jquery.com/jquery-3.6.1.js"
+					integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+					crossorigin="anonymous">
+			</script>
+
+			<script>
+				$(function(){
+					$.ajax({
+						type: 'GET',
+						url: '/api/product/list/',
+						dataType: 'json',
+						success: function(result){
+							console.log("=== success ===");
+							console.log(result.data);
+						},
+						error: function(result){
+							console.log("=== failed ===");
+							console.log(result);
+						}
+					})
+				});
+			</script>
+
+			<style type="text/css">
+				*{
+					margin: 0;
+					padding: 0;
+					color: black;
+					font-weight: normal;
+				}
+				li a:hover {
+					color: rgba(43, 206, 255,255);
+				}
+			</style>
+
+			<!-- 실제 모든 내용을 담는 틀-->
+			<div style="top: 300px; width: 100%; padding-top: 77px;">
+
+				<!-- 서브 nav 감싸는 div -->
+				<div style="margin: 10px auto 5px; width: 1200px; text-align: center">
+					<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
+					<div style="height: 50px; width: 500px; font-size: 16px">
+						<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+						<ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a href="/" style="text-decoration: none;">서비스 소개</a></li>
+							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a href="/product/list" style="text-decoration: none; color: rgba(102,102,255,255); font-weight: bold">제휴 업체</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- main content 감싸는 div -->
+				<div style="width: 100%; border-top: 1px solid rgb(235, 236, 237);">
+					<!-- 목록 wrapper -->
+					<div style="margin-left: auto; margin-right: auto; width: 1200px; height: 750px; text-align: center; position: relative" >
+						<div style="width: 100%; height: 90%; position: absolute; top: 30px; border: 1px solid rgb(235, 236, 237)">
+							아마 안에는 박스처리해서 리스트 항목들을 각각 넣으면 될듯
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

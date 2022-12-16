@@ -1,0 +1,6 @@
+.slick-list{
+    border-radius: 25px;
+}
+.nextArrow, .prevArrow{
+    cursor: pointer;
+}

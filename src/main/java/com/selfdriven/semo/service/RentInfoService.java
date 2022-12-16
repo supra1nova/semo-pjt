@@ -18,7 +18,8 @@ import java.util.Map;
 public class RentInfoService {
 
     private final RoomService roomService;
-    private final ProductService productService;
+//    private final ProductService productService;
+    private final ProductImageService productImageService;
     private final RentInfoMapper rentInfoMapper;
 
     /*
@@ -77,7 +78,7 @@ public class RentInfoService {
 
     private void checkRentInfo(RentInfo rentInfo, String memberId) {
         Integer productId = roomService.getProductId(rentInfo.getRoomId());
-        if(productId == null || productId == 0 || !productService.checkProduct(productId, memberId)) {
+        if(productId == null || productId == 0 || !productImageService.checkProduct(productId, memberId)) {
             throw new ApiException(ResultCode.INVALID_PARAMETER);
         }
     }

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Insert title here</title>
+    <!-- 공통 css 내용 -->
+    <link rel="stylesheet" href="/css/common.css" />
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <div id="main">
+            <!-- jQuery 사용하기 위해 cdn 호출-->
+            <script
+                    src="https://code.jquery.com/jquery-3.6.1.js"
+                    integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+                    crossorigin="anonymous">
+            </script>
+
+            <!-- KakaoMap 관련 -->
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e49c4712addc98f812503b8393456d47&libraries=services,clusterer,drawing"></script>
+
+            <!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+            <script>
+                let productId = [[${productId}]];
+            </script>
+
+            <!-- js 코드 대부분 외부 js로 이동-->
+            <script src="/js/common.js"></script>
+            <script src="/js/location.js"></script>
+
+            <!-- 실제 모든 내용을 담는 틀-->
+            <div style="top: 300px; width: 100%; padding-top: 77px;">
+
+                <!-- 서브 nav 감싸는 div -->
+                <div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
+                    <!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
+                    <div style="height: 50px; width: 500px; font-size: 16px">
+                        <!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+                        <ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+                            <li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="productInfoBtn" href="" style="text-decoration: none">숙소 소개</a></li>
+                            <li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="reservationBtn" href="" style="text-decoration: none">예약하기</a></li>
+                            <li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="locationBtn" class="currentBtn" href="" style="text-decoration: none">오시는 길</a></li>
+                            <li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="qnaBtn" href="" style="text-decoration: none">문의하기</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 실제 예약 및 목록 관련 내용들 -->
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 1px solid rgb(235, 236, 237)" >
+                    <!-- 위쪽 글 -->
+                    <div style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center">
+                        <!-- 호텔이름 + 타이틀 -->
+                        <div id="productName" style="margin: 20px 0;font-size: 25px; font-weight: bold">찾아오시는 길</div>
+                        <!-- 주소 -->
+                        <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;">
+                            <div style="width: 100px; text-align: center; border-right: 1px solid rgb(235, 236, 237)">주소</div>
+                            <div id="addressInput" style="width: 400px; text-align: center">서울특별시 노원구 마들로 1길 44</div>
+                        </div>
+                        <!-- 우편번호 -->
+                        <div style="margin-top: 10px; width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;">
+                            <div style="width: 100px; text-align: center; border-right: 1px solid rgb(235, 236, 237)">우편번호</div>
+                            <div id="zipCode" style="width: 400px; text-align: center">111-111</div>
+                        </div>
+                        <!-- 전화번호 -->
+                        <div style="margin-top: 10px; width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;">
+                            <div style="width: 100px; text-align: center; border-right: 1px solid rgb(235, 236, 237)">전화번호</div>
+                            <div id="telInput" style="width: 400px; text-align: center">0233334444</div>
+                        </div>
+                    </div>
+                    <!-- 지도 -->
+                    <div style="margin: 20px 0; width: 1200px; height: 500px; border: 1px solid rgb(235, 236, 237)">
+                        <div id="map" style="width:100%;height:100%;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+	
+</body>
+</html>

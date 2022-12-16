@@ -61,7 +61,8 @@ border-bottom: 1px solid rgba(187,187,187,.3);">
 		const topNavElements = document.getElementsByClassName("top-nav");
 		const loginBtn = document.querySelector("#loginBtn");
 		const loginInfo = /*[[${session.login}]]*/;
-		if(loginInfo){
+		if(loginInfo && (loginInfo.memberType != "u")){
+
 			loginBtn.innerHTML = "logout";
 			loginBtn.addEventListener("click", logout);
 			async function logout(e){
