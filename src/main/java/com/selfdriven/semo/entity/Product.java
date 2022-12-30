@@ -22,14 +22,14 @@ public class Product {
 	private String memberId;
 
 	@NotBlank(message= "숙소명은 필수 입력 값입니다. 한글/영문대소문자/숫자/-_ 등을 이용해 2~10자로 입력해주세요.")
-	@Pattern(regexp = "^[가-힣a-zA-Z0-9-_]{2,10}$", message = "객실명은 필수 입력 값입니다. 한글/영문대소문자/숫자/-_ 문자 등을 이용해 2~20자로 입력해주세요.")
+	@Pattern(regexp = "^[가-힣a-zA-Z0-9-_.,\\s]{2,10}$", message = "객실명은 필수 입력 값입니다. 한글/영문대소문자/숫자/-_ 문자 등을 이용해 2~20자로 입력해주세요.")
 	private String productName;
 
 	@NotBlank(message="카테고리는 필수 입력 값입니다.")
 	@Pattern(regexp = "^[hmp]$", message = "카테고리에 h, m, p 중 한 글자를 필수로 넣어주세요. (h: hotel, m: motel, p: pension)")
 	private String productCategory;
 
-	@Pattern(regexp = "^[가-힣a-zA-Z0-9-_.,\\s]{0,500}$", message = "한글/영문대소문자/숫자/-_ 등을 이용해 500자 내외로 입력해주세요.")
+	@Pattern(regexp = "^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9-_.,?\"\'\\%\\s\\n]{0,500}$", message = "한글/영문대소문자/숫자/-_ 등을 이용해 500자 내외로 입력해주세요.")
 	private String productDescription;
 
 	@NotBlank(message="주소는 필수 입력 값입니다.")
@@ -41,7 +41,7 @@ public class Product {
 	private String addressDetail;
 
 	@NotBlank(message="우편 번호는 필수 입력 값입니다.")
-	@Pattern(regexp = "^[1-7]\\d{5}$", message = "우편 번호 값은 필수 입력 값입니다. 한글/영문대소문자/숫자/-_ 등을 이용해 5~100자로 입력해주세요.")
+	@Pattern(regexp = "^[1-7]\\d{5}$", message = "우편 번호 값은 필수 입력 값입니다. 숫자 6글자로 입력해주세요.")
 	private String zipCode;
 
 	@NotBlank(message="전화 번호는 필수 입력값입니다.")

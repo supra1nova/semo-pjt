@@ -83,4 +83,9 @@ public class MemberService {
     public String getMembertype(String memberId){
         return memberMapper.selectMemberType(memberId);
     }
+
+    public String getPhNumByMemberId(String memberId) {
+        Member foundMember = getMemberById(memberId);
+        return foundMember.getPhNum();
+    }
 }

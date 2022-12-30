@@ -4,35 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 <head>
-	<meta charset="utf-8">
 	<title>semo</title>
-	<!-- 공통 css 내용 -->
-	<link rel="stylesheet" href="/css/common.css" />
+	<!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+	<script>
+		let productId = [[${productId}]];
+	</script>
+	<link rel="stylesheet" href="/css/productInfo.css" />
+	<script src="/js/common.js"></script>
+	<script src="/js/reservation.js"></script>
 </head>
 <body>
 	<div layout:fragment="content">
 
 		<div id="main">
 
-			<!-- jQuery 사용하기 위해 cdn 호출-->
-			<script
-					src="https://code.jquery.com/jquery-3.6.1.js"
-					integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-					crossorigin="anonymous">
-			</script>
-
 			<!-- date picker 관련 cdn -->
 			<link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
 			<script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.js"></script>
-
-			<!-- server단에서 오는 값을 미리 js 변수로 할당 -->
-			<script>
-				let productId = [[${productId}]];
-			</script>
-
-			<!-- js 코드 대부분 외부 js로 이동-->
-			<script src="/js/common.js"></script>
-			<script src="/js/reservation.js"></script>
 
 			<!-- 실제 모든 내용을 담는 틀-->
 			<div style="width: 100%; padding-top: 77px;">
@@ -40,13 +28,13 @@
 				<!-- 서브 nav 감싸는 div -->
 				<div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
 					<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
-					<div style="height: 50px; width: 500px; font-size: 16px">
+					<div style="height: 50px; width: 700px; font-size: 16px">
 						<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
-						<ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
-							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="productInfoBtn" href="" style="text-decoration: none">숙소 소개</a></li>
-							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="reservationBtn" class="currentBtn" href="" style="text-decoration: none">예약하기</a></li>
-							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="locationBtn" href="" style="text-decoration: none">오시는 길</a></li>
-							<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="qnaBtn" href="" style="text-decoration: none">문의하기</a></li>
+						<ul class="sub-nav-ul" style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+							<li class="sub-nav-li"><a id="productInfoBtn">숙소 소개</a></li>
+							<li class="sub-nav-li"><a id="reservationBtn" class="currentBtn">예약하기</a></li>
+							<li class="sub-nav-li"><a id="locationBtn">오시는 길</a></li>
+							<li class="sub-nav-li"><a id="qnaBtn">문의하기</a></li>
 						</ul>
 					</div>
 				</div>
@@ -96,7 +84,25 @@
 					<!-- product list wrapper  -->
 					<div style="width: 800px; display: flex; flex-direction: column; justify-content: start; align-items: center">
 						<div style="margin: 10px 0; padding: 10px 0; font-size: 20px; width: 700px; text-align: left; border-bottom: 1px solid rgb(235, 236, 237)">객실 목록</div>
-						<div style="width: 700px; height: 500px; border: 1px solid black; margin: 10px 0"></div>
+
+						<!-- 실제 객실 목록 -->
+						<div style="width: 700px; height: 650px; overflow: auto; border: 1px solid rgb(235, 236, 237); margin: 10px 0">
+
+							<!-- 각 객실 목록 행 wrapper -->
+							<div style="margin: 10px; display: flex; justify-content: space-between">
+								<img style="width: 300px; height: 200px; border-radius: 10px;" src="" />
+								<div style="width: 360px; display: flex; flex-direction: column; justify-content: center;">
+									<h2 style="height: 40px; line-height: 40px;">Standard Twin</h2>
+									<div style="height: 40px; display: flex; justify-content: space-between; line-height: 40px;">
+										<span style="font-weight: bold; color: rgba(102,102,255,255);">기준2 / 최대2</span>
+										<span>1박 / VAT포함</span>
+									</div>
+									<span style="margin-right: 10px; height: 60px; font-size: 18px; font-weight: bolder; text-align: right; line-height: 60px;">115,000원 ~</span>
+									<input class="colorBtn" type="button" style="margin: 0 0 0 auto; width: 150px; height: 40px; text-align: center" value="예약하기">
+								</div>
+							</div>
+
+						</div>
 					</div>
 				</div>
 

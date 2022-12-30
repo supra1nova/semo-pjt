@@ -18,12 +18,12 @@ figure,h1,h2,h3,h4,h5,h6,p {
 body,button,input,select,textarea {
 	font-size:14px;
 }
-  textarea {
-        width: 100%;
-        height: 100px;
-        padding: 10px 10px;
-        font-size: 20px;
-      }
+textarea {
+	width: 100%;
+	height: 100px;
+	padding: 10px 10px;
+	font-size: 20px;
+  }
 input::-webkit-input-placeholder {
 	--font-selector:Q1VTVE9NO05vdG8gU2FucyBLUiBSZWd1bGFy;--framer-font-family:'Noto Sans KR Regular', sans-serif;--framer-text-alignment:left;
         color: rgba(187, 187, 187, 0.7);

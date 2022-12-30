@@ -4,12 +4,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 <head>
-	<meta charset="utf-8">
 	<title>semo</title>
-	<link rel="stylesheet" href="/css/common.css" />
-	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> <!-- jQuery 사용하기 위해 cdn 호출-->
-	<script>let productId = [[${productId}]];</script>	<!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+	<link rel="stylesheet" href="/css/productInfo.css" />
+	<script th:inline="javascript">
+		let productId = [[${productId}]];
+	</script>
 	<script src="/js/common.js"></script>
+	<script src="/js/qna.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -18,17 +19,16 @@
 
 		<!-- 실제 모든 내용을 담는 틀-->
 		<div style="top: 300px; width: 100%; padding-top: 77px;">
-
 			<!-- 서브 nav 감싸는 div -->
 			<div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
 				<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
-				<div style="height: 50px; width: 500px; font-size: 16px">
+				<div style="height: 50px; width: 700px; font-size: 16px">
 					<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
-					<ul style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
-						<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="productInfoBtn" href="" style="text-decoration: none">숙소 소개</a></li>
-						<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="reservationBtn" href="" style="text-decoration: none">예약하기</a></li>
-						<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="locationBtn" href="" style="text-decoration: none">오시는 길</a></li>
-						<li style="list-style: none; cursor: pointer; margin: 0 30px 0 10px"><a id="qnaBtn" class="currentBtn" href="" style="text-decoration: none">문의하기</a></li>
+					<ul class="sub-nav-ul" style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+						<li class="sub-nav-li"><a id="productInfoBtn">숙소 소개</a></li>
+						<li class="sub-nav-li"><a id="reservationBtn">예약하기</a></li>
+						<li class="sub-nav-li"><a id="locationBtn">오시는 길</a></li>
+						<li class="sub-nav-li"><a id="qnaBtn" class="currentBtn">문의하기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 							<textarea id="content" style="margin: 10px 0; width: 100%; height: 300px; resize: none; font-size: 13px" placeholder="내용을 입력해 주세요."></textarea>
 							<div style="display: flex; justify-content: center">
 								<button id="submitBtn" class="colorBtn" type="submit" >보내기</button>
-								<input type="button" id="cancelBtn" class="colorBtn" value="취소" onclick="history.back()">
+								<input type="button" id="cancelBtn" class="colorBtn" style="text-align: center" value="취소" onclick="history.back()">
 							</div>
 						</form>
 					</div>

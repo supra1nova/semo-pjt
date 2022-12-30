@@ -4,26 +4,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
 <head>
-	<meta charset="utf-8">
 	<title>semo</title>
-	<link rel="stylesheet" href="/css/common.css" />
-<!--	<link rel="stylesheet" href="/css/join.css" />-->
-	<!-- jQuery 사용하기 위해 cdn 호출-->
-<!--	<script-->
-<!--			src="https://code.jquery.com/jquery-3.6.1.js"-->
-<!--			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="-->
-<!--			crossorigin="anonymous">-->
-<!--	</script>-->
-	<script th:inline="javascript">
-		let origMemberId = null;
-		let origSocialType = null;
-		$(function(){
-			let session = [[${session}]];
-			origMemberId = session.login.id;
-			origSocialType = session.login.socialType;
-		});
-	</script>
-	<script src="/js/join.js"></script>
+	<script src="/js/myPage.js"></script>
 </head>
 <body>
 	<div layout:fragment="content">
@@ -42,7 +24,7 @@
 						<div style="margin-bottom: 50px; width: 400px; display: flex; flex-direction: column; justify-content: center;" >
 
 							<form>
-								<div style="margin: 10px 0 30px; font-size: 30px">회원 가입</div>
+								<div style="margin: 10px 0 30px; font-size: 30px">내 정보 수정</div>
 
 								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">회원 유형</div>
 								<div style="margin: 10px 0 30px; display: flex; justify-content: center;">
@@ -84,8 +66,9 @@
 										<select name="firstPhNum" style="width: 20%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; text-align:center; -webkit-appearance:none; -moz-appearance:none; appearance:none;">
 											<option value="010">010</option>
 											<option value="011">011</option>
-											<option value="012">012</option>
 											<option value="016">016</option>
+											<option value="017">017</option>
+											<option value="017">018</option>
 											<option value="019">019</option>
 										</select>
 										<span style="width: 10%; height: 40px; font-size: 20px; font-weight: bold; text-align: center; line-height: 40px; border: none; background: transparent" > - </span>
@@ -96,36 +79,8 @@
 									<div id="phNumTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">전화번호를 입력해주세요.</div>
 								</div>
 
-<!--								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">약관동의</div>-->
-<!--								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">-->
-<!--									<div style="margin: 0; padding: 20px 20px 10px; width: 100%; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #dfdfdf; border-radius: 5px; font-size: 15px; text-align: left">-->
-<!--										<p style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #dfdfdf; font-size: 20px; font-weight: bold"><label><input type="checkbox" name="nb[]" value="0"> 전체동의</label></p>-->
-<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="1"> 만 14세 이상입니다.</label></p>-->
-<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="2"> 이용약관</label></p>-->
-<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="3"> 개인정보수집 및 이용동의</label></p>-->
-<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="4"> 개인정보 마케팅 활용 동의</label></p>-->
-<!--										<p style="margin-bottom: 10px;"><label><input type="checkbox" name="nb[]" value="5"> 이벤트, 쿠폰, 특가 알림 메일 및 SMS 등 수신</label></p>-->
-<!--									</div>-->
-<!--								</div>-->
-								<div>
-<!--									<input type="hidden" name="socialType" id="socialType" th:value="${session.login.socialType}">-->
-<!--									<input type="hidden" name="memberId" id="memberId"  th:value="${session.login.id}">-->
-<!--									<input type="hidden" name="socialType" id="socialType" th:value="${session.login.socialType}">-->
-<!--									<input type="hidden" name="memberId" id="memberId"  th:value="${session.login.id}">-->
-
-<!--									<script th:inline="javascript">-->
-<!--										let origMemberId = null;-->
-<!--										let origSocialType = null;-->
-<!--										$(function(){-->
-<!--											let session = [[${session}]];-->
-<!--											origMemberId = session.login.id;-->
-<!--											origSocialType = session.login.socialType;-->
-<!--											// console.log($("input[name='memberId']").value)-->
-<!--										});-->
-<!--									</script>-->
-								</div>
 								<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
-									<button class="colorBtn" type="submit" style="margin: 0; width: 100%">회원 가입하기</button>
+									<input id="submitBtn" class="colorBtn" style="margin: 0; width: 100%; text-align: center" value="수정하기">
 								</div>
 							</form>
 

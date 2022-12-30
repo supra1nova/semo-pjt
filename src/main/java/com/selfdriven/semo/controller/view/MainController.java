@@ -60,8 +60,13 @@ public class MainController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(){
+    public String myPage(){
         return "mypage";
+    }
+
+    @GetMapping("/mybusiness")
+    public String myBusiness(){
+        return "myBusiness";
     }
 
     @GetMapping("/mypage/review")
@@ -95,6 +100,18 @@ public class MainController {
     public ModelAndView productInfo(@PathVariable String productId, ModelAndView mv){
         mv.addObject("productId", productId);
         mv.setViewName("productInfo");
+        return mv;
+    }
+
+    @GetMapping("/product/create")
+    public String productUpdate(){
+        return "productCreate";
+    }
+
+    @GetMapping("/product/update/{productId}")
+    public ModelAndView productUpdate(@PathVariable String productId, ModelAndView mv){
+        mv.addObject("productId", productId);
+        mv.setViewName("productUpdate");
         return mv;
     }
 

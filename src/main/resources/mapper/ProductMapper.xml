@@ -30,8 +30,8 @@
 
     <select id="getProductList" resultType="Product">
         <include refid="selectFromProduct"/>
-        ORDER by
-            product_id asc
+        ORDER BY
+            product_id ASC
     </select>
 
     <update id="updateProduct" parameterType="Product">
@@ -72,6 +72,11 @@
 
     <select id="deleteAllProduct" >
         DELETE FROM product;
+    </select>
+
+    <select id="getProductIdByMemberId" resultType="Product">
+        <include refid="selectFromProduct"/>
+        WHERE member_id = #{memberId};
     </select>
 
 </mapper>

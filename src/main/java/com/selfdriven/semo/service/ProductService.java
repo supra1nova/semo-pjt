@@ -4,11 +4,9 @@ import com.selfdriven.semo.entity.Product;
 import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.exception.ApiException;
-import com.selfdriven.semo.repository.ProductImageMapper;
 import com.selfdriven.semo.repository.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,8 +55,16 @@ public class ProductService {
 		return result;
 	}
 
-//	public  Boolean checkProduct(int productId, String memberId) {
-//		return productMapper.getProductByMemberId(productId, memberId) != null ? true : false;
-//	}
+    public Map<String, Object> getProductIdByMemberId(String memberId) {
+		// TODO: 프론트에서 넘어올때 따옴표가 붙어있어서 replace로 지워주는 과정을 넣었다. -> 혹시 뭔가 방법이 잘못되서 따옴표가 들어가 있는 것은 아닌지?
+		memberId = memberId.replace("\"", "");
+		Map<String, Object> result = new LinkedHashMap<>();
+		result.put("productList", productMapper.getProductIdByMemberId(memberId));
+		if(result == null || ((List<?>) result.get("productList")).size() == 0){
+			throw new ApiException(ResultCode.INVALID_PARAMETER);
+		}
+		System.out.println("result = " + result);
+		return result;
+    }
 
 }

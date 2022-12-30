@@ -9,21 +9,22 @@
 	<link rel="stylesheet" href="/css/common.css" />
 <!--	<link rel="stylesheet" href="/css/join.css" />-->
 	<!-- jQuery 사용하기 위해 cdn 호출-->
-<!--	<script-->
-<!--			src="https://code.jquery.com/jquery-3.6.1.js"-->
-<!--			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="-->
-<!--			crossorigin="anonymous">-->
-<!--	</script>-->
+	<script
+			src="https://code.jquery.com/jquery-3.6.1.js"
+			integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+			crossorigin="anonymous">
+	</script>
 	<script th:inline="javascript">
 		let origMemberId = null;
 		let origSocialType = null;
 		$(function(){
 			let session = [[${session}]];
-			origMemberId = session.login.id;
-			origSocialType = session.login.socialType;
+			origMemberId = [[${session}]].login.id;
+			console.log(session);
+			console.log(origMemberId);
 		});
 	</script>
-	<script src="/js/join.js"></script>
+<!--	<script src="/js/join.js"></script>-->
 </head>
 <body>
 	<div layout:fragment="content">
@@ -42,7 +43,7 @@
 						<div style="margin-bottom: 50px; width: 400px; display: flex; flex-direction: column; justify-content: center;" >
 
 							<form>
-								<div style="margin: 10px 0 30px; font-size: 30px">회원 가입</div>
+								<div style="margin: 10px 0 30px; font-size: 30px">내 업체 현황</div>
 
 								<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">회원 유형</div>
 								<div style="margin: 10px 0 30px; display: flex; justify-content: center;">

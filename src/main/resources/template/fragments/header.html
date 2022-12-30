@@ -4,83 +4,49 @@
 <head>
 </head>
 <body>
-	<div th:fragment="headerFragment"class="layout_header">
-		<div class="framer-15e638z" style="background-color: white;">
-<!--			<div class="framer-isrt2c" >-->
-<!--			</div>-->
-			<div class="framer-1a0ocjm-container" style="
-border-bottom: 1px solid rgba(187,187,187,.3);">
-				<div  class="framer-HoMV2 framer-vg7ew framer-dmdge framer-v-1h3kkwj" style="display:contents">
-					<nav id="hd_nav1"class="framer-1h3kkwj">
-						<div class="framer-19nhdre" >
-							<a class="framer-w2m1tg" href="/">
-								<div class="framer-1al4dv3-container">
-									<div style="display:contents">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
-										focusable="false" color="rgb(102, 102, 255)"
-										id="hd_svg">
-										<g color="rgb(102, 102, 255)" weight="regular">
-											<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
-												fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
-												stroke-linejoin="round" stroke-width="16" />
-										</g>
-									</svg>
-									</div>
-								</div>
-								<div class="framer-q7dosh" id="hd_div1" >
-									<h2 id="hd_h1" class="framer-text">semo</h2>
-								</div>
-							</a>
-						</div>
+	<div th:fragment="headerFragment" class="layout_header" style="border-bottom: 1px solid rgba(187,187,187,.3); ">
 
-<!--						<div class="framer-4pnlrx"  tabindex="1" id="hd_p1">-->
-						<div class="framer-4pnlrx top-nav" tabindex="1">
-							<p class="framer-text framer-styles-preset-2bhu8p" data-styles-preset="x6mixVNe9">
-								<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="/mytrip">예약 내역</a>
-							</p>
+		<div style="margin: 0 auto; width: 1200px; height: 80px; background-color: white;">
+			<!-- header 실제 내용 -->
+			<nav style="display: flex; height: 100%; justify-content: space-between">
+				<div style="margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center;">
+					<a href="/" style="display: flex; justify-content: center; align-items: center">
+						<div class="logo-image-container">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" focusable="false" color="rgb(102, 102, 255)" id="hd_svg">
+								<g color="rgb(102, 102, 255)" weight="regular">
+									<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
+										fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
+										stroke-linejoin="round" stroke-width="16" />
+								</g>
+							</svg>
 						</div>
-<!--						<div class="framer-wzr83z"  tabindex="1" id="hd_p1">-->
-						<div class="framer-wzr83z top-nav" tabindex="1">
-							<p class="framer-text framer-styles-preset-2bhu8p" data-styles-preset="x6mixVNe9">
-								<a class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" href="/mypage" id="myInfoBtn">내 정보</a>
-							</p>
-						</div>
-<!--						<div class="framer-9rkqj0" id="hd_p1">-->
-						<div class="framer-9rkqj0">
-							<p class="framer-text framer-styles-preset-2bhu8p" data-styles-preset="x6mixVNe9" >
-
-							<span class="framer-text framer-styles-preset-ppi2dw" data-styles-preset="RXrtW6iRv" id="loginBtn" style="cursor: pointer">로그인</span>
-							</p>
-						</div>
-					</nav>
+						<h2 class="logo-font" style="width: 60px; ">semo</h2>
+					</a>
 				</div>
-			</div>
+
+				<div style="display: flex; justify-content: space-between; width: 30%;">
+					<div class="nav-elems" style="margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 20%;">
+						<a class="nav-font" href="/mytrip">예약 내역</a>
+					</div>
+					<div class="nav-elems" style="margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 20%;">
+						<a id="myInfoBtn" class="nav-font" href="/mypage">내 정보</a>
+					</div>
+					<div name="myBusinessBtn" class="nav-elems" style="margin: 0; padding: 0; display: none; flex-direction: column; justify-content: center; align-items: center; width: 20%;">
+						<a id="myBusinessBtn" class="nav-font" >내 업체</a>
+					</div>
+					<div style="margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 20%;">
+						<span id="loginBtn" class="nav-font">로그인</span>
+					</div>
+				</div>
+
+			</nav>
 		</div>
 
-	<script th:inline="javascript">
-		const topNavElements = document.getElementsByClassName("top-nav");
-		const loginBtn = document.querySelector("#loginBtn");
-		const loginInfo = /*[[${session.login}]]*/;
-		if(loginInfo && (loginInfo.memberType != "u")){
+<!--		<script th:inline="javascript">-->
+<!--			const loginInfo = [[${session.login}]];-->
+<!--		</script>-->
+		<script src="/js/header.js"></script>
 
-			loginBtn.innerHTML = "logout";
-			loginBtn.addEventListener("click", logout);
-			async function logout(e){
-				e.preventDefault();
-				const logoutUrl = loginInfo.socialType == "k" ? "/api/login/kakao/logout" : "/api/login/naver/logout";
-				await fetch(logoutUrl)
-				location.href="/";
-			}
-		} else{
-			for (const elem of topNavElements) {
-				elem.style.display = 'none';
-			}
-			loginBtn.addEventListener("click", function(e){
-				e.preventDefault();
-				location.href="/login";
-			})
-		}
-	</script>
 	</div>
 
 </body>

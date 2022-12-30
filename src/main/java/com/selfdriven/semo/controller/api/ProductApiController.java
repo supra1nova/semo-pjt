@@ -34,6 +34,12 @@ public class ProductApiController {
 		return ApiResponse.ok(result);
 	}
 
+	@PostMapping("/info")
+	public ApiResponse getProductIdByMemberId(@RequestBody String memberId) {
+		Map<String, Object> result = productService.getProductIdByMemberId(memberId);
+		return ApiResponse.ok(result);
+	}
+
 	// TODO: return에 들어가는 객체의 정보가 DB내 정보와 동일함에 따라 불필요한 정보가 노출됨 -> 선별해서 return 할 수 있도록 새로운 DTO 생성해서 return 하는 것이 나을 것 같음. 고려해 볼 것.
 	@GetMapping("/list")
 	public ApiResponse getProductList() {
