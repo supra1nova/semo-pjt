@@ -8,12 +8,7 @@ import javax.validation.Valid;
 
 import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.util.SessionUtil;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.selfdriven.semo.dto.ApiResponse;
 import com.selfdriven.semo.entity.Product;
@@ -33,9 +28,15 @@ public class ProductApiController {
 		return ApiResponse.ok(result);
 	}
 
-	@PostMapping("/info")
-	public ApiResponse getProductById(@RequestParam int productId) {
+	@GetMapping("/info/{productId}")
+	public ApiResponse getProductById(@PathVariable int productId) {
 		Map<String, Object> result = productService.getProductById(productId);
+		return ApiResponse.ok(result);
+	}
+
+	@PostMapping("/info")
+	public ApiResponse getProductIdByMemberId(@RequestBody String memberId) {
+		Map<String, Object> result = productService.getProductIdByMemberId(memberId);
 		return ApiResponse.ok(result);
 	}
 

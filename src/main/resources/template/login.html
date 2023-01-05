@@ -7,87 +7,52 @@
 <head>
 	<meta charset="utf-8">
 	<title>semo</title>
-	<script type="text/javascript">
-		let kakaoLoginBtn;
-		let naverLoginBtn;
-		window.onload = function() {
-			kakaoLoginBtn = document.querySelector('#kakaoLoginBtn');
-			kakaoLoginBtn.addEventListener("click", getKakaoLoginAuthURL);
-			naverLoginBtn = document.querySelector('#naverLoginBtn');
-			naverLoginBtn.addEventListener("click", getNaverLoginAuthURL);
-		}
-		function getKakaoLoginAuthURL(){
-			location.href="https://kauth.kakao.com/oauth/authorize?client_id=e64b7d5f26b6b46201c22456474bc99c&response_type=code&redirect_uri=http://semo.com/login/kakao";
-		}
-		async function getNaverLoginAuthURL(){
-			const naverURL = "http://semo.com/api/login/naver/auth-url";
-			const authURL = await fetch(naverURL)
-					.then(res => res.json())
-					.then(data => data.data);
-			location.href=authURL;
-		}
-	</script>
+	<link rel="stylesheet" href="/css/common.css" />
+<!--	<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> &lt;!&ndash; jQuery 사용하기 위해 cdn 호출&ndash;&gt;-->
+	<script type="text/javascript" src="/js/login.js"></script>
 </head>
 <body>
 	<div layout:fragment="content">
-		<div id="main">
-			<div class="framer-mgNGw framer-VGtr3 framer-hoagE framer-f1XTd" style="display:contents">
-				<div class="framer-1l1gc90" style="min-height:100%;width:auto">
-					<div class="framer-lhnxd7">
-						<div class="framer-4chfxs">
 
-								<div class="framer-9zawjf">
-								<a class="framer-suwys1" href="/">
-								<div class="framer-8ws41r-container">
-									<div style="display:contents">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
-							focusable="false" color="rgb(102, 102, 255)"
-							id="pcf_svg1">
+		<div id="main" style="display: flex; justify-content: center; height: 800px; padding-top: 80px">
+
+			<div id="content-wrapper" style="padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 400px">
+				<!-- 가운데 로고 -->
+				<div style="margin: 0 auto 20px">
+					<!-- 로고 이미지 -->
+					<div class="logo-image-container">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" focusable="false" color="rgb(102, 102, 255)" style="width: 100px; height: 100px">
 							<g color="rgb(102, 102, 255)" weight="regular">
-							<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
-								fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></path></g></svg>
-									</div>
-								</div>
-								<div class="framer-1lf74ur" id="login_div3">
-									<h2 id="sns_font3" class="framer-text">semo</h2>
-								</div>
-								</a>
-							</div>
+								<path d="M152,208V160a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v48a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V115.5a8.3,8.3,0,0,1,2.6-5.9l80-72.7a8,8,0,0,1,10.8,0l80,72.7a8.3,8.3,0,0,1,2.6,5.9V208a8,8,0,0,1-8,8H160A8,8,0,0,1,152,208Z"
+									  fill="none" stroke="rgb(102, 102, 255)" stroke-linecap="round"
+									  stroke-linejoin="round" stroke-width="16" />
+							</g>
+						</svg>
+					</div>
+					<!-- 로고 문구 -->
+					<h2 class="big-logo-font" style="margin: 0 auto; padding: 0; width: 80px; ">semo</h2>
+				</div>
 
-
-							<div class="framer-9p8kb7">
-								<div class="framer-1upoaik">
-									<div id="kakaoLoginBtn" class="framer-1xlawej" style="cursor: pointer" >
-										<div class="sns_div1">
-											<div class="sns_div2">
-												<img src="https://framerusercontent.com/images/Uoz4SWTh3gXCtuagH2SJvlD5FQ.png" alt="" class="sns_image">
-											</div>
-										</div>
-									</div>
-									<div id="naverLoginBtn" class="framer-19kk552" style="cursor: pointer" >
-										<div class="sns_div1">
-											<div class="sns_div2">
-												<img src="https://framerusercontent.com/images/BbKUuen4acP8oLqjKkLsoEjolOU.png" alt="" class="sns_image">
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="framer-13jt142">
-									<div class="framer-6nbikm" id="login_div1" >
-										<p id="sns_font1" class="framer-text">
-											sns계정으로 간편 로그인/회원가입
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div id="overlay">
-						</div>
+				<!-- 로그인 관련 이미지 -->
+				<div style="margin: 20px auto 20px; display: flex; justify-content: space-around; width: 300px;">
+					<div class="sns-login-button" id="kakaoLoginBtn" style="cursor: pointer; border-radius: 50%; padding: 4px 6px 0px" >
+						<img src="https://framerusercontent.com/images/Uoz4SWTh3gXCtuagH2SJvlD5FQ.png" alt="kakao login image">
+					</div>
+					<div class="sns-login-button" id="naverLoginBtn" style="cursor: pointer; border-radius: 50%; padding: 4px 6px 0px" >
+						<img src="https://framerusercontent.com/images/BbKUuen4acP8oLqjKkLsoEjolOU.png" alt="naver login image">
 					</div>
 				</div>
+
+				<!-- 로그인 관련 문구 -->
+				<div style="margin: 10px auto 10px">
+					<p id="sns_font1" class="framer-text">
+						sns계정으로 간편 로그인/회원가입
+					</p>
+				</div>
 			</div>
+
 		</div>
+
 	</div>
 </body>
 

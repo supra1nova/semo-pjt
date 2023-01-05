@@ -40,4 +40,5 @@ function loginChecking(){
 }
 
 loginChecking();
-sessionStorage.set
+
+console.log(loginInfo);

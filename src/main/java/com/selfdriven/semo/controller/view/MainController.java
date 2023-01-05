@@ -3,22 +3,26 @@ package com.selfdriven.semo.controller.view;
 import com.selfdriven.semo.dto.login.Login;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping
 public class MainController {
 
-    @GetMapping
+    @GetMapping("/")
     public String main(HttpSession session){
         Login loginObject = (Login) session.getAttribute("login");
         if( loginObject != null && loginObject.getMemberType().equals("u")){
             session.setAttribute("login", null);
             session.removeAttribute("login");
         }
-        return "mainPage";
+        return "main";
     }
 
     @GetMapping("/roomdetail")
@@ -26,8 +30,10 @@ public class MainController {
         return "roomDetail";
     }
     
-    @GetMapping("/reservation")
-    public String reservation(){
+    @GetMapping("/reservation/{productId}")
+    public String reservation(@PathVariable String productId, ModelAndView mv){
+        mv.addObject("productId", productId);
+        mv.setViewName("productInfo");
         return "reservation";
     }
 
@@ -39,18 +45,14 @@ public class MainController {
     public String paycheckFine(){
         return "paycheckFine";
     }
-    
-    
 
-    @GetMapping("/hotelMap")
-    public String hotelMap(){
-        return "hotelMap";
+    @GetMapping("/location/{productId}")
+    public ModelAndView location(@PathVariable String productId, ModelAndView mv){
+        mv.addObject("productId", productId);
+        mv.setViewName("location");
+        return mv;
     }
 
-    @GetMapping("/qna")
-    public String qna(){
-        return "qna";
-    }
 
     @GetMapping("/mytrip")
     public String mytrip(){
@@ -58,8 +60,13 @@ public class MainController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(){
+    public String myPage(){
         return "mypage";
+    }
+
+    @GetMapping("/mybusiness")
+    public String myBusiness(){
+        return "myBusiness";
     }
 
     @GetMapping("/mypage/review")
@@ -87,5 +94,37 @@ public class MainController {
     @GetMapping("/uploadtest")
     public String uploadtest(){
         return "uploadtest";
+    }
+
+    @GetMapping("/product/info/{productId}")
+    public ModelAndView productInfo(@PathVariable String productId, ModelAndView mv){
+        mv.addObject("productId", productId);
+        mv.setViewName("productInfo");
+        return mv;
+    }
+
+    @GetMapping("/product/create")
+    public String productUpdate(){
+        return "productCreate";
+    }
+
+    @GetMapping("/product/update/{productId}")
+    public ModelAndView productUpdate(@PathVariable String productId, ModelAndView mv){
+        mv.addObject("productId", productId);
+        mv.setViewName("productUpdate");
+        return mv;
+    }
+
+    @GetMapping("/product/list")
+    public String productList(){
+        return "productList";
+    }
+
+
+    @GetMapping("/qna/{productId}")
+    public ModelAndView qna(@PathVariable String productId, ModelAndView mv){
+        mv.addObject("productId", productId);
+        mv.setViewName("qna");
+        return mv;
     }
 }

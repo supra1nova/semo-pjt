@@ -56,4 +56,11 @@ public class MemberApiController {
         int result = memberService.deleteMember(login.getId());
         return ApiResponse.ok(result);
     }
+
+//    @PostMapping("/phNum")
+//    public ApiResponse phNumMember(HttpSession session) {
+//        Login login = (Login) session.getAttribute("login");
+//        String phNum = memberService.getPhNumByMemberId(login.getId());
+//        return ApiResponse.ok(phNum);
+//    }
 }

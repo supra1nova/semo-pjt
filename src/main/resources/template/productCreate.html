@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/productInfo.css" />
+	<!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+	<script src="/js/productCreate.js"></script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div id="main">
+
+			<!-- 실제 모든 내용을 담는 틀-->
+			<div style="top: 300px; width: 100%; padding-top: 77px;">
+
+				<!-- main content 감싸는 div -->
+				<div style="width: 100%; border-top: 1px solid rgb(235, 236, 237);">
+
+					<!-- 실제 예약 및 목록 관련 내용들 -->
+					<div style="margin: 50px auto; padding: 0 100px 50px; width: 1200px; text-align: center" >
+
+
+						<!-- form -->
+						<div style="width: 80%; margin: 0 auto; padding: 50px; border: 1px rgb(235, 236, 237) solid;">
+							<form>
+								<div style="margin: 10px 0 30px; font-size: 30px">내 업체 생성하기</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">업체명<span style="margin:0 5px; font-size: 12px; color: grey">(한글 2-10자로 입력해주세요)</span></div>
+									<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+										<input id="productName" name="productName" type="text" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center" placeholder="ㅇㅇ호텔">
+										<div id="productNameTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">업체명을 입력해 주세요.</div>
+									</div>
+								</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">카테고리</div>
+									<div style="margin: 10px 0 30px; display: flex; justify-content: center;">
+										<label id="firstLabel" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 10px 0 0 10px;">
+											<input type="radio" name="productCategory" value="h" style="opacity: 0%" /><span style="line-height: 40px; font-size: 15px">호텔</span>
+										</label>
+										<label id="secondLabel" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-left: none">
+											<input type="radio" name="productCategory" value="m" style="opacity: 0%" /><span style="line-height: 40px; font-size: 15px">모텔</span></input>
+										</label>
+										<label id="thirdLabel" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-left: none; border-radius: 0px 10px 10px 0; ">
+											<input type="radio" name="productCategory" value="p" style="opacity: 0%" /><span style="line-height: 40px; font-size: 15px">펜션</span></input>
+										</label>
+									</div>
+								</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">주소<span style="margin:0 5px; font-size: 12px; color: grey">(한글 5-100자로 입력해주세요)</span></div>
+									<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+										<input id="address" name="address" type="text" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center" placeholder="서울특별시 강남구 ㅇㅇ로 o길oo">
+										<div id="addressTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">주소를 입력해 주세요.</div>
+									</div>
+								</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">상세주소<span style="margin:0 5px; font-size: 12px; color: grey">(한글 0-100자로 입력해주세요)</span></div>
+									<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+										<input id="addressDetail" name="addressDetail" type="text" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center" placeholder="ㅇㅇ아파트 ㅇㅇ동 ㅇㅇ호">
+										<div id="addressDetailTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">상세주소를 입력해 주세요.</div>
+									</div>
+								</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">우편번호<span style="margin:0 5px; font-size: 12px; color: grey">(숫자 6자로 입력해주세요)</span></div>
+									<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+										<input id="zipCode" name="zipCode" type="number" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center" placeholder="123456">
+										<div id="zipCodeTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">우편번호를 입력해 주세요.</div>
+									</div>
+								</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">전화번호<span style="margin:0 5px; font-size: 12px; color: grey">(숫자 9-11자로 입력해주세요)</span></div>
+									<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+										<input id="telNum" name="telNum" type="number" style="width: 100%; height: 40px; border: 1px solid #dfdfdf; border-radius: 5px; line-height: 40px; font-size: 15px; text-align: center" placeholder="01012345678">
+										<div id="telNumTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">전화번호를 입력해 주세요.</div>
+									</div>
+								</div>
+								<div>
+									<div style="width: 100%; text-align: left; font-size: 15px; font-weight: bold">업체 소개<span style="margin:0 5px; font-size: 12px; color: grey">(한글/영문/숫자/특수문자 등을 이용해 0-500자로 입력해주세요)</span></div>
+									<div style="margin: 10px 0 30px; display: flex; flex-direction: column; justify-content: center;">
+										<textarea id="productDescription" name="productDescription" style="width: 100%; height: 200px; border: 1px solid #dfdfdf; border-radius: 5px; font-size: 15px; text-align: left; resize: none;" placeholder="업체 소개"></textarea>
+										<div id="productDescriptionTip" style="padding-left: 5px; width: 100%; height: 15px; line-height: 30px; font-size: 12px; font-weight: bold; color: rgba(102,102,255,255); text-align: left; visibility: hidden">업체 소개를 입력해 주세요.</div>
+									</div>
+								</div>
+								<div style="margin: 10px; display: flex; justify-content: center; box-sizing: border-box;">
+									<input id="cancelBtn" class="colorBtn" type="button" style="margin: 0 10px" value="취소하기">
+									<input id="submitBtn" class="colorBtn" type="button" style="margin: 0 10px" value="생성하기">
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

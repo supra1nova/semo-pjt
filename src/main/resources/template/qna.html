@@ -3,82 +3,59 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default_layout}">
-
 <head>
-<style>
-</style>
-<meta charset="utf-8">
-<title>semo</title>
+	<title>semo</title>
+	<link rel="stylesheet" href="/css/productInfo.css" />
+	<script th:inline="javascript">
+		let productId = [[${productId}]];
+	</script>
+	<script src="/js/common.js"></script>
+	<script src="/js/qna.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
-	
 
-	
+	<div id="main" >
 
-<div id="main" >
-	<div data-framer-generated="true" class="framer-EyqVu framer-hoagE" style="display:contents">
-		<div class="framer-1wlfo40" style="min-height:100%;width:auto">
-			<div class="framer-1qzlnab">
-				<div class="framer-w18adf" >
-					<div class="framer-1r0bj0s" >
-						<div class="framer-1hks42n" id="rv_div1">
-							<h3 id="rd_p12" class="framer-text">1 대 1문의 / 카카오톡</h3>
-						</div>
-					</div>
-					<div class="framer-195mmlg">
-						<div class="framer-1egrbxc">
-						</div>
-					</div>
-					<div class="framer-m21sgr">
-					</div>
-					<div class="framer-3pi176">
-						<div class="framer-7qvzip">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="framer-1x073vm">
-				<div class="framer-izm1lx" data-border="true">
-					<div class="framer-6gnfst">
-						<div class="framer-1d5yaxy" >
-							<div class="framer-w27gem" id="pcf_div4">
-								<p id="rv_p1" class="framer-text">
-									<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/">숙소 소개</a>
-								</p>
-							</div>
-						</div>
-						<div class="framer-6golul" >
-							<div class="framer-ej6vnv"  id="pcf_div4">
-								<p  id="rv_p2" class="framer-text">
-									<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/reservation">예약하기</a>
-								</p>
-							</div>
-						</div>
-						<div class="framer-1dauv6d" >
-							<div class="framer-gq4ev" id="pcf_div4">
-								<p  id="rv_p2" class="framer-text">
-									<a class="framer-text framer-styles-preset-159jan1" data-styles-preset="YGyNxdBP_" href="/hotelMap">오시는길</a>
-								</p>
-							</div>
-						</div>
-						<div class="framer-17plhhd" >
-							<div class="framer-1tz7p0k"  id="pcf_div4">
-								<p  id="rv_p2" class="framer-text">
-									문의하기
-								</p>
-							</div>
-						</div>
-					</div>
+		<!-- 실제 모든 내용을 담는 틀-->
+		<div style="top: 300px; width: 100%; padding-top: 77px;">
+			<!-- 서브 nav 감싸는 div -->
+			<div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
+				<!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
+				<div style="height: 50px; width: 700px; font-size: 16px">
+					<!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+					<ul class="sub-nav-ul" style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+						<li class="sub-nav-li"><a id="productInfoBtn">숙소 소개</a></li>
+						<li class="sub-nav-li"><a id="reservationBtn">예약하기</a></li>
+						<li class="sub-nav-li"><a id="locationBtn">오시는 길</a></li>
+						<li class="sub-nav-li"><a id="qnaBtn" class="currentBtn">문의하기</a></li>
+					</ul>
 				</div>
 			</div>
 
+			<!-- 실제 내용들 -->
+			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 1px solid rgb(235, 236, 237)" >
+				<!-- 글-->
+				<div style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center">
+					<!-- 제목 부분 -->
+					<div id="productName" style="margin: 20px 0;font-size: 25px; font-weight: bold">1 대 1 문의 남기기</div>
+					<div>
+						<form action="" method="" style="width:500px; display: flex; flex-direction: column; justify-content: center">
+							<input id="title" style="width: 100%; height: 30px; padding: 0 10px 0; font-size: 13px" placeholder="제목을 입력해 주세요.">
+							<textarea id="content" style="margin: 10px 0; width: 100%; height: 300px; resize: none; font-size: 13px" placeholder="내용을 입력해 주세요."></textarea>
+							<div style="display: flex; justify-content: center">
+								<button id="submitBtn" class="colorBtn" type="submit" >보내기</button>
+								<input type="button" id="cancelBtn" class="colorBtn" style="text-align: center" value="취소" onclick="history.back()">
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
 		</div>
+
 	</div>
 </div>
-
-
-	</div>
 	
 	
 </body>

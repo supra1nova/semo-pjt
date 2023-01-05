@@ -6,6 +6,7 @@ import com.selfdriven.semo.dto.login.Login;
 import com.selfdriven.semo.enums.ResultCode;
 import com.selfdriven.semo.exception.ApiException;
 import com.selfdriven.semo.repository.ProductImageMapper;
+import com.selfdriven.semo.repository.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +26,16 @@ import java.util.List;
 @Service
 public class ProductImageService {
 
-    private final ProductService productService;
+//    private final ProductService productService;
     private final ProductImageMapper productImageMapper;
+    private final ProductMapper productMapper;
     private final S3UploadService s3UploadService;
     private final S3Config s3Config;
 
 
     public int insertProductImage(MultipartFile file, int productId, Login login) throws IOException {
-        if(!productService.checkProduct(productId, login.getId())) {
+//        if(!productService.checkProduct(productId, login.getId())) {
+        if(!checkProduct(productId, login.getId())) {
             throw new ApiException(ResultCode.ACCESS_DENIED);
         }
         StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
@@ -91,7 +94,8 @@ public class ProductImageService {
     // TODO: (확인필요) db에서 삭제시 s3에서도 삭제 되었는지 검증가능해야하는데, 올바르지 않은 이미지를 삭제하거나 조회해도 return으로 주소값이 항상 나온다 -> 그럼 지금처럼 s3에서 목록확인한 다음 삭제해야하나?
     public int deleteProductImage(int productId, String fileName, Login login) {
         int res = 0;
-        if(!productService.checkProduct(productId, login.getId())) {
+//        if(!productService.checkProduct(productId, login.getId())) {
+        if(!checkProduct(productId, login.getId())) {
             throw new ApiException(ResultCode.ACCESS_DENIED);
         }
         StringBuilder s3FileKeyPrefixStringBuilder = getPathStringBuilder(productId);
@@ -123,5 +127,9 @@ public class ProductImageService {
                 .build();
         return productImageMapper.countValidRoomImage(productImage) == 1 ? true : false;
     }
+
+    public  Boolean checkProduct(int productId, String memberId) {
+		return productMapper.getProductByMemberId(productId, memberId) != null ? true : false;
+	}
 
 }

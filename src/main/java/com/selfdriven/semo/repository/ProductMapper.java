@@ -18,4 +18,5 @@ public interface ProductMapper {
     Integer deleteProduct(@Param("productId") int productId, @Param("memberId") String memberId);
     Product getProductByMemberId(@Param("productId") int productId, @Param("memberId") String memberId);
     Integer deleteAllProduct();
+    List<Product> getProductIdByMemberId(String memberId);
 }

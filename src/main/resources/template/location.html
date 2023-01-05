@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+<head>
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/productInfo.css" />
+    <!-- server단에서 오는 값을 미리 js 변수로 할당 -->
+    <script th:inline="javascript">
+        let productId = [[${productId}]];
+    </script>
+    <script src="/js/common.js"></script>
+    <script src="/js/location.js"></script>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <div id="main">
+
+            <!-- KakaoMap 관련 -->
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e49c4712addc98f812503b8393456d47&libraries=services,clusterer,drawing"></script>
+
+            <!-- js 코드 대부분 외부 js로 이동-->
+            <script src="/js/common.js"></script>
+            <script src="/js/location.js"></script>
+
+            <!-- 실제 모든 내용을 담는 틀-->
+            <div style="top: 300px; width: 100%; padding-top: 77px;">
+                <!-- 서브 nav 감싸는 div -->
+                <div style="margin: 10px auto 5px; width: 1200px; text-align: center; ">
+                    <!-- 숙소소개, 예약하기, 오시는길, 문의하기 등 서브 nav -->
+                    <div style="height: 50px; width: 700px; font-size: 16px">
+                        <!-- 기본 칼라 연보라색 : rgba(102,102,255,255) -->
+                        <ul class="sub-nav-ul" style="padding: 0; display: flex; justify-content: normal; line-height: 50px; font-weight: bold; color: grey;">
+                            <li class="sub-nav-li"><a id="productInfoBtn">숙소 소개</a></li>
+                            <li class="sub-nav-li"><a id="reservationBtn">예약하기</a></li>
+                            <li class="sub-nav-li"><a id="locationBtn" class="currentBtn">오시는 길</a></li>
+                            <li class="sub-nav-li"><a id="qnaBtn">문의하기</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 실제 예약 및 목록 관련 내용들 -->
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; border-top: 1px solid rgb(235, 236, 237)" >
+                    <!-- 위쪽 글 -->
+                    <div style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center">
+                        <!-- 호텔이름 + 타이틀 -->
+                        <div id="productName" style="margin: 20px 0;font-size: 25px; font-weight: bold">찾아오시는 길</div>
+                        <!-- 주소 -->
+                        <div style="width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;">
+                            <div style="width: 100px; text-align: center; border-right: 1px solid rgb(235, 236, 237)">주소</div>
+                            <div id="addressInput" style="width: 400px; text-align: center">서울특별시 마포구 양화로7길83</div>
+                        </div>
+                        <!-- 우편번호 -->
+                        <div style="margin-top: 10px; width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;">
+                            <div style="width: 100px; text-align: center; border-right: 1px solid rgb(235, 236, 237)">우편번호</div>
+                            <div id="zipCode" style="width: 400px; text-align: center">111-111</div>
+                        </div>
+                        <!-- 전화번호 -->
+                        <div style="margin-top: 10px; width: 100%; display: flex; flex-direction: row; justify-content: space-evenly;">
+                            <div style="width: 100px; text-align: center; border-right: 1px solid rgb(235, 236, 237)">전화번호</div>
+                            <div id="telInput" style="width: 400px; text-align: center">0233334444</div>
+                        </div>
+                    </div>
+                    <!-- 지도 -->
+                    <div style="margin: 20px 0; width: 1200px; height: 500px; border: 1px solid rgb(235, 236, 237)">
+                        <div id="map" style="width:100%;height:100%;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+	
+</body>
+</html>
